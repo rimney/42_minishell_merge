@@ -1,0 +1,99 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_quotes.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/25 21:43:18 by atarchou          #+#    #+#             */
+/*   Updated: 2022/06/30 01:20:24 by rimney           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../minishell.h"
+
+int	ft_strncmp(char *s1, char *s2, int n)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i] && s1[i] == s2[i] && i < n - 1)
+		i++;
+	return (s1[i] - s2[i]);
+}
+
+int	ft_find_last_character(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (i);
+		i++;
+	}
+	return (0);
+}
+
+char	*ft_expand(char *expand, char **envp)
+{
+	int	i;
+
+	i = 0;
+	if (expand != NULL)
+	{
+		if (expand[0] == '$')
+		{	
+			while (envp[i])
+			{
+				if (ft_strncmp(expand + 1, envp[i],
+						ft_find_last_character(envp[i], '=')) == 0)
+				{	
+					printf("%s << here\n", envp[i]
+						+ ft_find_last_character(envp[i], '=') + 1);
+					return (envp[i] + ft_find_last_character(envp[i], '=') + 1);
+				}
+				i++;
+			}
+		}
+	}
+	return (expand);
+}
+
+int	check_if_redir_exist(char *str)
+{
+	int	i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	while (str[i])
+	{
+		if (str[i] == '>')
+			flag = 1;
+		else if (str[i] == '<')
+			flag = 1;
+		else if (str[i] == '|')
+			flag = 1;
+		i++;
+	}
+	return (flag);
+}
+
+void	ft_assign_expand(t_token *token, char **envp)
+{
+	if (token->value == NULL)
+		return ;
+	while (token)
+	{
+		if ((token->quote == '\"'
+				|| token->quote == 0) && token->value[0] == '$')
+		{
+			token->value = strdup(ft_expand(token->value, envp));
+			ft_expand(token->value, envp);
+		}
+		printf("%s << value\n", token->value);
+		token = token->next;
+	}
+}
