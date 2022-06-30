@@ -6,7 +6,7 @@
 #    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/06/30 01:21:34 by rimney           ###   ########.fr        #
+#    Updated: 2022/06/30 16:20:49 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,12 @@ SRCS = Parsing/parse.c\
 		Parsing/utils_4.c\
 		Parsing/free_parse.c\
 		Parsing/expand_quotes.c\
+		execution/libfunctions/ft_count_tokens.c\
+		execution/redirections/ft_heredoc.c\
+		execution/redirections/ft_pipe.c\
+		execution/redirections/ft_append.c\
+		execution/redirections/ft_redirect_input.c\
+		execution/redirections/ft_redirect_output.c\
 
 $(NAME) : $(SRCS)
 			$(CC) $(SRCS) $(RL_FLAGS) $(FLAGS) -o $(NAME) 

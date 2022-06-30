@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 13:19:26 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 16:09:56 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,36 @@ int			check_if_redir_exist(char *str);
 char		*ft_expand(char *expand, char **envp);
 void		ft_assign_expand(t_token *token, char **envp);
 
+/******** EXECuTIOH ****/
+
+int	ft_redirect(int index, t_exec *exec, int command_location);
+void	ft_advanced_redirect(t_exec *exec, char **envp, int i, t_pipe *tpipe);
+void	ft_single_redirect(char *argv);
+
+int    ft_redirect_input(t_exec *exec, t_pipe *tpipe, int index, int command_location);
+void    redirect(t_exec *exec, int command_location, int index);
+
+int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe);
+void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int fd, int index, int in_save);
+void   ft_apply_input_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
+void    ft_apply_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
+void	ft_pipe(int in, t_pipe *tpipe, t_exec *exec, int index);
+
+int ft_execute_heredoc(t_exec *exec, t_pipe *pipes, int index);
+void    ft_advanced_heredoc(t_exec *exec, int index, int command_location);
+int ft_basic_heredoc(t_exec *exec, int index);
+void ft_heredoc(t_exec *exec, int command_location, int index);
+int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction);
+int ft_get_last_delimiter(t_exec *exec, int index);
+
+int	ft_append(int index, t_exec *exec, t_pipe *tpipe, int command_location);
+void	ft_single_append(int argc, char **argv);
+
+
+
+int	ft_count_tokens(t_token *token);
+void ft_count_till_last_token(t_exec *exec, t_pipe *pipes);
+int	ft_count_till_other_token(t_exec *exec, int index, char *token);
 
 
 

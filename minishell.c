@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 15:52:18 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 16:16:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,6 @@ t_tok_red	*init_cmd(char *line)
 	return (cmd);
 }
 
-int	ft_count_tokens(t_token *token)
-{
-	int i;
-
-	i = 0;
-	while (token)
-	{
-		i++;
-		token = token->next;
-	}
-	return (i);
-}
 
 char	*ft_simple_strjoin(char *s1, char *s2)
 {
