@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 21:43:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:20:24 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/01 00:02:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,19 @@ char	*ft_expand(char *expand, char **envp)
 	i = 0;
 	if (expand != NULL)
 	{
-		if (expand[0] == '$')
-		{	
 			while (envp[i])
 			{
 				if (ft_strncmp(expand + 1, envp[i],
 						ft_find_last_character(envp[i], '=')) == 0)
 				{	
-					printf("%s << here\n", envp[i]
-						+ ft_find_last_character(envp[i], '=') + 1);
-					return (envp[i] + ft_find_last_character(envp[i], '=') + 1);
+					// // printf("%s << here\n", envp[i]
+					// 	+ ft_find_last_character(envp[i], '=') + 1);
+					return (strdup(envp[i] + ft_find_last_character(envp[i], '=') + 1));
 				}
 				i++;
-			}
 		}
 	}
-	return (expand);
+	return (NULL);
 }
 
 int	check_if_redir_exist(char *str)
@@ -81,19 +78,19 @@ int	check_if_redir_exist(char *str)
 	return (flag);
 }
 
-void	ft_assign_expand(t_token *token, char **envp)
-{
-	if (token->value == NULL)
-		return ;
-	while (token)
-	{
-		if ((token->quote == '\"'
-				|| token->quote == 0) && token->value[0] == '$')
-		{
-			token->value = strdup(ft_expand(token->value, envp));
-			ft_expand(token->value, envp);
-		}
-		printf("%s << value\n", token->value);
-		token = token->next;
-	}
-}
+// void	ft_assign_expand(t_token *token, char **envp)
+// {
+// 	if (token->value == NULL)
+// 		return ;
+// 	while (token)
+// 	{
+// 		if ((token->quote == '\"'
+// 				|| token->quote == 0) && token->value[0] == '$')
+// 		{
+// 			token->value = strdup(ft_expand(token->value, envp));
+// 			ft_expand(token->value, envp);
+// 		}
+// 		printf("%s << value\n", token->value);
+// 		token = token->next;
+// 	}
+// }

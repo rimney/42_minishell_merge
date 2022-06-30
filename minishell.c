@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 23:08:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/01 00:53:50 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,21 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 	i = 0;
 	command_location = 0;
 	exec->initial_flag = 0;
-	if(ft_strcmp(exec->command[0], "echo") == 0)
-		i = ft_echo(exec, 0) - 1;
+
 	ft_count_till_last_token(exec, tpipe);
 	if(ft_execute_only_flag(exec, tpipe))
-		return ;
-	// else
-	// {
-	// 	while(exec->command[i + 1] != NULL)
-	// 	{
-	// 		if(ft_strcmp(exec->command[i], ">") == 0 && exec->redirecion_flag == 0 && exec->initial_flag == 0)
-	// 		{
-	// 			exec->redirection_count = ft_count_till_other_token(exec, i, ">");
-	// 			exec->initial_flag = 1;
-	// 				ft_mini_redirect_output(exec, tpipe, i);
-	// 				i += exec->redirection_count;
-	// 		}
+		 	return ;
+	else
+	{
+		while(exec->command[i + 1] != NULL)
+		{
+			if(ft_strcmp(exec->command[i], ">") == 0 && exec->redirecion_flag == 0 && exec->initial_flag == 0)
+			{
+				exec->redirection_count = ft_count_till_other_token(exec, i, ">");
+				exec->initial_flag = 1;
+					ft_mini_redirect_output(exec, tpipe, i);
+					i += exec->redirection_count;
+			}
 	// 		if(ft_strcmp(exec->command[i], ">>") == 0 && exec->initial_flag == 0)
 	// 		{
 	// 			exec->initial_flag = 1;
@@ -86,11 +85,11 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 	// 			exec->initial_flag = 1;
 	// 			ft_mini_pipe_a(exec, tpipe, i);
 	// 			i += exec->pipe_count;
-	// 		}
+			i++;
+			}
 
-	// 	i++;
-	// 	}
-	// wait(NULL);
+		}
+	wait(NULL);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -133,8 +132,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		ft_fill_exec(&exec, cmd->lst_token);
 		ft_initialize_exec(&exec, cmd->lst_token);
-		//ft_check_expand(&exec);
-	//	ft_print_exec(&exec);
+		//ft_print_exec(&exec);
 		ft_minishell(&exec, &pipes);
 		if (cmd)
 		{
@@ -149,7 +147,7 @@ int	main(int argc, char **argv, char **envp)
 				free_lst_token(cmd->lst_token);
 			free(cmd);
 		}
-		//ft_free(exec.command);
+		ft_free(exec.command);
 		g_flag = 0;
 		free(line);
 	}

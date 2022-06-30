@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 23:06:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/01 00:50:46 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ int	ft_is_space(char *str);
 //envp assignment
 void    ft_get_env(t_exec *exec, char **env);
 //split
-char			**ft_split(const char *str, char c);
+char	**ft_split(char const *s, char c);
 //join
 char    *ft_strjoin(char *s1, char *s2, char *s3);
 char	*ft_simple_strjoin(char *s1, char *s2);
@@ -254,10 +254,15 @@ int only_append_flag(t_exec *exec);
 int only_input_flag(t_exec *exec);
 void	ft_check_expand(t_exec *exec);
 
-
-
+//mini
+int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i);
+int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd);
+int ft_apply_redin_middle(t_exec *exec, t_pipe *tpipe,  int i);
+int	ft_middle_rediout(t_exec *exec, t_pipe *tpipe, int i);
+int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index);
+int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
 // built_ins
 
-int    ft_echo(t_exec *exec, int index);
+int    ft_echo(char **str, int index);
 
 #endif

@@ -6,31 +6,27 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/06/30 23:06:25 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/01 00:07:22 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int    ft_echo(t_exec *exec, int index)
+int    ft_echo(char **str, int index)
 {
+    int i;
     int flag;
 
-    while(exec->command[index] && ft_is_another_flag(exec, index + 1) == WORD)
+    i = 1;
+    flag = 0;
+    while(str[i])
     {
-        if(ft_strcmp(exec->command[index], "-n") == 0)
-        {
-            index++;
-            flag = 1;
-        }
-        if(exec->command[index][0] == '$')
-            index++;
-        printf("%s", exec->command[index]);
-        if(exec->command[index + 1])
+        printf("%s", str[i]);
+        if(str[i + 1])
             printf(" ");
-        index++; 
+        i++;
     }
     if(!flag)
         printf("\n");
-    return (index);
+    return i;
 }
