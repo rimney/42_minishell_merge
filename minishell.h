@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:13:31 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 13:19:26 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_exec
 	char	**export;
 	t_env env;
 } t_exec;
+
 /******** utils.c functions ********/
 
 int			ft_strcmp(char *s1, char *s2);

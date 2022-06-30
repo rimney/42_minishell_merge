@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:24:40 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 13:25:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,93 @@ t_tok_red	*init_cmd(char *line)
 	return (cmd);
 }
 
+int	ft_count_tokens(t_token *token)
+{
+	int i;
+
+	i = 0;
+	while (token)
+	{
+		i++;
+		token = token->next;
+	}
+	return (i);
+}
+
+char	*ft_simple_strjoin(char *s1, char *s2)
+{
+	int i;
+	char *str;
+	int j;
+
+	i = 0;
+	str = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 2);
+	while(s1[i])
+	{
+		str[i] = s1[i];
+		i++;
+	}
+	str[i++] = ' ';
+	j = 0;
+	while(s2[j])
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+void	ft_fill_exec(t_exec *exec, t_token *token)
+{
+	int i = 0;
+	int head_flag = 0;
+
+	//ft_initialize_exec(exec, token, tpipe);
+	
+	exec->command = malloc(sizeof(char *) * ft_count_tokens(token) + 1);
+	while(token)
+	{
+		if(token->type == WORD && head_flag == 0)
+		{
+			exec->command[i] = strdup(token->value);
+			head_flag = 1;
+		}
+		else if(token->type == WORD && head_flag == 1)
+			exec->command[i] = ft_simple_strjoin(exec->command[i], token->value);
+		else if(token->type != WORD && head_flag)
+		{
+			i++;
+			exec->command[i] = strdup(token->value);
+			head_flag = 0;
+			i++;		
+		}
+		token = token->next;
+	}
+	exec->command[i + 1] = 0;
+}
+
+void	ft_print_exec(t_exec *exec)
+{
+	int i;
+
+	i = 0;
+	while(exec->command[i])
+	{
+		printf("<< %s >> ", exec->command[i]);
+		i++;
+	}
+	printf("\n");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
 	char		*temp;
 	t_tok_red	*cmd;
+	t_exec		exec;
+	t_pipe		pipes;
 
 	(void)argv;
 	(void)argc;
@@ -59,7 +140,8 @@ int	main(int argc, char **argv, char **envp)
 			if (!cmd)
 				g_flag = 1;
 		}
-		
+		ft_fill_exec(&exec, cmd->lst_token);
+		ft_print_exec(&exec);
 		if (cmd)
 		{
 			print_lst(cmd->lst_token);
