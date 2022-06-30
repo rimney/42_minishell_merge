@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 22:23:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 23:06:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,5 +253,11 @@ int only_heredoc_flag(t_exec *exec);
 int only_append_flag(t_exec *exec);
 int only_input_flag(t_exec *exec);
 void	ft_check_expand(t_exec *exec);
+
+
+
+// built_ins
+
+int    ft_echo(t_exec *exec, int index);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 22:37:46 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 23:08:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 	i = 0;
 	command_location = 0;
 	exec->initial_flag = 0;
+	if(ft_strcmp(exec->command[0], "echo") == 0)
+		i = ft_echo(exec, 0) - 1;
 	ft_count_till_last_token(exec, tpipe);
 	if(ft_execute_only_flag(exec, tpipe))
 		return ;
@@ -132,7 +134,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_fill_exec(&exec, cmd->lst_token);
 		ft_initialize_exec(&exec, cmd->lst_token);
 		//ft_check_expand(&exec);
-		ft_print_exec(&exec);
+	//	ft_print_exec(&exec);
 		ft_minishell(&exec, &pipes);
 		if (cmd)
 		{
@@ -147,7 +149,7 @@ int	main(int argc, char **argv, char **envp)
 				free_lst_token(cmd->lst_token);
 			free(cmd);
 		}
-		ft_free(exec.command);
+		//ft_free(exec.command);
 		g_flag = 0;
 		free(line);
 	}
