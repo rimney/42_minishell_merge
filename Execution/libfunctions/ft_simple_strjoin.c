@@ -1,47 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_parse.c                                       :+:      :+:    :+:   */
+/*   ft_simple_strjoin.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/21 12:27:53 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:20:28 by rimney           ###   ########.fr       */
+/*   Created: 2022/06/30 16:43:36 by rimney            #+#    #+#             */
+/*   Updated: 2022/06/30 16:43:46 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
-void	free_lst_token(t_token *lst)
+char	*ft_simple_strjoin(char *s1, char *s2)
 {
-	t_token	*prev;
+	int i;
+	char *str;
+	int j;
 
-	while (lst)
-	{	
-		if (lst->value)
-			free(lst->value);
-		prev = lst;
-		lst = lst->next;
-		free(prev);
-	}
-}
-
-void	free_lst_redir(t_redir *lst)
-{
-	t_redir	*prev;
-
-	while (lst)
+	i = 0;
+	str = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 2);
+	while(s1[i])
 	{
-		prev = lst;
-		lst = lst->next;
-		free(prev);
+		str[i] = s1[i];
+		i++;
 	}
-}
-
-void	*handle_error(char *str)
-{
-	printf("%s", str);
-	g_flag = 1;
-	rl_on_new_line();
-	return (NULL);
+	str[i++] = ' ';
+	j = 0;
+	while(s2[j])
+	{
+		str[i] = s2[j];
+		i++;
+		j++;
+	}
+	str[i] = '\0';
+	return (str);
 }

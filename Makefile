@@ -6,7 +6,7 @@
 #    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/06/30 16:20:49 by rimney           ###   ########.fr        #
+#    Updated: 2022/06/30 16:58:14 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,13 @@ SRCS = Parsing/parse.c\
 		execution/redirections/ft_append.c\
 		execution/redirections/ft_redirect_input.c\
 		execution/redirections/ft_redirect_output.c\
+		execution/libfunctions/command_parsing.c\
+		execution/libfunctions/ft_get_env.c\
+		execution/libfunctions/ft_split.c\
+		execution/libfunctions/ft_strjoin.c\
+		execution/libfunctions/ft_simple_strjoin.c\
+		execution/libfunctions/ft_execute_command.c\
+		execution/libfunctions/ft_is_another_flag.c \
 
 $(NAME) : $(SRCS)
 			$(CC) $(SRCS) $(RL_FLAGS) $(FLAGS) -o $(NAME) 

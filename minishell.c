@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 16:16:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 16:58:30 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,30 +24,30 @@ t_tok_red	*init_cmd(char *line)
 }
 
 
-char	*ft_simple_strjoin(char *s1, char *s2)
-{
-	int i;
-	char *str;
-	int j;
+// char	*ft_simple_strjoin(char *s1, char *s2)
+// {
+// 	int i;
+// 	char *str;
+// 	int j;
 
-	i = 0;
-	str = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 2);
-	while(s1[i])
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i++] = ' ';
-	j = 0;
-	while(s2[j])
-	{
-		str[i] = s2[j];
-		i++;
-		j++;
-	}
-	str[i] = '\0';
-	return (str);
-}
+// 	i = 0;
+// 	str = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 2);
+// 	while(s1[i])
+// 	{
+// 		str[i] = s1[i];
+// 		i++;
+// 	}
+// 	str[i++] = ' ';
+// 	j = 0;
+// 	while(s2[j])
+// 	{
+// 		str[i] = s2[j];
+// 		i++;
+// 		j++;
+// 	}
+// 	str[i] = '\0';
+// 	return (str);
+// }
 
 void	ft_fill_exec(t_exec *exec, t_token *token)
 {
