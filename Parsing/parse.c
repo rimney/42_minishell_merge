@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:20:10 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:20:44 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 15:50:42 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ t_tok_red	*parser(t_tok_red *lst, char *line)
 		return (lst);
 	if (check_if_redir_exist(line))
 		lst->lst_redir = fill_redir_lst(lst->lst_redir, lst->lst_token);
+	if (!parse_env(&lst->lst_token))
+		return (NULL);
 	return (lst);
 }

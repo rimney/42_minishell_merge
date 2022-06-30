@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_parse.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 12:27:53 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:20:28 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 15:44:31 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,9 @@ void	free_lst_redir(t_redir *lst)
 	}
 }
 
-void	*handle_error(char *str)
+void	handle_error(char *str)
 {
 	printf("%s", str);
 	g_flag = 1;
 	rl_on_new_line();
-	return (NULL);
 }
