@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 13:25:11 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 15:52:18 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 {
 	int i = 0;
 	int head_flag = 0;
+	char *temp;
 
 	//ft_initialize_exec(exec, token, tpipe);
 	
@@ -77,7 +78,11 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 			head_flag = 1;
 		}
 		else if(token->type == WORD && head_flag == 1)
+		{
+			temp = exec->command[i];
 			exec->command[i] = ft_simple_strjoin(exec->command[i], token->value);
+			free(temp);
+		}
 		else if(token->type != WORD && head_flag)
 		{
 			i++;
@@ -101,6 +106,19 @@ void	ft_print_exec(t_exec *exec)
 		i++;
 	}
 	printf("\n");
+}
+
+void	ft_free(char **str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -158,6 +176,7 @@ int	main(int argc, char **argv, char **envp)
 				free_lst_token(cmd->lst_token);
 			free(cmd);
 		}
+		ft_free(exec.command);
 		g_flag = 0;
 		free(line);
 	}
