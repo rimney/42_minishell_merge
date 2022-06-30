@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 16:58:30 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 22:37:46 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,65 +24,6 @@ t_tok_red	*init_cmd(char *line)
 }
 
 
-// char	*ft_simple_strjoin(char *s1, char *s2)
-// {
-// 	int i;
-// 	char *str;
-// 	int j;
-
-// 	i = 0;
-// 	str = malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 2);
-// 	while(s1[i])
-// 	{
-// 		str[i] = s1[i];
-// 		i++;
-// 	}
-// 	str[i++] = ' ';
-// 	j = 0;
-// 	while(s2[j])
-// 	{
-// 		str[i] = s2[j];
-// 		i++;
-// 		j++;
-// 	}
-// 	str[i] = '\0';
-// 	return (str);
-// }
-
-void	ft_fill_exec(t_exec *exec, t_token *token)
-{
-	int i = 0;
-	int head_flag = 0;
-	char *temp;
-
-	//ft_initialize_exec(exec, token, tpipe);
-	
-	exec->command = malloc(sizeof(char *) * ft_count_tokens(token) + 1);
-	while(token)
-	{
-		if(token->type == WORD && head_flag == 0)
-		{
-			exec->command[i] = strdup(token->value);
-			head_flag = 1;
-		}
-		else if(token->type == WORD && head_flag == 1)
-		{
-			temp = exec->command[i];
-			exec->command[i] = ft_simple_strjoin(exec->command[i], token->value);
-			free(temp);
-		}
-		else if(token->type != WORD && head_flag)
-		{
-			i++;
-			exec->command[i] = strdup(token->value);
-			head_flag = 0;
-			i++;		
-		}
-		token = token->next;
-	}
-	exec->command[i + 1] = 0;
-}
-
 void	ft_print_exec(t_exec *exec)
 {
 	int i;
@@ -96,17 +37,58 @@ void	ft_print_exec(t_exec *exec)
 	printf("\n");
 }
 
-void	ft_free(char **str)
+void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 {
 	int i;
+	int command_location;
 
 	i = 0;
-	while(str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
+	command_location = 0;
+	exec->initial_flag = 0;
+	ft_count_till_last_token(exec, tpipe);
+	if(ft_execute_only_flag(exec, tpipe))
+		return ;
+	// else
+	// {
+	// 	while(exec->command[i + 1] != NULL)
+	// 	{
+	// 		if(ft_strcmp(exec->command[i], ">") == 0 && exec->redirecion_flag == 0 && exec->initial_flag == 0)
+	// 		{
+	// 			exec->redirection_count = ft_count_till_other_token(exec, i, ">");
+	// 			exec->initial_flag = 1;
+	// 				ft_mini_redirect_output(exec, tpipe, i);
+	// 				i += exec->redirection_count;
+	// 		}
+	// 		if(ft_strcmp(exec->command[i], ">>") == 0 && exec->initial_flag == 0)
+	// 		{
+	// 			exec->initial_flag = 1;
+	// 			ft_mini_append(exec, tpipe, i);
+	// 		//	printf("here\n");
+	// 			i += exec->append_count;
+	// 		}
+	// 		if(ft_strcmp(exec->command[i], "<<") == 0 && exec->initial_flag == 0)
+	// 		{
+	// 			exec->initial_flag = 1;
+	// 			ft_mini_heredoc(exec, tpipe, i);
+	// 			i += exec->heredoc_count;
+	// 		}
+	// 		if(ft_strcmp(exec->command[i], "<") == 0 && exec->initial_flag == 0)
+	// 		{
+	// 			exec->initial_flag = 1;
+	// 			ft_mini_redirect_input(exec, tpipe, i);
+	// 			i += exec->input_count;
+	// 		}
+	// 		if(ft_strcmp(exec->command[i], "|") == 0 && exec->initial_flag == 0)
+	// 		{
+	// 			printf("PASS\n");
+	// 			exec->initial_flag = 1;
+	// 			ft_mini_pipe_a(exec, tpipe, i);
+	// 			i += exec->pipe_count;
+	// 		}
+
+	// 	i++;
+	// 	}
+	// wait(NULL);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -120,6 +102,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	(void)argc;
 	line = NULL;
+	ft_get_env(&exec, envp);
 	while (g_flag == 0)
 	{
 		// signal(SIGINT, handle_signals);
@@ -147,12 +130,12 @@ int	main(int argc, char **argv, char **envp)
 				g_flag = 1;
 		}
 		ft_fill_exec(&exec, cmd->lst_token);
+		ft_initialize_exec(&exec, cmd->lst_token);
+		//ft_check_expand(&exec);
 		ft_print_exec(&exec);
+		ft_minishell(&exec, &pipes);
 		if (cmd)
 		{
-			print_lst(cmd->lst_token);
-			if (check_if_redir_exist(line))
-				print_redir(cmd->lst_redir);
 			if (cmd->lst_redir)
 			{
 				if (count_redir(cmd->lst_token) == 0)

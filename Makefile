@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
+#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/06/30 16:58:14 by rimney           ###   ########.fr        #
+#    Updated: 2022/06/30 19:37:34 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,11 @@ SRCS = Parsing/parse.c\
 		execution/libfunctions/ft_simple_strjoin.c\
 		execution/libfunctions/ft_execute_command.c\
 		execution/libfunctions/ft_is_another_flag.c \
+		execution/libfunctions/ft_free.c\
+		execution/parser/ft_fill_exec.c\
+		execution/libfunctions/ft_execute_only_flag.c\
+		execution/parser/ft_is_only_flag.c
+
 
 $(NAME) : $(SRCS)
 			$(CC) $(SRCS) $(RL_FLAGS) $(FLAGS) -o $(NAME) 

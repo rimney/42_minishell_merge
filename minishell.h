@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 16:57:17 by rimney           ###   ########.fr       */
+/*   Updated: 2022/06/30 22:23:23 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,4 +239,19 @@ void    ft_execute_command(t_exec *exec, int index);
 void	ft_free(char **str);
 //is_another_flag
 int ft_is_another_flag(t_exec *exec, int index);
+//fill_exex
+void	ft_fill_exec(t_exec *exec, t_token *token);
+void	ft_initialize_exec(t_exec *exec, t_token *token);
+//execute only flag
+int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe);
+void	ft_assign_tpipe(t_pipe *pipe, int argc);
+//only_flag
+int only_pipe_flag(t_exec *exec);
+int only_command_flag(t_exec *exec);
+int only_output_redirection_flag(t_exec *exec);
+int only_heredoc_flag(t_exec *exec);
+int only_append_flag(t_exec *exec);
+int only_input_flag(t_exec *exec);
+void	ft_check_expand(t_exec *exec);
+
 #endif
