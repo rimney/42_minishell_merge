@@ -6,33 +6,33 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 00:06:13 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 00:17:13 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_sort_string_tab(char **tab)
+void    ft_sort_string_tab(char **tab)
 {
-	int		i;
-	int		j;
-	char	*tmp;
-	i = 0;
-	while (tab[i] != 0)
-	{
-		j = i;
-		while (tab[j] != 0)
-		{
-			if (ft_strcmp(tab[i], tab[j]) > 0)
-			{
-				tmp = tab[i];
-				tab[i] = tab[j];
-				tab[j] = tmp;
-			}
-			j++;
-		}
-		i++;
-	}
+        int             i;
+        int             j;
+        char    *tmp;
+        i = 0;
+        while (tab[i] != 0)
+        {
+                j = i;
+                while (tab[j] != 0)
+                {
+                        if (ft_strcmp(tab[i], tab[j]) > 0)
+                        {
+                                tmp = tab[i];
+                                tab[i] = tab[j];
+                                tab[j] = tmp;
+                        }
+                        j++;
+                }
+                i++;
+        }
 }
 
 char    *ft_mystrdup(char *s1,  int flag)
@@ -106,31 +106,31 @@ char    **ft_join_export(t_exec *exec, char *arg)
     temp = exec->envp;
     exec->envp = (char **)malloc(sizeof(char *) * ft_count_elements(exec->envp) + 1 + 1);
     if(ft_find_variable_index(arg, '='))
-	{
-		while(temp[i])
-		{
-			exec->envp[i] = strdup(temp[i]);
-			i++;
-		}
-		exec->envp[i] = strdup(arg);
-		printf("| %s | has been joined  \n" , exec->envp[i]);
-		exec->envp[i + 1] = 0;
-	}
-	return(exec->envp);
+        {
+                while(temp[i])
+                {
+                        exec->envp[i] = strdup(temp[i]);
+                        i++;
+                }
+                exec->envp[i] = strdup(arg);
+                printf("| %s | has been joined  \n" , exec->envp[i]);
+                exec->envp[i + 1] = 0;
+        }
+        return(exec->envp);
 }
 
-void	ft_export_replace(t_exec *exec, char *arg, int index)
+void    ft_export_replace(t_exec *exec, char *arg, int index)
 {
-	char *temp;
+        char *temp;
     int flag;
 
 
     flag = 0;
     if(arg[ft_find_variable_index(arg, '=') + 1]  == '\"')
         flag = 1;
-	temp = exec->envp[index];
-	exec->envp[index] = ft_mystrdup(arg, flag);
-	free(temp);
+        temp = exec->envp[index];
+        exec->envp[index] = ft_mystrdup(arg, flag);
+        free(temp);
 }
 
 void    ft_2d(char **str)
@@ -161,14 +161,14 @@ void    ft_export(t_exec *exec, char **argv, int index)
         return ;
     while(exec->envp[i])
     {
-		if(ft_strncmp(argv[index + 1], exec->envp[i], ft_find_variable_index(argv[index + 1], '=')) == 0)
-		{
-			printf("%d\n", ft_find_variable_index(argv[index + 1], '='));
-			ft_export_replace(exec, argv[index + 1], i);
-			printf("%s <- new\n", exec->envp[i]);
-			return ;
-		}
-		i++;
+                if(ft_strncmp(argv[index + 1], exec->envp[i], ft_find_variable_index(argv[index + 1], '=')) == 0)
+                {
+                        printf("%d\n", ft_find_variable_index(argv[index + 1], '='));
+                        ft_export_replace(exec, argv[index + 1], i);
+                        printf("%s <- new\n", exec->envp[i]);
+                        return ;
+                }
+                i++;
     }
     i = 0;
     if(ft_find_variable_index(argv[index + 1], '='))
@@ -191,7 +191,7 @@ void    ft_export(t_exec *exec, char **argv, int index)
 
         //ft_free(envp);
          exec->envp = temp;
-         ft_free(temp);
+       //  ft_free(temp);
       //   temp = NULL;
         ft_2d(exec->envp);
     }
