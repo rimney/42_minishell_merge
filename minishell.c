@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/01 22:21:53 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/01 00:53:50 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,9 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (cmd->lst_redir)
 			{
-				// if (count_redir(cmd->lst_token) == 0)
-				// 	cmd->lst_redir = NULL;
-				// else
+				if (count_redir(cmd->lst_token) == 0)
+					cmd->lst_redir = NULL;
+				else
 					free_lst_redir(cmd->lst_redir);
 			}
 			if (cmd->lst_token)

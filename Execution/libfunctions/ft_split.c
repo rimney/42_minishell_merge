@@ -6,80 +6,135 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:40:17 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/01 00:12:07 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/01 23:40:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	ft_count(const char *str, char c)
+typedef struct	s_split_next
 {
-	int	count;
-	int	trg;
-	int	i;
+	size_t start;
+	size_t length;
+}				t_split_next;
 
-	i = 0;
-	count = 0;
-	trg = 0;
-	while (str[i])
-	{
-		if (str[i] != c && trg == 0)
-		{
-			trg = 1;
-			count++;
-		}
-		else if (str[i] == c)
-			trg = 0;
-		i++;
-	}
-	return (count);
-}
+// size_t	ft_strlen(const char *str)
+// {
+// 	size_t i;
 
-static int	ft_index(const char *str, char c)
+// 	i = 0;
+// 	while (str[i] != '\0')
+// 		i++;
+// 	return (i);
+// }
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	i;
+	char		*res;
+	size_t		i;
 
-	i = 0;
-	while (str[i] != c)
-		i++;
-	return (i);
-}
-
-static	char	*ft_strsplit(char **argv, const char *str, char c)
-{
-	int	i;
-	int	j;
-	int	k;
-
-	i = 0;
-	j = 0;
-	while (i < ft_count(str, c))
-	{
-		k = 0;
-		argv[i] = malloc(sizeof(char) * ft_index(&str[j], c) + 1);
-		while (str[j] == c)
-			j++;
-		while (str[j] != c && str[j])
-			argv[i][k++] = str[j++];
-		argv[i][k] = '\0';
-		j++;
-		i++;
-	}
-	argv[i] = NULL;
-	return (*argv);
-}
-
-char	**ft_split(char const *s, char c)
-{
-	int		i;
-	char	**argv;
-
-	i = 0;
 	if (!s)
+		return (0);
+	if (start > ft_strlen(s))
+	{
+		res = malloc(sizeof(char) * 1);
+		res[0] = '\0';
+		return (res);
+	}
+	i = 0;
+	if (!(res = malloc(len + 1)))
 		return (NULL);
-	argv = malloc(sizeof(char *) * ft_count(s, c) + 1);
-	if (!argv)
+	while (i < len)
+		res[i++] = s[start++];
+	res[i] = '\0';
+	return (res);
+}
+
+static char
+	**ft_alloc_split(char const *s, char c)
+{
+	size_t	i;
+	char	**split;
+	size_t	total;
+
+	i = 0;
+	total = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			total++;
+		i++;
+	}
+	split = (char**)malloc(sizeof(s) * (total + 2));
+	if (!split)
 		return (NULL);
-	argv[i] = ft_strsplit(argv, s, c);
-	return (argv);
+	return (split);
+}
+
+void
+	*ft_free_all_split_alloc(char **split, size_t elts)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < elts)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+	return (NULL);
+}
+
+static void
+	*ft_split_range(char **split, char const *s,
+		t_split_next *st, t_split_next *lt)
+{
+	split[lt->length] = ft_substr(s, st->start, st->length);
+	if (!split[lt->length])
+		return (ft_free_all_split_alloc(split, lt->length));
+	lt->length++;
+	return (split);
+}
+
+static void
+	*ft_split_by_char(char **split, char const *s, char c)
+{
+	size_t			i;
+	t_split_next	st;
+	t_split_next	lt;
+
+	i = 0;
+	lt.length = 0;
+	lt.start = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+		{
+			st.start = lt.start;
+			st.length = (i - lt.start);
+			if (i > lt.start && !ft_split_range(split, s, &st, &lt))
+				return (NULL);
+			lt.start = i + 1;
+		}
+		i++;
+	}
+	st.start = lt.start;
+	st.length = (i - lt.start);
+	if (i > lt.start && i > 0 && !ft_split_range(split, s, &st, &lt))
+		return (NULL);
+	split[lt.length] = 0;
+	return (split);
+}
+
+char
+	**ft_split(char const *s, char c)
+{
+	char	**split;
+
+	if (!(split = ft_alloc_split(s, c)))
+		return (NULL);
+	if (!ft_split_by_char(split, s, c))
+		return (NULL);
+	return (split);
 }

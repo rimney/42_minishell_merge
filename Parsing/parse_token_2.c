@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 18:41:39 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/01 20:39:25 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/06/30 01:20:36 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,10 @@ t_token	*handle_quotes(t_token *lst, int *flag, char **s)
 		{
 			tools[2] = find_char_index(*s, tools[1]);
 			tools[3] = find_end_index(*s + tools[2] + 1, tools[1]) + 1;
-			if ((tools[3] == -1 && tools[1] == '\"')
-					|| (tools[3] == -1))
-			{
-				handle_error("missing quote\n");
-				return (NULL);
-			}
+			if (tools[3] == -1 && tools[1] == '\"')
+				lst->value = strdup("\0");
+			else if (tools[3] == -1)
+				return (handle_error("missing quote\n"));
 			else if (tools[3] != -1)
 				add_quote_lst(tools, s, &lst, target, flag);
 			break ;

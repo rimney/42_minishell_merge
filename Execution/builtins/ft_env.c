@@ -3,23 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 18:48:09 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/01 18:49:23 by rimney           ###   ########.fr       */
+/*   Created: 2022/07/01 21:15:41 by rimney            #+#    #+#             */
+/*   Updated: 2022/07/01 21:24:00 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    ft_env(char **envp)
+void    ft_env(t_exec *exec)
 {
     int i;
 
     i = 0;
-    while(envp[i])
-    {
-        printf("%s\n", envp[i]);
-        i++;
-    }
+    while (exec->envp[i])
+        printf("%s\n", exec->envp[i++]);
 }
