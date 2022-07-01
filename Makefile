@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
+#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/01 00:49:56 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/01 18:50:39 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,9 @@ SRCS = Parsing/parse.c\
 		execution/redirections/ft_middle_redirections.c\
 		execution/redirections/ft_dup_and_redirect.c\
 		execution/redirections/ft_mini_pipe.c\
+		execution/builtins/ft_export.c \
+		execution/libfunctions/ft_find_variable_index.c \
+		execution/builtins/ft_env.c \
 
 
 $(NAME) : $(SRCS)

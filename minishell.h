@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/01 00:50:46 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/01 20:03:33 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,8 +261,11 @@ int ft_apply_redin_middle(t_exec *exec, t_pipe *tpipe,  int i);
 int	ft_middle_rediout(t_exec *exec, t_pipe *tpipe, int i);
 int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index);
 int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
+int ft_find_variable_index(char *str, char c);
 // built_ins
 
 int    ft_echo(char **str, int index);
+void    ft_export(char **envp, char **argv, int index);
+void    ft_env(char **envp);
 
 #endif
