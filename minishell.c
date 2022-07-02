@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/02 15:34:59 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 20:29:27 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,22 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 	wait(NULL);
 }
 
+void	ft_test(t_token *token, char **envp)
+{
+	char *temp;
+
+	while(token)
+	{
+		if(token->value[0] == '$')
+		{
+			temp = token->value;
+			token->value = ft_expand(token->value, envp);
+			free(temp);
+		}
+		token = token->next;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
@@ -102,7 +118,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argv;
 	(void)argc;
-	line = NULL;
+	line  = NULL;
 	ft_get_env(&exec, envp);
 	while (g_flag == 0)
 	{
@@ -130,6 +146,7 @@ int	main(int argc, char **argv, char **envp)
 			if (!cmd)
 				g_flag = 1;
 		}
+		ft_test(cmd->lst_token, exec.envp);
 		ft_fill_exec(&exec, cmd->lst_token);
 		ft_initialize_exec(&exec, cmd->lst_token);
 		//ft_print_exec(&exec);

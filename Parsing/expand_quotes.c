@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 21:43:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/01 00:02:21 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 20:28:53 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*ft_expand(char *expand, char **envp)
 	int	i;
 
 	i = 0;
+
 	if (expand != NULL)
 	{
 			while (envp[i])
@@ -48,14 +49,12 @@ char	*ft_expand(char *expand, char **envp)
 				if (ft_strncmp(expand + 1, envp[i],
 						ft_find_last_character(envp[i], '=')) == 0)
 				{	
-					// // printf("%s << here\n", envp[i]
-					// 	+ ft_find_last_character(envp[i], '=') + 1);
 					return (strdup(envp[i] + ft_find_last_character(envp[i], '=') + 1));
 				}
 				i++;
 		}
 	}
-	return (NULL);
+	return (strdup(expand));
 }
 
 int	check_if_redir_exist(char *str)

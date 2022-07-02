@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/01 00:17:17 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 20:10:05 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,11 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 	{
 		if(token->type == WORD && head_flag == 0)
 		{
-			if(token->value[0] == '$' && ft_expand(token->value, exec->envp) != NULL)
-				exec->command[i] = ft_expand(token->value, exec->envp);
-			else
-				exec->command[i] = strdup(token->value);
+			exec->command[i] = strdup(token->value);
 			head_flag = 1;
 		}
 		else if(token->type == WORD && head_flag == 1)
-		{
-			if(token->value[0] == '$' && ft_expand(token->value, exec->envp) != NULL)
-				exec->command[i] = ft_expand(token->value, exec->envp);
-			else
-				exec->command[i] = ft_simple_strjoin(exec->command[i], token->value);
-		}
+			exec->command[i] = ft_simple_strjoin(exec->command[i], token->value);
 		else if(token->type != WORD && head_flag)
 		{
 			i++;
@@ -75,19 +67,3 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 	exec->command[i + 1] = 0;
 }
 
-// void	ft_check_expand(t_exec *exec)
-// {
-// 	int i;
-// 	char *temp;
-
-// 	i = 0;
-// 	while(exec->command[i])
-// 	{
-// 		if(exec->command[i][0] == '$')
-// 		{
-// 			temp = exec->command[i];
-
-// 		}
-// 		i++;
-// 	}
-// }
