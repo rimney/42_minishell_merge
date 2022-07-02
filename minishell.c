@@ -136,21 +136,19 @@ int	main(int argc, char **argv, char **envp)
 		ft_minishell(&exec, &pipes);
 		if (cmd)
 		{
-			
+			if (cmd->lst_token)
+				print_lst(cmd->lst_token);
+			if (check_if_redir_exist(line))
+				print_redir(cmd->lst_redir);
 			if (cmd->lst_redir)
 			{
 				if (count_redir(cmd->lst_token) == 0)
+	
 					cmd->lst_redir = NULL;
 				else
 					free_lst_redir(cmd->lst_redir);
 			}
-			if (cmd->lst_token)
-			{
-				print_lst(cmd->lst_token);
-				free_lst_token(cmd->lst_token);
-			}
-			if (check_if_redir_exist(line))
-				print_redir(cmd->lst_redir);
+			free_lst_token(cmd->lst_token);
 			free(cmd);
 		}
 		ft_free(exec.command);
