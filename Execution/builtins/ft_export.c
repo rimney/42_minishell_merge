@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 01:34:00 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 03:27:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,8 +185,8 @@ void    ft_export(t_exec *exec, char **argv, int index) ////leak
         temp[i] = strdup(argv[index + 1]);
         temp[i + 1] = NULL;
 
-        ft_free(exec->envp);
-         exec->envp = temp;
+       // ft_free(exec->envp);
+         exec->envp = temp; // leak
      //   ft_2d(exec->envp);
     }
 }

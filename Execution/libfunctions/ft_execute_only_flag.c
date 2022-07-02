@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 01:29:31 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 03:55:48 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ int		is_a_builtin(t_exec *exec, int index)
 	if(ft_strncmp(exec->command[0], "env", 3) == 0)
 	{
 		ft_env(exec);
+		return (1);
+	}
+	if(ft_strncmp(exec->command[0], "exit", 4) == 0)
+	{
+		ft_exit(exec, 0, parser);
 		return (1);
 	}
 	
