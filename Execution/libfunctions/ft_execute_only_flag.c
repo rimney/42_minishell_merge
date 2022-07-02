@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 03:55:48 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 18:24:20 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,37 @@ int		is_a_builtin(t_exec *exec, int index)
 	if(ft_strncmp(exec->command[0], "env", 3) == 0)
 	{
 		ft_env(exec);
+		ft_free(parser);
 		return (1);
 	}
 	if(ft_strncmp(exec->command[0], "exit", 4) == 0)
 	{
 		ft_exit(exec, 0, parser);
+		ft_free(parser);
 		return (1);
 	}
-	
+	if(ft_strncmp(exec->command[0], "unset", 5) == 0)
+	{
+		printf("FF\n");
+		ft_unset(parser[1], exec);
+		ft_free(parser);
+		return (1);
+	}
+	if(ft_strncmp(exec->command[0], "pwd", 3) == 0)
+	{
+		printf("ppp\n");
+		ft_pwd();
+		ft_free(parser);
+		return (1);
+	}
+	if(ft_strncmp(exec->command[0], "cd", 2) == 0)
+	{
+		printf("cdcd\n");
+		ft_cd(parser[1], exec);
+		ft_free(parser);
+		return (1);
+	}
+	ft_free(parser);
 	return (0);
 }
 

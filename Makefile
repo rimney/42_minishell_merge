@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
+#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/02 03:51:17 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/02 18:21:41 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,9 @@ SRCS = Parsing/parse.c\
 		execution/builtins/ft_env.c \
 		execution/libfunctions/ft_atoi.c \
 		execution/builtins/ft_exit.c \
+		execution/builtins/ft_unset.c \
+		execution/builtins/ft_pwd.c \
+		execution/builtins/ft_cd.c \
 
 
 $(NAME) : $(SRCS)

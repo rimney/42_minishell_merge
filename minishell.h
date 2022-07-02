@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/02 03:58:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 18:20:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,4 +270,8 @@ int ft_find_variable_index(char *str, char c);
 void    ft_env(t_exec *exec);
 void    ft_exit(t_exec *exec, int index, char **argv);
 int ft_atoi(char *str);
+void    ft_unset(char *str, t_exec *exec);
+void	ft_pwd(void);
+void    ft_export_replace(t_exec *exec, char *arg, int index);
+void    ft_cd(char *path, t_exec *exec);
 #endif

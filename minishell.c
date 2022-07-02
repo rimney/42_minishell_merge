@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/01 00:53:50 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 15:34:59 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,10 +136,10 @@ int	main(int argc, char **argv, char **envp)
 		ft_minishell(&exec, &pipes);
 		if (cmd)
 		{
-			if (cmd->lst_token)
-				print_lst(cmd->lst_token);
-			if (check_if_redir_exist(line))
-				print_redir(cmd->lst_redir);
+			// if (cmd->lst_token)
+			// 	print_lst(cmd->lst_token);
+			// if (check_if_redir_exist(line))
+			// 	print_redir(cmd->lst_redir);
 			if (cmd->lst_redir)
 			{
 				if (count_redir(cmd->lst_token) == 0)
