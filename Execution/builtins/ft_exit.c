@@ -1,22 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 21:15:41 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 01:01:52 by rimney           ###   ########.fr       */
+/*   Created: 2022/07/02 01:42:34 by rimney            #+#    #+#             */
+/*   Updated: 2022/07/02 02:07:43 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    ft_env(t_exec *exec)
+int    apply_exit(t_exec *exec)
 {
-    int i;
+    int count;
 
-    i = 0;
-    while (exec->envp[i])
-        printf("%s\n", exec->envp[i++]);
+    count = 0;
+    while (exec->command[count])
+        count++;
+    if(count > 2)
+    {
+        printf("minishell: exit : too many arguments\n");
+        exec->env.exit_value = 1;
+        return (0);
+    }
+    if(count == 2)
+    {
+        if (ft_atoi(args))
+    }
+}
+void    ft_exit(t_exec *exec, int index)
+{
+    int value
+    if()
+    apply_exit()
+
 }

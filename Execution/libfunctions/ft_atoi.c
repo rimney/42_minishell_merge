@@ -1,22 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 21:15:41 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 01:01:52 by rimney           ###   ########.fr       */
+/*   Created: 2022/07/02 01:44:32 by rimney            #+#    #+#             */
+/*   Updated: 2022/07/02 01:47:08 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    ft_env(t_exec *exec)
+int ft_atoi(char *str)
 {
     int i;
+    int num;
+    int sign;
 
     i = 0;
-    while (exec->envp[i])
-        printf("%s\n", exec->envp[i++]);
+    sign = 1;
+    num = 0;
+    while(str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
+        i++;
+    if(str[i] == '+' || str[i] == '-')
+    {
+        if(str[i] == '-')
+            sign = -1;
+        i++;
+    }
+    while(str[i] >= '0' && str[i] <= '9')
+    {
+        num = num * 10 + (str[i] - '0');
+        i++;
+    }
+    return (num * sign);
 }

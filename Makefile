@@ -6,7 +6,7 @@
 #    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/01 23:45:24 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/02 01:47:43 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS = Parsing/parse.c\
 		execution/builtins/ft_export.c \
 		execution/libfunctions/ft_find_variable_index.c \
 		execution/builtins/ft_env.c \
+		execution/libfunctions/ft_atoi.c \
 
 
 $(NAME) : $(SRCS)

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/02 00:04:32 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 01:47:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,4 +268,6 @@ void    ft_export(t_exec *exec, char **argv, int index);
 
 int ft_find_variable_index(char *str, char c);
 void    ft_env(t_exec *exec);
+
+int ft_atoi(char *str);
 #endif

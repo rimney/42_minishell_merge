@@ -6,39 +6,48 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 00:05:04 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/02 01:29:31 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		is_a_builtin(t_exec *exec)
+
+void	ft_execute_builtin(t_exec *exec, char **parser, int index)
 {
-	if(ft_strncmp(exec->command[0], "export", 6) == 0)
-		return (1);
-	return (0);
+	ft_export(exec, parser, 0);
 }
 
-void	ft_execute_builtin(t_exec *exec, int index)
+
+int		is_a_builtin(t_exec *exec, int index)
 {
 	char **parser;
 
 	parser = ft_split(exec->command[0], ' ');
-	ft_export(exec, parser, 0);
+	if(ft_strncmp(exec->command[0], "export", 6) == 0)
+	{
+		ft_execute_builtin(exec, parser, index);
+		ft_free(parser);
+		return (1);
+	}
+	if(ft_strncmp(exec->command[0], "env", 3) == 0)
+	{
+		ft_env(exec);
+		return (1);
+	}
+	
+	return (0);
 }
 
 int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 {
 	int pid;
 
-	if(only_command_flag(exec) && is_a_builtin(exec))
+	if(only_command_flag(exec) && is_a_builtin(exec, 0))
 	{
-		printf("passed\n");
-		ft_execute_builtin(exec, 0);
-	//	ft_env(exec);
 		return (1);
 	}
-	if(only_command_flag(exec) > 0 && !is_a_builtin(exec))
+	if(only_command_flag(exec) > 0)
 	{
 		pid = fork();
 		if(pid == 0)
