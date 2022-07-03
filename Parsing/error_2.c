@@ -6,20 +6,11 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 12:31:36 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/03 17:19:14 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:31:26 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*init_props(char *stro)
-{
-	char	*str;
-	
-	str = ft_strdup(stro);
-	str = remove_char(str, ' ');
-	return (str);
-}
 
 int	remove_spaces(char *str, int i)
 {
@@ -85,12 +76,12 @@ int	check_repitition_pipe(char *stro, char c, int count)
 			free(str);
 			return (0);
 		}
-		i++;
 	}
 	count = count_pipe;
 	free(str);
 	return (1);
 }
+
 int	fix_diff(char *str)
 {
 	int	i;

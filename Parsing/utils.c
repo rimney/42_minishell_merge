@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:00:29 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:21:18 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 17:30:58 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ char	*ft_strsub(char *s, unsigned int start, int len)
 	}
 	tmp[i] = '\0';
 	return (tmp);
+}
+
+char	*init_props(char *stro)
+{
+	char	*str;
+
+	str = ft_strdup(stro);
+	str = remove_char(str, ' ');
+	return (str);
 }
 
 int	ft_strcmp(char *s1, char *s2)

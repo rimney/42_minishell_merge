@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_quotes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 21:43:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/03 02:59:34 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 17:30:17 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,9 @@ char	*ft_expand(char *expand, char **envp)
 		while (envp[i])
 		{
 			if (ft_strncmp(expand + 1, envp[i],
-				ft_find_last_character(envp[i], '=')) == 0)	
-				return (strdup(envp[i] + ft_find_last_character(envp[i], '=') + 1));
+					ft_find_last_character(envp[i], '=')) == 0)
+				return (strdup(envp[i]
+						+ ft_find_last_character(envp[i], '=') + 1));
 				i++;
 		}
 	}

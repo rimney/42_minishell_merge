@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/02 18:20:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 17:31:16 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int			ft_strcmp(char *s1, char *s2);
 char		*ft_strsub(char *s, unsigned int start, int len);
 void		print_lst(t_token *lst);
 void		print_redir(t_redir *lst);
+char		*init_props(char *stro);
 
 /******* utils_2.c functions ********/
 
