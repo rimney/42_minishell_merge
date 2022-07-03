@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:13:55 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 03:25:06 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 03:44:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void    ft_free(char **str)
     int i;
 
     i = 0;
-    while (str[i])
+    while (str && str[i])
     {
         if(str[i])
             free(str[i]);

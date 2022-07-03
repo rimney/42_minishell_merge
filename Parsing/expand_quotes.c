@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 21:43:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/02 20:28:53 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 02:59:34 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,13 @@ char	*ft_expand(char *expand, char **envp)
 	int	i;
 
 	i = 0;
-
 	if (expand != NULL)
 	{
-			while (envp[i])
-			{
-				if (ft_strncmp(expand + 1, envp[i],
-						ft_find_last_character(envp[i], '=')) == 0)
-				{	
-					return (strdup(envp[i] + ft_find_last_character(envp[i], '=') + 1));
-				}
+		while (envp[i])
+		{
+			if (ft_strncmp(expand + 1, envp[i],
+				ft_find_last_character(envp[i], '=')) == 0)	
+				return (strdup(envp[i] + ft_find_last_character(envp[i], '=') + 1));
 				i++;
 		}
 	}
@@ -76,20 +73,3 @@ int	check_if_redir_exist(char *str)
 	}
 	return (flag);
 }
-
-// void	ft_assign_expand(t_token *token, char **envp)
-// {
-// 	if (token->value == NULL)
-// 		return ;
-// 	while (token)
-// 	{
-// 		if ((token->quote == '\"'
-// 				|| token->quote == 0) && token->value[0] == '$')
-// 		{
-// 			token->value = strdup(ft_expand(token->value, envp));
-// 			ft_expand(token->value, envp);
-// 		}
-// 		printf("%s << value\n", token->value);
-// 		token = token->next;
-// 	}
-// }

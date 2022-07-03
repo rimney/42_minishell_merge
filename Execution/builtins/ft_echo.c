@@ -6,11 +6,32 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/01 00:07:22 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 03:12:26 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int ft_echo_edge_case(char *str)
+{
+    int i;
+
+    i = 1;
+    if (str == NULL)
+        return (0);
+    if(str[0] == '-')
+    {
+        while(str[i])
+        {
+            if(str[i] != 'n')
+                return (0);
+            i++;
+        }
+    }
+    else
+        return (0);
+    return (1);
+}
 
 int    ft_echo(char **str, int index)
 {
@@ -19,14 +40,20 @@ int    ft_echo(char **str, int index)
 
     i = 1;
     flag = 0;
+    if(ft_echo_edge_case(str[i]))
+    {
+        flag = 1;
+        while (ft_echo_edge_case(str[i]))
+            i++;
+    }
     while(str[i])
     {
         printf("%s", str[i]);
-        if(str[i + 1])
+        if(str[i + 1] != NULL)
             printf(" ");
         i++;
     }
     if(!flag)
         printf("\n");
-    return i;
+    return (1);
 }

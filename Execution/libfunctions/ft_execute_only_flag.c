@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 18:24:20 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 03:00:22 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,13 @@ int		is_a_builtin(t_exec *exec, int index)
 	{
 		printf("cdcd\n");
 		ft_cd(parser[1], exec);
+		ft_free(parser);
+		return (1);
+	}
+	if(ft_strncmp(exec->command[0], "echo", 4) == 0)
+	{
+		printf("echooo\n");
+		ft_echo(parser, 0);
 		ft_free(parser);
 		return (1);
 	}
