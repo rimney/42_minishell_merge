@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/02 20:29:27 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 17:24:48 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ int	main(int argc, char **argv, char **envp)
 			if (cmd->lst_redir)
 			{
 				if (count_redir(cmd->lst_token) == 0)
-	
 					cmd->lst_redir = NULL;
 				else
 					free_lst_redir(cmd->lst_redir);

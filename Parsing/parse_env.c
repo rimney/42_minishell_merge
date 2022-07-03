@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 15:00:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:20:33 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 17:21:42 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,27 @@ int	check_env_var(char *str)
 	return (1);
 }
 
-// int	parse_env(t_token **lst_token)
-// {
-// 	t_token	*lst;
+int	parse_env(t_token **lst_token)
+{
+	t_token	*lst;
 
-// 	lst = *lst_token;
-// 	while (lst)
-// 	{
-// 		if (lst->value)
-// 		{
-// 			if (lst->value[0] == '$')
-// 			{
-// 				if (*lst_token)
-// 				{
-// 					free_lst_token(*lst_token);
-// 				}
-// 				return (0);
-// 				handle_error("wrong env variable\n");
-// 			}
-// 		}
-// 		lst = lst->next;
-// 	}
-// 	return (1);
-// }
+	lst = *lst_token;
+	while (lst)
+	{
+		if (lst->value)
+		{
+			if (contain(lst->value, '$'))
+			{
+				if (!check_env_var(lst->value))
+				{
+					free(lst->value);
+					free(lst);
+					handle_error("wrong env variable\n");
+					return (0);
+				}
+			}
+		}
+		lst = lst->next;
+	}
+	return (1);
+}
