@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:20:10 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:20:44 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/03 13:18:06 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	handle_end_list(t_token **lst, int	*nbwrd_flg, char **s)
+{
+	if (**s == '\0')
+		nbwrd_flg[0] = 1;
+	check_token_list_end(lst, nbwrd_flg[0]);
+	(*lst) = (*lst)->next;
+	nbwrd_flg[0]--;
+}
+
+t_token	*handle_return(t_token *first, t_token *head)
+{
+	free(first);
+	first = head;
+	return (first);
+}
 
 t_token	*token_split(t_token *first, char *s, char c)
 {
@@ -29,16 +45,15 @@ t_token	*token_split(t_token *first, char *s, char c)
 			s++;
 		nbwrd_flg[1] = 0;
 		lst = handle_quotes(lst, &nbwrd_flg[1], &s);
+		if (!lst)
+		{
+			free(first);
+			return (NULL);
+		}
 		lst = handle_split(lst, &nbwrd_flg[1], &s, c);
-		if (*s == '\0')
-			nbwrd_flg[0] = 1;
-		check_token_list_end(&lst, nbwrd_flg[0]);
-		lst = lst->next;
-		nbwrd_flg[0]--;
+		handle_end_list(&lst, nbwrd_flg, &s);
 	}
-	free(first);
-	first = head;
-	return (first);
+	return (handle_return(first, head));
 }
 
 t_tok_red	*parser(t_tok_red *lst, char *line)
