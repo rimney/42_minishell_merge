@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:20:10 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/03 13:18:06 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/03 17:20:37 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,10 @@ t_tok_red	*parser(t_tok_red *lst, char *line)
 		return (lst);
 	if (check_if_redir_exist(line))
 		lst->lst_redir = fill_redir_lst(lst->lst_redir, lst->lst_token);
+	if (!parse_env(&lst->lst_token))
+	{
+		free(lst);
+		return (NULL);
+	}
 	return (lst);
 }
