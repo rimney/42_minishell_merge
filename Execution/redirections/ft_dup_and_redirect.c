@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:35:29 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 02:21:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 16:46:37 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	ft_do_append(t_exec *exec, int fd_in, int fd_out, int index)
 {
 	printf("passed rediappend\n");
+	if(ft_is_another_flag(exec, index + 2) == REDIROUT)
+		printf("FFF\n");
 	fd_out = open(exec->command[index + 1], O_CREAT | O_APPEND | O_RDWR, 0644);
 	dup2(fd_in, 0);
 	close(fd_in);
@@ -26,6 +28,7 @@ void	ft_do_append(t_exec *exec, int fd_in, int fd_out, int index)
 void	ft_do_rediout(t_exec *exec, int fd_in, int fd_out, int index)
 {
 	printf("rediiiin\n");
+
 	fd_out = open(exec->command[index + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
 	dup2(fd_in, 0);
 	close(fd_in);
@@ -65,7 +68,9 @@ int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index)
 		}
 		if(ft_is_another_flag(exec, index) == REDIROUT)
 		{
-			ft_do_rediout(exec, fd_in, fd_out, index);
+			fd_in = open(exec->command[index - 1], O_RDONLY);
+			exec->redirection_count += index - 1;
+			ft_advanced_redirect(index, exec, fd_in, fd_out, index - 1);
 			return (1);
 		}
 		if(ft_is_another_flag(exec, index) == REDIRIN)

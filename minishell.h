@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/04 02:35:12 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 16:35:17 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ void		ft_assign_expand(t_token *token, char **envp);
 /******** EXECuTIOH STILL IN PROGRESS !!!!!! ****/ 
 //output
 int	ft_redirect(int index, t_exec *exec, int command_location);
-void	ft_advanced_redirect(t_exec *exec, char **envp, int i, t_pipe *tpipe);
+void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location);
 void	ft_single_redirect(char *argv);
 //input
 int    ft_redirect_input(t_exec *exec, t_pipe *tpipe, int index, int command_location);
