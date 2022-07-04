@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/03 17:24:48 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/04 21:34:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 					ft_mini_redirect_output(exec, tpipe, i);
 					i += exec->redirection_count;
 			}
-	// 		if(ft_strcmp(exec->command[i], ">>") == 0 && exec->initial_flag == 0)
-	// 		{
-	// 			exec->initial_flag = 1;
-	// 			ft_mini_append(exec, tpipe, i);
-	// 		//	printf("here\n");
-	// 			i += exec->append_count;
-	// 		}
+			if(ft_strcmp(exec->command[i], ">>") == 0 && exec->initial_flag == 0)
+			{
+				exec->initial_flag = 1;
+				ft_mini_append(exec, tpipe, i);
+			//	printf("here\n");
+				i += exec->append_count;
+			}
 	// 		if(ft_strcmp(exec->command[i], "<<") == 0 && exec->initial_flag == 0)
 	// 		{
 	// 			exec->initial_flag = 1;
@@ -167,7 +167,7 @@ int	main(int argc, char **argv, char **envp)
 			free_lst_token(cmd->lst_token);
 			free(cmd);
 		}
-		ft_free(exec.command);
+	//	ft_free(exec.command);
 		g_flag = 0;
 		free(line);
 	}

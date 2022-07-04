@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:23 by rimney            #+#    #+#             */
-/*   Updated: 2022/06/30 15:59:27 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 18:12:08 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_pipe(int in, t_pipe *tpipe, t_exec *exec, int index)
         close(tpipe->fd[1]);
     }
 
-   // close(tpipe->fd[0]);
+    close(tpipe->fd[0]);
         ft_execute_command(exec, index);
 }
 
@@ -43,7 +43,7 @@ void	ft_pipe(int in, t_pipe *tpipe, t_exec *exec, int index)
         dup2(out, 1);
         close(out);
     }
-    //close(tpipe->fd[0]);
+    close(tpipe->fd[0]);
         ft_execute_command(exec, index);
     tpipe->in = 0;
  }

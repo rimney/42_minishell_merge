@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/04 16:35:17 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 21:26:43 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,8 +215,9 @@ void ft_heredoc(t_exec *exec, int command_location, int index);
 int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction);
 int ft_get_last_delimiter(t_exec *exec, int index);
 //append
-int	ft_append(int index, t_exec *exec, t_pipe *tpipe, int command_location);
+int	ft_append(int index, t_exec *exec, int command_location);
 void	ft_single_append(int argc, char **argv);
+void	ft_advanced_append(int index, t_exec *exec, int fd_out, int fd_in, int location);
 //count
 int	ft_count_tokens(t_token *token);
 void ft_count_till_last_token(t_exec *exec, t_pipe *pipes);
@@ -260,10 +261,10 @@ int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i);
 int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd);
 int ft_apply_redin_middle(t_exec *exec, t_pipe *tpipe,  int i);
 int	ft_middle_rediout(t_exec *exec, t_pipe *tpipe, int i);
-int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index);
+int	ft_dup_and_redirect(int fd_in, t_exec *exec, t_pipe *tpipe, int index);
 int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
 // built_ins
-
+int	ft_mini_append(t_exec *exec, t_pipe *tpipe, int i);
 int    ft_echo(char **str, int index);
 void    ft_export(t_exec *exec, char **argv, int index);
 
@@ -276,4 +277,5 @@ void	ft_pwd(void);
 void    ft_export_replace(t_exec *exec, char *arg, int index);
 void    ft_cd(char *path, t_exec *exec);
 int ft_path_exists(char **envp);
+int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index);
 #endif

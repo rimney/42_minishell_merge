@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/01 00:50:28 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 18:11:44 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,5 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 	exec->pipe_flag = 0;
 	exec->input_count = 0;
 
-	return i + exec->pipe_count;
+	return (i + exec->pipe_count);
 }

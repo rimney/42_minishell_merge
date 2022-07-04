@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/03 03:00:22 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 21:25:55 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 	else if(only_append_flag(exec) > 0)
 	{
 		//printf("DDD\n");
-		ft_append(1, exec, tpipe, 0); // segfault here !!!!!
+		ft_append(1, exec, 0); // segfault here !!!!!
 	}
 	else if(only_input_flag(exec) > 0)
 		ft_redirect_input(exec, tpipe, 0, 0);

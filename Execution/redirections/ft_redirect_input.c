@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_input.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:25 by rimney            #+#    #+#             */
-/*   Updated: 2022/06/30 15:59:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 21:15:22 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,38 @@ void    redirect(t_exec *exec, int command_location, int index)
     
 }
 
+int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index)
+{
+    int pid;
+    int location;
+
+    location = index - 1;
+    pid = fork();
+    if(pid == 0)
+    {
+        while(index < exec->input_count)
+        {
+            fd_in = open(exec->command[index + 1], O_RDONLY);
+            if(index + 1 == exec->input_count)
+            {
+                if(exec->command[index + 2])
+                    exit(0);
+                dup2(fd_in, 0);
+                close(fd_in);
+                ft_execute_command(exec, location);
+            }
+            index += 2;
+        }
+    }
+    wait(NULL);
+    return (1);
+}
+
 int    ft_redirect_input(t_exec *exec, t_pipe *tpipe, int index, int command_location)
 {
     int i;
     int input_file = 0;
     int pid;
-
 
     i = index;
     tpipe->fd[0] = 0;
@@ -39,7 +65,6 @@ int    ft_redirect_input(t_exec *exec, t_pipe *tpipe, int index, int command_loc
     }
     if(ft_strcmp(exec->command[i], "<") == 0)
     {
-  //      printf("%s << here\n", exec->command[index + 1]);
         input_file = exec->input_count + i - 1;
             pid = fork();
             if (pid == 0)
