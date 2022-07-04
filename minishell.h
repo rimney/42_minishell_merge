@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/03 17:31:16 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/04 02:35:12 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,4 +275,5 @@ void    ft_unset(char *str, t_exec *exec);
 void	ft_pwd(void);
 void    ft_export_replace(t_exec *exec, char *arg, int index);
 void    ft_cd(char *path, t_exec *exec);
+int ft_path_exists(char **envp);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:35:29 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 02:05:40 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 02:21:36 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index)
 	{
 		if(ft_strcmp(exec->command[index], ">>") == 0)
 		{
-			ft_do_rediout(exec, fd_in, fd_out, index);
+			ft_do_append(exec, fd_in, fd_out, index);
 			return (1);
 		}
 		if(ft_is_another_flag(exec, index) == REDIROUT)
 		{
-			ft_do_append(exec, fd_in, fd_out, index);
+			ft_do_rediout(exec, fd_in, fd_out, index);
 			return (1);
 		}
 		if(ft_is_another_flag(exec, index) == REDIRIN)
@@ -73,7 +73,6 @@ int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index)
 			ft_do_input(exec, fd_in, index);
 			return (1);
 		}
-	//	ft_execute_command(exec, index - 1);
 	}
 	return (1);
 }
