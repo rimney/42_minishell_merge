@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/04 21:26:43 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 21:41:33 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ int	ft_redirect(int index, t_exec *exec, int command_location);
 void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location);
 void	ft_single_redirect(char *argv);
 //input
-int    ft_redirect_input(t_exec *exec, t_pipe *tpipe, int index, int command_location);
+int    ft_redirect_input(t_exec *exec, int index, int command_location);
 void    redirect(t_exec *exec, int command_location, int index);
 //pipe
 int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe);
@@ -277,5 +277,6 @@ void	ft_pwd(void);
 void    ft_export_replace(t_exec *exec, char *arg, int index);
 void    ft_cd(char *path, t_exec *exec);
 int ft_path_exists(char **envp);
+int	ft_mini_redirect_input(t_exec *exec, t_pipe *tpipe, int i);
 int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index);
 #endif

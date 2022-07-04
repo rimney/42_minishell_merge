@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 21:25:55 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 21:43:08 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 		ft_append(1, exec, 0); // segfault here !!!!!
 	}
 	else if(only_input_flag(exec) > 0)
-		ft_redirect_input(exec, tpipe, 0, 0);
+		ft_redirect_input(exec, 0, 0);
 	else
 		return (0);
 	return(1);

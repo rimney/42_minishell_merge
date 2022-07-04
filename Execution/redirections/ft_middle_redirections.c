@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:33:36 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 19:59:41 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 21:43:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,31 +60,31 @@ int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd)
     return (i - 1);
 }
 
-int ft_apply_redin_middle(t_exec *exec, t_pipe *tpipe, int i)
-{
-	if(exec->command[i] && ft_is_another_flag(exec, i) == REDIRIN && exec->pipe_count == 2)
-	{
-		if(exec->command[i + 2] && exec->command[i + 4])
-		{
-			if(ft_strcmp(exec->command[i + 2], "|") && ft_strcmp(exec->command[i + 4], "<") == 0)
-			{
-				while(ft_strcmp(exec->command[i], "<") == 0)
-					i += 4;
-			}
-		}
-		if(exec->command[i + 2] == NULL)
-		{
-			exec->input_count = ft_count_till_other_token(exec, i, "<");
-			ft_redirect_input(exec, tpipe, i, i - 1);
+// int ft_apply_redin_middle(t_exec *exec, t_pipe *tpipe, int i)
+// {
+// 	if(exec->command[i] && ft_is_another_flag(exec, i) == REDIRIN && exec->pipe_count == 2)
+// 	{
+// 		if(exec->command[i + 2] && exec->command[i + 4])
+// 		{
+// 			if(ft_strcmp(exec->command[i + 2], "|") && ft_strcmp(exec->command[i + 4], "<") == 0)
+// 			{
+// 				while(ft_strcmp(exec->command[i], "<") == 0)
+// 					i += 4;
+// 			}
+// 		}
+// 		if(exec->command[i + 2] == NULL)
+// 		{
+// 			exec->input_count = ft_count_till_other_token(exec, i, "<");
+// 			ft_redirect_input(exec, tpipe, i, i - 1);
 		
-		}
-		if(exec->command[i + 2])
-			i += exec->input_count - 1;
-		else	
-			i += exec->input_count;
-	}
-	return i;	
-}
+// 		}
+// 		if(exec->command[i + 2])
+// 			i += exec->input_count - 1;
+// 		else	
+// 			i += exec->input_count;
+// 	}
+// 	return i;	
+// }
 
 // int	ft_middle_rediout(t_exec *exec, t_pipe *tpipe, int i)
 // {
