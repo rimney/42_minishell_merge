@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:47:44 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 02:36:38 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 02:37:02 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,6 @@ void    ft_execute_command(t_exec *exec, int index)
 
 
     command_parser = ft_split(exec->command[index], ' ');
-    // if(ft_strcmp(command_parser[0], "ls") == 0 && ft_path_exists(exec->envp))
-    // {
-    //     // printf("GG\n");
-    //     // ls_temp = command_parser[0];
-    //     command_parser[0] = strdup("/bin/ls");
-    //     // free(ls_temp);
-    // }
-    printf("%s << \n", command_parser[0]);
     if(execve(ft_exec_command(exec->envp, command_parser[0]), command_parser, exec->envp) == -1)
     {
         perror(exec->command[index]);
