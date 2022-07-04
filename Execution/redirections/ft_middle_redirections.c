@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:33:36 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/01 00:33:56 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 01:22:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd)
 		&& ft_is_another_flag(exec, i + 1) != REDIRIN)
 			|| exec->command[i + 2] == NULL)
 	{
-		if(exec->command[i + 2] && ft_strcmp(exec->command[i + 2], ">>") == 0)
+		if(exec->command[i + 2] && (ft_strcmp(exec->command[i + 2], ">>") == 0 || ft_strcmp(exec->command[i + 2], ">") == 0 || ft_strcmp(exec->command[i + 2], "<") == 0))
 		{
 			printf("HH\n");
 			exec->append_count = ft_count_till_other_token(exec, i + 2, ">>");
+			exec->redirection_count = ft_count_till_other_token(exec, i + 2, ">");
+			exec->input_count = ft_count_till_other_token(exec, i + 2, "<");
 			ft_dup_and_redirect(fd, exec, i + 2);
 			i += 2;
 		}

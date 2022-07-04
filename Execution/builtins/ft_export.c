@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/03 03:51:30 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/04 02:14:05 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void    ft_export(t_exec *exec, char **argv, int index) ////leak
     i = 0;
     // temp = NULL;
     flag = 0;
+    printf("PASS\n");
     if(!argv[index + 1])
     {
         ft_export_no_args_case(exec);
