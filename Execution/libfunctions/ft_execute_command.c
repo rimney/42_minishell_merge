@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:47:44 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 02:37:02 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 03:30:01 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ int ft_path_exists(char **envp)
 void    ft_execute_command(t_exec *exec, int index)
 {
     char **command_parser;
-    char *ls_temp;
 
 
     command_parser = ft_split(exec->command[index], ' ');
+    printf("%s >> \n", ft_exec_command(exec->envp, command_parser[0]));
     if(execve(ft_exec_command(exec->envp, command_parser[0]), command_parser, exec->envp) == -1)
     {
         perror(exec->command[index]);

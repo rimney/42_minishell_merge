@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 00:57:08 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 02:39:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int		is_a_builtin(t_exec *exec, int index)
 	if(ft_strncmp(exec->command[0], "pwd", 3) == 0)
 	{
 		printf("ppp\n");
-		ft_pwd();
-		ft_free(parser);
+		ft_pwd(exec->envp);
+		 ft_free(parser);
 		return (1);
 	}
 	if(ft_strncmp(exec->command[0], "cd", 2) == 0)
@@ -65,6 +65,7 @@ int		is_a_builtin(t_exec *exec, int index)
 	}
 	if(ft_strncmp(exec->command[0], "echo", 4) == 0)
 	{
+		//parser = ft_split(exec->command[0], ' ');
 		printf("echooo\n");
 		ft_echo(parser, 0);
 		ft_free(parser);
@@ -108,5 +109,6 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 		ft_redirect_input(exec, 0, 0);
 	else
 		return (0);
+
 	return(1);
 }

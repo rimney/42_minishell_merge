@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:23:45 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 02:34:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 03:35:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,10 @@ char	*ft_exec_command(char **envp, char *command)
 	char	**temp;
 
 	i = 0;
-	if(access(command, F_OK) == 0)
+
+	if(access(command, F_OK) == 0 && command[0] == '/' && ft_path_exists(envp))
 		return (command);
-	if(ft_strcmp(command, "ls") == 0 && ft_path_exists(envp))
+	if(ft_strcmp(command, "ls") == 0)
 		return ("/bin/ls");
 	temp = ft_split(ft_locate_env(envp) + 5, ':');
 	env = malloc(sizeof(char *) * ft_count_elements(temp));

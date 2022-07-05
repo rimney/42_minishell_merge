@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/05 00:59:42 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 02:28:15 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,7 +273,7 @@ void    ft_env(t_exec *exec);
 void    ft_exit(t_exec *exec, int index, char **argv);
 int ft_atoi(char *str);
 void    ft_unset(char *str, t_exec *exec);
-void	ft_pwd(void);
+void    ft_pwd(char **envp);
 void    ft_export_replace(t_exec *exec, char *arg, int index);
 void    ft_cd(char *path, t_exec *exec);
 int ft_path_exists(char **envp);

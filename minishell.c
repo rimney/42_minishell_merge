@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/05 00:54:50 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 03:28:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,69 @@ t_tok_red	*init_cmd(char *line)
 	return (cmd);
 }
 
-
-void	ft_print_exec(t_exec *exec)
+int	ft_mini_pipe_a(t_exec *exec, t_pipe *tpipe, int i)
 {
-	int i;
+	int fd;
+	fd = -1;
 
-	i = 0;
-	while(exec->command[i])
+	exec->initial_flag = 1;
+	while(exec->command[i + 1] != NULL)
 	{
-		printf("<< %s >> ", exec->command[i]);
+		if(ft_strcmp(exec->command[i], "|") == 0 && i == 1)
+		{
+			exec->pipe_count = ft_count_till_other_token(exec, i, "|");
+			ft_mini_pipe(exec, tpipe, -1, 0, i);
+			i += exec->pipe_count;
+		}
+		if(exec->command[i] && ft_is_another_flag(exec, i) == PIPE)
+		{
+			exec->pipe_count = ft_count_till_other_token(exec, i, "|");
+			fd = open(exec->command[i - 1], O_RDWR);
+			i = ft_apply_pipe_middle(exec, tpipe, i, fd) - 1;
+		}
 		i++;
 	}
-	printf("\n");
+	wait(NULL);
+	return(i);
+}
+
+int		ft_minishell_executor(t_exec *exec, t_pipe *tpipe, int i, int flag)
+{
+	exec->initial_flag = 1;
+	if(flag == REDIROUT)
+	{
+		ft_mini_redirect_output(exec, tpipe, i);
+		return (i + exec->redirection_count);
+	}
+	if(flag == APPEND)
+	{
+		ft_mini_append(exec, tpipe, i);
+		return (i + exec->append_count);
+	}
+	if(flag == REDIRIN)
+	{
+		ft_mini_redirect_input(exec, tpipe, i);
+		return (i + exec->input_count);
+	}
+	if(flag == HEREDOC)
+	{
+		ft_mini_heredoc(exec, tpipe, i);
+		return (i + exec->heredoc_count);	
+	}
+	if(flag == PIPE)
+	{
+		ft_mini_pipe_a(exec, tpipe, i);
+		return (i + exec->pipe_count);
+	}
+	return (0);
 }
 
 void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 {
 	int i;
-	int command_location;
-
 	i = 0;
-	command_location = 0;
+	
 	exec->initial_flag = 0;
-
 	ft_count_till_last_token(exec, tpipe);
 	if(ft_execute_only_flag(exec, tpipe))
 		 	return ;
@@ -54,41 +94,18 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 		while(exec->command[i + 1] != NULL)
 		{
 			if(ft_strcmp(exec->command[i], ">") == 0 && exec->redirecion_flag == 0 && exec->initial_flag == 0)
-			{
-				exec->redirection_count = ft_count_till_other_token(exec, i, ">");
-				exec->initial_flag = 1;
-					ft_mini_redirect_output(exec, tpipe, i);
-					i += exec->redirection_count;
-			}
+				i = ft_minishell_executor(exec, tpipe, i, REDIROUT);
 			if(ft_strcmp(exec->command[i], ">>") == 0 && exec->initial_flag == 0)
-			{
-				exec->initial_flag = 1;
-				ft_mini_append(exec, tpipe, i);
-			//	printf("here\n");
-				i += exec->append_count;
-			}
+				i = ft_minishell_executor(exec, tpipe, i, APPEND);
 			if(ft_strcmp(exec->command[i], "<<") == 0 && exec->initial_flag == 0)
-			{
-				exec->initial_flag = 1;
-				ft_mini_heredoc(exec, tpipe, i);
-				i += exec->heredoc_count;
-			}
+				i = ft_minishell_executor(exec, tpipe, i, HEREDOC);
 			if(ft_strcmp(exec->command[i], "<") == 0 && exec->initial_flag == 0)
-			{
-				exec->initial_flag = 1;
-				ft_mini_redirect_input(exec, tpipe, i);
-				i += exec->input_count;
-			}
-	// 		if(ft_strcmp(exec->command[i], "|") == 0 && exec->initial_flag == 0)
-	// 		{
-	// 			printf("PASS\n");
-	// 			exec->initial_flag = 1;
-	// 			ft_mini_pipe_a(exec, tpipe, i);
-	// 			i += exec->pipe_count;
+				i = ft_minishell_executor(exec, tpipe, i, REDIRIN);
+			if(ft_strcmp(exec->command[i], "|") == 0 && exec->initial_flag == 0)
+				i = ft_minishell_executor(exec, tpipe, i, PIPE);
 			i++;
-			}
-
 		}
+	}
 	wait(NULL);
 }
 
@@ -167,7 +184,7 @@ int	main(int argc, char **argv, char **envp)
 			free_lst_token(cmd->lst_token);
 			free(cmd);
 		}
-	//	ft_free(exec.command);
+		ft_free(exec.command);
 		g_flag = 0;
 		free(line);
 	}
