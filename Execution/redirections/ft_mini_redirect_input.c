@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_mini_redirect_output.c                          :+:      :+:    :+:   */
+/*   ft_mini_redirect_input.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 00:31:43 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 00:30:13 by rimney           ###   ########.fr       */
+/*   Created: 2022/07/05 00:29:57 by rimney            #+#    #+#             */
+/*   Updated: 2022/07/05 00:30:32 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-
-
-int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i)
+int	ft_mini_redirect_input(t_exec *exec, t_pipe *tpipe, int i)
 {
 	int fd;
 	fd = -1;
@@ -24,9 +22,9 @@ int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i)
 	{
 		if(ft_strcmp(exec->command[i], ">") == 0 && i == 1)
 		{
-			exec->redirection_count = ft_count_till_other_token(exec, i, ">");
-			ft_redirect(i, exec, i - 1);
-			i += exec->redirection_count;
+			exec->input_count = ft_count_till_other_token(exec, i, ">");
+			ft_redirect_input(exec, i, i - 1);
+			i += exec->input_count;
 		}
 		if(exec->command[i] && ft_is_another_flag(exec, i) == PIPE)
 		{
@@ -47,4 +45,3 @@ int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i)
 	wait(NULL);
 	return(i);
 }
-

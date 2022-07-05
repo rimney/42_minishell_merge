@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:35:29 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 21:12:56 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 00:57:13 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_dup_and_redirect(int fd_in, t_exec *exec, t_pipe *tpipe, int index)
 		if(ft_strcmp(exec->command[index], "<<") == 0)
 		{
 			exec->heredoc_count += index - 1;
-			ft_execute_heredoc(exec, tpipe, index);
+			ft_execute_heredoc(exec, index);
 			return 1;
 		}
 	// }

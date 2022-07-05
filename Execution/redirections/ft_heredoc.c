@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/06/30 15:59:04 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 00:56:16 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,11 @@ void    ft_advanced_heredoc(t_exec *exec, int index, int command_location)
     
 }
 
-int ft_execute_heredoc(t_exec *exec, t_pipe *pipes, int index)
+int ft_execute_heredoc(t_exec *exec, int index)
 {
     int command_location;
 
     command_location = index - 1;
-    pipes->fd[0] = 0;
 
     if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == PIPE)
     {

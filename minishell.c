@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/04 21:40:43 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 00:54:50 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 			//	printf("here\n");
 				i += exec->append_count;
 			}
-	// 		if(ft_strcmp(exec->command[i], "<<") == 0 && exec->initial_flag == 0)
-	// 		{
-	// 			exec->initial_flag = 1;
-	// 			ft_mini_heredoc(exec, tpipe, i);
-	// 			i += exec->heredoc_count;
-	// 		}
+			if(ft_strcmp(exec->command[i], "<<") == 0 && exec->initial_flag == 0)
+			{
+				exec->initial_flag = 1;
+				ft_mini_heredoc(exec, tpipe, i);
+				i += exec->heredoc_count;
+			}
 			if(ft_strcmp(exec->command[i], "<") == 0 && exec->initial_flag == 0)
 			{
 				exec->initial_flag = 1;

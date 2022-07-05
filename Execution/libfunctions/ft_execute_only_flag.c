@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 21:43:08 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 00:57:08 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 	else if(only_output_redirection_flag(exec) > 0)
 		ft_redirect(1, exec, 0);
 	else if(only_heredoc_flag(exec) > 0)
-		ft_execute_heredoc(exec, tpipe, 1);
+		ft_execute_heredoc(exec, 1);
 	else if(only_append_flag(exec) > 0)
 	{
 		//printf("DDD\n");

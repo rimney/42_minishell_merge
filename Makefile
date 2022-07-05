@@ -6,7 +6,7 @@
 #    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/04 21:29:59 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/05 00:58:33 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,8 @@ SRCS = Parsing/parse.c\
 		execution/builtins/ft_pwd.c \
 		execution/builtins/ft_cd.c \
 		execution/redirections/ft_mini_append.c \
+		execution/redirections/ft_mini_redirect_input.c \
+		execution/redirections/ft_mini_heredoc.c \
 
 
 $(NAME) : $(SRCS)
