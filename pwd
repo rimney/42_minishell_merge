@@ -1,14 +1,4 @@
-Execution
-Makefile
-Parsing
-minishell
-minishell.c
-minishell.dSYM
-minishell.h
-osssut
-out
-ouy
-pwd
-pwddddd
-ssssa
-wwwwqwqw
+echo << here
+echooo
+/Users/rimney/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Users/rimney/.brew/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
+[0;32m BomusShell$>[0;37m

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/05 02:28:15 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 20:43:49 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,4 +280,7 @@ int ft_path_exists(char **envp);
 int	ft_mini_redirect_input(t_exec *exec, t_pipe *tpipe, int i);
 int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index);
 int	ft_mini_heredoc(t_exec *exec, t_pipe *tpipe, int i);
+int	ft_is_a_builtin(char *command);
+int		ft_execute_builtin(char **parser, t_exec *exec, int index);
+
 #endif
