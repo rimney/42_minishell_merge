@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:23 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 18:12:08 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 00:30:00 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int fd, int ind
     pid = fork();
     if(pid == 0)
         ft_apply_redirection_after_pipe(in_save, fd, tpipe, exec, index + 2);
-    wait(NULL);
+	waitpid(pid, &exec->env.exit_value, 0);
+	WIFEXITED(exec->env.exit_value);
 }
 
 int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe)
@@ -147,6 +148,7 @@ int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe)
         }
         execute_pipe(exec, index + 2, in_save , tpipe);
     }
-    wait(NULL);
+	waitpid(pid, &exec->env.exit_value, 0);
+	WIFEXITED(exec->env.exit_value);
     return index;
 }

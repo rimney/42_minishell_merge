@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:49:49 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 02:30:34 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 22:37:18 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void    ft_cd_export_replace(t_exec *exec, char *arg)
             temp = exec->envp[i];
             exec->envp[i] = strdup(arg);
             free(temp);
-            printf("ADDED <<\n");
             return ;
         }
         i++;

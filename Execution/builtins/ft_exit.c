@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 01:42:34 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 15:33:59 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 22:37:36 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int    apply_exit(char **argv, t_exec *exec)
     count = 0;
     while (argv[count])
         count++;
-  //  printf("<<c %d <<\n", count);
     if(count > 2)
     {
         printf("minishell: exit : too many arguments\n");
@@ -67,7 +66,6 @@ void    ft_exit(t_exec *exec, int index, char **argv)// leaks
     if(apply_exit(argv, exec))
     {
         printf("exit\n");
-      //  printf("%d << exit\n", exec->env.exit_value);
         exit(exec->env.exit_value);
     }
 

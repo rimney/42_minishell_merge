@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:20 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 21:25:20 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 00:29:18 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	ft_advanced_append(int index, t_exec *exec, int fd_out, int fd_in, int loca
 			index += 2;
 		}
 	}
-	wait(NULL);
+	waitpid(pid, &exec->env.exit_value, 0);
+	WIFEXITED(exec->env.exit_value);
 }
 
 int	ft_append(int index, t_exec *exec, int command_location)
@@ -76,6 +77,7 @@ int	ft_append(int index, t_exec *exec, int command_location)
 		}
 		index += 2;
 	}
-	wait(NULL);
+	waitpid(pid, &exec->env.exit_value, 0);
+	WIFEXITED(exec->env.exit_value);
 	return (index);
 }

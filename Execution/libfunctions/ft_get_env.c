@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:27:20 by rimney            #+#    #+#             */
-/*   Updated: 2022/06/30 16:28:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 22:54:41 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,4 @@ void    ft_get_env(t_exec *exec, char **env)
         i++;
     }
     exec->envp[i] = 0;
-   // return (envp);
 } 

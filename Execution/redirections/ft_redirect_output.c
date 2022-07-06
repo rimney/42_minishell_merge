@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 21:14:31 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 00:30:36 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int lo
 			index += 2;
 		}
 	}
-	wait(NULL);
+	waitpid(pid, &exec->env.exit_value, 0);
+	WIFEXITED(exec->env.exit_value);
 }
 
 int	ft_redirect(int index, t_exec *exec, int command_location)
@@ -67,6 +68,7 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 		}
 		index += 2;
 	}
-	wait(NULL);
+	waitpid(pid, &exec->env.exit_value, 0);
+	WIFEXITED(exec->env.exit_value);
 	return (index);
 }

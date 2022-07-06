@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 18:11:44 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 22:43:26 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,34 +27,34 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 		// }
 	if(exec->pipe_count == 2 && exec->command[index + 2])
 	{
-		printf("%d << count\n", exec->pipe_count);
+		// printf("%d << count\n", exec->pipe_count);
 		if(ft_strcmp(exec->command[index + 2], ">") == 0)
 		{
 			exec->pipe_flag = 1;
 			exec->redirection_count = ft_count_till_other_token(exec, i + 2, ">");
-			printf("%d << here\n", exec->pipe_flag);
+			// printf("%d << here\n", exec->pipe_flag);
 		}
 	}
 	if(exec->command[i + exec->pipe_count] && ft_strcmp(exec->command[i + exec->pipe_count], ">") == 0 && exec->pipe_count > 2)
 	{
-		printf("REDIFFF\n");
+		// printf("REDIFFF\n");
 		exec->redirecion_flag = 1;
 		exec->redirection_count = ft_count_till_other_token(exec, i + exec->pipe_count, ">");
-		printf("%d << \n", exec->redirection_count);
+		// printf("%d << \n", exec->redirection_count);
 	}
 	if(exec->command[i + exec->pipe_count] && ft_strcmp(exec->command[i + exec->pipe_count], ">>") == 0 && exec->pipe_count > 2)
 	{
-		printf("aPPeIFFF\n");
+		// printf("aPPeIFFF\n");
 		exec->append_flag = 1;
 		exec->append_count = ft_count_till_other_token(exec, i + exec->pipe_count, ">>");
-		printf("%d << \n", exec->append_count);
+		// printf("%d << \n", exec->append_count);
 	}
 	if(exec->command[i + exec->pipe_count] && ft_strcmp(exec->command[i + exec->pipe_count], "<") == 0 && exec->pipe_count > 2)
 	{
-		printf("REDDDIIIIN\n");
+		// printf("REDDDIIIIN\n");
 		exec->input_flag = 1;
 		exec->input_count = ft_count_till_other_token(exec, i + exec->pipe_count, "<");
-		printf("%d << \n", exec->input_count);
+		// printf("%d << \n", exec->input_count);
 	}
 	ft_assign_tpipe(pipes, index + exec->pipe_count - 1);
 	 if(exec->pipe_flag)

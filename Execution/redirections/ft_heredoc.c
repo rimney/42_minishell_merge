@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 00:56:16 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 22:39:33 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void ft_heredoc(t_exec *exec, int command_location, int index)
     int pid;
 
     i = 1;
-    printf("%s <<<<<<< LAST\n", exec->command[ft_get_last_delimiter(exec, index - 1)]);
     int fd[2];
     pipe(fd);
     pid = fork();
@@ -115,7 +114,6 @@ void    ft_advanced_heredoc(t_exec *exec, int index, int command_location)
     int i;
 
     i = index;
-    printf("%s << index\n", exec->command[index]);
     // while (i < ft_get_last_delimiter(exec, index) && exec->heredoc_count > 2)
     // {
     //     if (ft_strcmp(exec->command[i], "<<") == 0)
@@ -135,13 +133,11 @@ int ft_execute_heredoc(t_exec *exec, int index)
 
     if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == PIPE)
     {
-        printf("FLAAAAGGG\n");
         ft_basic_heredoc(exec, index);
         return (1);
     }
     else if(ft_strcmp(exec->command[index], "<<") == 0 && exec->command[index + 2] == NULL)
     { 
-        printf("FLAAAAAAGGGGG\n");
         ft_heredoc(exec, command_location, index);
         return (1);
     }

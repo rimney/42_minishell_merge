@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/05 03:28:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 01:42:12 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,15 @@ int		ft_minishell_executor(t_exec *exec, t_pipe *tpipe, int i, int flag)
 	return (0);
 }
 
+int	ft_minishell_final_case(t_exec *exec, t_pipe *tpipe)
+{
+	int i;
+
+	i = 0;
+
+	return (0);
+}
+
 void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 {
 	int i;
@@ -87,8 +96,11 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe)
 	
 	exec->initial_flag = 0;
 	ft_count_till_last_token(exec, tpipe);
+
 	if(ft_execute_only_flag(exec, tpipe))
 		 	return ;
+	if(ft_strcmp(exec->command[0], "<") == 0)
+		printf("final case\n");
 	else
 	{
 		while(exec->command[i + 1] != NULL)
@@ -170,10 +182,6 @@ int	main(int argc, char **argv, char **envp)
 		ft_minishell(&exec, &pipes);
 		if (cmd)
 		{
-			// if (cmd->lst_token)
-			// 	print_lst(cmd->lst_token);
-			// if (check_if_redir_exist(line))
-			// 	print_redir(cmd->lst_redir);
 			if (cmd->lst_redir)
 			{
 				if (count_redir(cmd->lst_token) == 0)
@@ -184,6 +192,7 @@ int	main(int argc, char **argv, char **envp)
 			free_lst_token(cmd->lst_token);
 			free(cmd);
 		}
+		printf("%d << exit\n", exec.env.exit_value % 255);
 		ft_free(exec.command);
 		g_flag = 0;
 		free(line);

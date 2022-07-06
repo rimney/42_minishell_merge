@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:25 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 21:41:17 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 00:30:15 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index)
             index += 2;
         }
     }
-    wait(NULL);
+	waitpid(pid, &exec->env.exit_value, 0);
+	WIFEXITED(exec->env.exit_value);
     return (1);
 }
 
@@ -70,7 +71,7 @@ int    ft_redirect_input(t_exec *exec, int index, int command_location)
                 redirect(exec, command_location, index + 1);
            
     }
-
-    printf("%d << i\n", i);
+	waitpid(pid, &exec->env.exit_value, 0);
+	WIFEXITED(exec->env.exit_value);
     return (i - 1);
 }

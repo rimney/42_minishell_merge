@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:47:44 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 20:48:05 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/05 23:04:28 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void    ft_execute_command(t_exec *exec, int index)
     if(ft_is_a_builtin(command_parser[0]))
     {
         ft_execute_builtin(command_parser, exec, index);
-      //  ft_free(command_parser);
-        
+        ft_free(command_parser);
+        exit(0);
     }
     else
     {
@@ -57,6 +57,5 @@ void    ft_execute_command(t_exec *exec, int index)
             exit(127);
         }
     }
-
     ft_free(command_parser);
 }

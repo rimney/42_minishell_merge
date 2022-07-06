@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 20:10:05 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 01:39:18 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 	exec->command = malloc(sizeof(char *) * ft_count_tokens(token) + 1);
 	while(token)
 	{
+		if(token->type != WORD && head_flag == 0)
+		{
+			printf("DDD\n");
+			exec->command[i] = strdup(token->value);
+			i++;
+		}
 		if(token->type == WORD && head_flag == 0)
 		{
 			exec->command[i] = strdup(token->value);
