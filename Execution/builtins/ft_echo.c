@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 05:11:07 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 22:49:49 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int ft_echo_edge_case(char *str)
     return (1);
 }
 
-int    ft_echo(char **str, int index)
+int    ft_echo(char **str, int index, t_exec *exec)
 {
     int i;
     int flag;
@@ -52,9 +52,8 @@ int    ft_echo(char **str, int index)
             i++;
         if(!str[i])
             break;
-        if(str[i + 1] != NULL)
-            printf(" ");
         printf("%s", str[i]);
+        printf(" ");
         i++;
     }
     if(!flag)

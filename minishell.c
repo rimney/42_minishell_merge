@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/06 06:06:11 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 22:49:32 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int		ft_minishell_executor(t_exec *exec, t_pipe *tpipe, int i, int flag)
 }
 
 
+
 void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index)
 {
 	int i;
@@ -108,20 +109,25 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index)
 			i++;
 		}
 	}
-	i = 0;
 	wait(NULL);
 }
 
-void	ft_test(t_token *token, char **envp)
+void	ft_test(t_token *token, char **envp, int exit_value)
 {
 	char *temp;
 
 	while(token)
 	{
-		if(token->value[0] == '$')
+		if(token->value[0] == '$' && token->value[1] != '?' && token->value)
 		{
 			temp = token->value;
 			token->value = ft_expand(token->value, envp);
+			free(temp);
+		}
+		if(ft_strcmp(token->value, "$?") == 0 && token->value)
+		{
+			temp = token->value;
+			token->value = ft_itoa(exit_value % 255);
 			free(temp);
 		}
 		token = token->next;
@@ -166,7 +172,7 @@ int	main(int argc, char **argv, char **envp)
 			if (!cmd)
 				g_flag = 1;
 		}
-		ft_test(cmd->lst_token, exec.envp);
+		ft_test(cmd->lst_token, exec.envp, exec.env.exit_value);
 		ft_fill_exec(&exec, cmd->lst_token);
 		ft_initialize_exec(&exec, cmd->lst_token);
 		//ft_print_exec(&exec);

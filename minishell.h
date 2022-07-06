@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/06 06:03:04 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 22:47:18 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ int	ft_dup_and_redirect(int fd_in, t_exec *exec, t_pipe *tpipe, int index);
 int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
 // built_ins
 int	ft_mini_append(t_exec *exec, t_pipe *tpipe, int i);
-int    ft_echo(char **str, int index);
+int    ft_echo(char **str, int index, t_exec *exec);
 void    ft_export(t_exec *exec, char **argv, int index);
 
 int ft_find_variable_index(char *str, char c);
@@ -283,5 +283,6 @@ int	ft_mini_heredoc(t_exec *exec, t_pipe *tpipe, int i);
 int	ft_is_a_builtin(char *command);
 int		ft_execute_builtin(char **parser, t_exec *exec, int index);
 void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index);
-void	ft_minishell2(t_exec *exec, t_pipe *tpipe, int i);
+char	*ft_itoa(int nb);
+
 #endif
