@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 01:42:34 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 22:37:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 05:01:26 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int is_all_num(char *str)
     while (str[i])
     {
         if(!(str[i] >= '0' && str[i] <= '9'))
-            return (1);
+            return (0);
         i++;
     }
     return (1);
@@ -33,6 +33,8 @@ int    apply_exit(char **argv, t_exec *exec)
     count = 0;
     while (argv[count])
         count++;
+    if(count == 1)
+        exit(exec->env.exit_value % 255);
     if(count > 2)
     {
         printf("minishell: exit : too many arguments\n");
@@ -67,6 +69,7 @@ void    ft_exit(t_exec *exec, int index, char **argv)// leaks
     {
         printf("exit\n");
         exit(exec->env.exit_value);
+        printf("ss\n");
     }
 
 }

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 02:15:22 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 06:06:14 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 	}
 	if(ft_strncmp(parser[0], "exit", 4) == 0)
 	{
-		ft_exit(exec, 0, parser);
+		ft_exit(exec, index, parser);
 		return (1);
 	}
 	if(ft_strncmp(parser[0], "unset", 5) == 0)
@@ -78,10 +78,107 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 	return (0);
 }
 
+int		ft_execute_builtin_parent(t_exec *exec, int index)
+{
+	char **parser;
+
+	parser = ft_split(exec->command[0], ' ');
+	if(ft_strncmp(parser[0], "export", 6) == 0)
+	{
+		ft_export(exec, parser, index);
+		return (1);
+	}
+	if(ft_strncmp(parser[0], "env", 3) == 0)
+	{
+		ft_env(exec);
+		return (1);
+	}
+	if(ft_strncmp(parser[0], "exit", 4) == 0)
+	{
+		ft_exit(exec, index, parser);
+		return (1);
+	}
+	if(ft_strncmp(parser[0], "unset", 5) == 0)
+	{
+		ft_unset(parser[1], exec);
+		return (1);
+	}
+	if(ft_strcmp(parser[0], "pwd") == 0)
+	{
+		ft_pwd(exec->envp);
+		return (1);
+	}
+	if(ft_strncmp(parser[0], "cd", 2) == 0)
+	{
+		ft_cd(parser[1], exec);
+		return (1);
+	}
+	if(ft_strncmp(parser[0], "echo", 4) == 0)
+	{
+		ft_echo(parser, 0);
+		return (1);
+	}
+	ft_free(parser);
+	return (0);
+}
+
+int	ft_minishell_final_case_input(t_exec *exec, t_pipe *tpipe)
+{
+	int i;
+	int fd;
+	char **parser;
+	int pid;
+
+	parser = ft_split(exec->command[1], ' ');
+	if(ft_is_another_flag(exec, 0) == REDIRIN)
+	{
+		printf("%s <<<<<\n", parser[0]);
+		fd = open(parser[0], O_RDONLY);
+		if(fd == -1)
+		{
+			perror("minishell : ");
+			exec->env.exit_value = 1;
+			return (0);
+		}
+		pid = fork();
+		if (pid == 0)
+		{
+			dup2(fd, 0);
+			close(fd);
+			execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+		}
+	}
+	ft_free(parser);
+	return (1);
+}
+
+int	ft_minishell_final_case(t_exec *exec, t_pipe *tpipe)
+{
+	int i;
+
+	i = 0;
+	if(ft_strcmp(exec->command[0], "<") == 0)
+	{
+		ft_minishell_final_case_input(exec, tpipe);
+		return (1);
+	}
+	if(ft_strcmp(exec->command[0], ">") == 0)
+		printf("case output\n");
+	if(ft_strcmp(exec->command[0], "<<") == 0)
+		printf("case heredoc\n");
+	if(ft_strcmp(exec->command[0], ">>") == 0)
+		printf("case append\n");
+	return (0);
+}
+
+
 int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 {
 	int pid;
-	if(ft_mini)
+	if(exec->args <= 2 && ft_execute_builtin_parent(exec, 0))
+		return (1);
+	if(ft_minishell_final_case(exec, 0))
+		return (1);
 	if(only_command_flag(exec) > 0)
 	{
 		pid = fork();

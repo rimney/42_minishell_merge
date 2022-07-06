@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:21:39 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 02:28:03 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 05:05:06 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,5 @@
 
 void    ft_pwd(char **envp)
 {
-    int i;
-
-    i = 0;
-    while(envp[i])
-    {
-        if(ft_strncmp(envp[i], "PWD=", 4) == 0)
-        {
-            printf("%s\n", envp[i] + 4);
-            return ;
-        }
-        i++;
-    }
+    printf("%s\n", getcwd(NULL, 0));
 }

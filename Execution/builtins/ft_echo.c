@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/03 03:12:26 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 05:11:07 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,13 @@ int    ft_echo(char **str, int index)
     }
     while(str[i])
     {
-        printf("%s", str[i]);
+        if(str[i][0] == '$')
+            i++;
+        if(!str[i])
+            break;
         if(str[i + 1] != NULL)
             printf(" ");
+        printf("%s", str[i]);
         i++;
     }
     if(!flag)

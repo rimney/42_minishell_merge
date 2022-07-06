@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/05 20:43:49 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 06:03:04 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,5 +282,6 @@ int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index);
 int	ft_mini_heredoc(t_exec *exec, t_pipe *tpipe, int i);
 int	ft_is_a_builtin(char *command);
 int		ft_execute_builtin(char **parser, t_exec *exec, int index);
-
+void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index);
+void	ft_minishell2(t_exec *exec, t_pipe *tpipe, int i);
 #endif
