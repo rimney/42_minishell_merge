@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:06:02 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:20:40 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 23:25:32 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	count_words(char *s, int *count)
 	i++;
 	while (s[i])
 	{
-		if (s[i] == '\'' || s[i] == '\"')
+		if (s[i] == '\"')
 		{
 			(*count)++;
 			break ;
@@ -41,7 +41,7 @@ int	ft_words(char *s, char c)
 	{
 		if (tool[1] == 0 && s[i] != c)
 		{
-			if (s[i] == '\'' || s[i] == '\"')
+			if (s[i] == '\"')
 				count_words(s, &tool[0]);
 			else
 			{

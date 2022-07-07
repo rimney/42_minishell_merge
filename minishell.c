@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/06 22:49:32 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/06 23:21:41 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	ft_test(t_token *token, char **envp, int exit_value)
 
 	while(token)
 	{
-		if(token->value[0] == '$' && token->value[1] != '?' && token->value)
+		if(token->value[0] == '$' && token->value[1] != '?' && token->value && token->quote == '\"')
 		{
 			temp = token->value;
 			token->value = ft_expand(token->value, envp);
