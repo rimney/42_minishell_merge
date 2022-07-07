@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 01:39:18 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/07 23:12:05 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 {
 	int i = 0;
 	int head_flag = 0;
+	char	*temp;
 
-	//ft_initialize_exec(exec, token, tpipe);
 	exec->command = malloc(sizeof(char *) * ft_count_tokens(token) + 1);
 	while(token)
 	{
@@ -60,7 +60,11 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 			head_flag = 1;
 		}
 		else if(token->type == WORD && head_flag == 1)
+		{
+			temp = exec->command[i];
 			exec->command[i] = ft_simple_strjoin(exec->command[i], token->value);
+			free(temp);
+		}
 		else if(token->type != WORD && head_flag)
 		{
 			i++;
