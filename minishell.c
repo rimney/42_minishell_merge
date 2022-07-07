@@ -6,11 +6,13 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/06 23:21:41 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/07 04:25:14 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	check_leaks();
 
 t_tok_red	*init_cmd(char *line)
 {
