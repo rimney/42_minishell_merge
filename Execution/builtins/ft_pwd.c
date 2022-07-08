@@ -6,14 +6,18 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:21:39 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 05:05:06 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/08 01:19:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
 
-void    ft_pwd(char **envp)
+void    ft_pwd(void)
 {
-    printf("%s\n", getcwd(NULL, 0));
+    char *s;
+
+    s = getcwd(NULL, 0);
+    printf("%s\n", s);
+    free(s);
 }

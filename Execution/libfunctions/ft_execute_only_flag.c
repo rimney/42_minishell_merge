@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/08 01:09:22 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/08 01:18:12 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 	}
 	if(ft_strcmp(parser[0], "pwd") == 0)
 	{
-		ft_pwd(exec->envp);
+		ft_pwd();
 		return (1);
 	}
 	if(ft_strncmp(parser[0], "cd", 2) == 0)
@@ -103,10 +103,11 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 	}
 	if(ft_strcmp(parser[0], "pwd") == 0)
 	{
-		ft_pwd(exec->envp);
+		ft_pwd();
 		ft_free(parser);
 		return (1);
-	} 
+	}
+	if(ft_strcmp(parser[0], "cd") == 0)
 	{
 		ft_cd(parser[1], exec);
 			ft_free(parser);
