@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/07 23:14:00 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/08 01:09:22 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,25 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 	if(ft_strncmp(parser[0], "export", 6) == 0)
 	{
 		ft_export(exec, parser, index);
+			ft_free(parser);
 		return (1);
 	}
 	if(ft_strncmp(parser[0], "env", 3) == 0)
 	{
 		ft_env(exec);
+			ft_free(parser);
 		return (1);
 	}
 	if(ft_strncmp(parser[0], "exit", 4) == 0)
 	{
 		ft_exit(exec, index, parser);
+			ft_free(parser);
 		return (1);
 	}
 	if(ft_strncmp(parser[0], "unset", 5) == 0)
 	{
 		ft_unset(parser[1], exec);
+			ft_free(parser);
 		return (1);
 	}
 	if(ft_strcmp(parser[0], "pwd") == 0)
@@ -102,15 +106,16 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 		ft_pwd(exec->envp);
 		ft_free(parser);
 		return (1);
-	}
-	if(ft_strncmp(parser[0], "cd", 2) == 0)
+	} 
 	{
 		ft_cd(parser[1], exec);
+			ft_free(parser);
 		return (1);
 	}
 	if(ft_strncmp(parser[0], "echo", 4) == 0)
 	{
 		ft_echo(parser, 0, exec);
+			ft_free(parser);
 		return (1);
 	}
 	ft_free(parser);
