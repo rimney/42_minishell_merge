@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:48:12 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/03 17:29:07 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/08 03:34:07 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char	*get_new_line(char *str, char *tab, int i, int j)
 			tab[j] = ' ';
 		}
 		else if ((check_if_op(str[i], str[i + 1]) && (!ft_isspace(str[i - 1])
-					|| !ft_isspace(str[i + 1]))) || str[i] == '=')
+					|| !ft_isspace(str[i + 1]))))
 		{
 			tab[j++] = ' ';
 			tab[j++] = str[i];

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:13:55 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 02:33:22 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/08 05:28:17 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    ft_free(char **str)
     i = 0;
     while (str[i])
     {
-            free(str[i]);
+        free(str[i]);
         i++;
     }
         free(str);

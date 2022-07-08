@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 15:37:07 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/02 18:52:39 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/08 05:33:37 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void    ft_unset(char *str, t_exec *exec)
     j = 0;
     if(unset == ft_count_elements(exec->envp) - 1)
     {
+        temp = exec->envp;
         exec->envp = ft_env_is_last(exec->envp);
+        ft_free(temp);
         return ;
     }
     if(unset != ft_count_elements(exec->envp) - 1)
@@ -69,7 +71,7 @@ void    ft_unset(char *str, t_exec *exec)
             j++;
         }
         temp[ft_count_elements(exec->envp)] = NULL;
-    //    ft_free(exec->envp);
+        ft_free(exec->envp);
         exec->envp = temp;
     }
 }

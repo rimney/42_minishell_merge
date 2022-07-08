@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/07 04:25:14 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/08 05:02:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ int	main(int argc, char **argv, char **envp)
 	t_tok_red	*cmd;
 	t_exec		exec;
 	t_pipe		pipes;
+	int			env_flag;
 
 	(void)argv;
 	(void)argc;

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 22:37:41 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/08 05:31:43 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,14 @@ char    **ft_join_export(t_exec *exec, char *arg)
 
 void    ft_export_replace(t_exec *exec, char *arg, int index)
 {
-        char *temp;
+    char *temp;
     int flag;
     flag = 0;
     if(arg[ft_find_variable_index(arg, '=') + 1]  == '\"')
         flag = 1;
         temp = exec->envp[index];
         exec->envp[index] = ft_mystrdup(arg, flag);
-        free(temp);
+    free(temp);
 }
 
 void    ft_2d(char **str)
@@ -139,6 +139,26 @@ void    ft_2d(char **str)
         printf("%s ||RR<<\n", str[i++]);
 }
 
+
+void    ft_apply_export(t_exec *exec, char *new)
+{
+    int i;
+    char **temp;
+
+    i = 0;
+    temp = exec->envp;
+    exec->envp = malloc(sizeof(char *) * (ft_count_elements(temp) + 2));
+    while(temp[i])
+    {
+        exec->envp[i] = strdup(temp[i]);
+        i++;
+    }
+    exec->envp[i] = strdup(new);
+    exec->envp[i + 1] = NULL;
+    ft_free(temp);
+
+    
+}
 
 void    ft_export(t_exec *exec, char **argv, int index) ////leak
 {
@@ -169,24 +189,26 @@ void    ft_export(t_exec *exec, char **argv, int index) ////leak
         i++;
     }
     i = 0;
+    printf("%s <<--\n", argv[index + 1]);
     if(ft_find_variable_index(argv[index + 1], '='))
     {
-        printf("PASSED\n");
-        temp = malloc(sizeof(char *) * (ft_count_elements(exec->envp) + 1));
-        printf("%d\n",ft_count_elements(exec->envp));
+    //     printf("PASSED\n");
+    //     temp = malloc(sizeof(char *) * (ft_count_elements(exec->envp) + 1));
+    //     printf("%d\n",ft_count_elements(exec->envp));
 
-        while(i < ft_count_elements(exec->envp))
-        {
-            temp[i] = strdup(exec->envp[i]);
-            i++;
-        }
-    //     if(argv[index + 1][ft_find_variable_index(argv[index + 1], '=') + 1] == '\"')
-    //        flag = 1;
-        temp[i] = strdup(argv[index + 1]);
-        temp[i + 1] = NULL;
+    //     while(i < ft_count_elements(exec->envp))
+    //     {
+    //         temp[i] = strdup(exec->envp[i]);
+    //         i++;
+    //     }
+    // //     if(argv[index + 1][ft_find_variable_index(argv[index + 1], '=') + 1] == '\"')
+    // //        flag = 1;
+    //     temp[i] = strdup(argv[index + 1]);
+    //     temp[i + 1] = NULL;
 
-        ft_free(exec->envp);
-        exec->envp = temp; // leak
+    //     ft_free(exec->envp);
+    //     exec->envp = temp; // leak
      //   ft_2d(exec->envp);
+     ft_apply_export(exec, argv[index + 1]);
     }
 }
