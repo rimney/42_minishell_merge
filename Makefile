@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
+#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/08 05:26:57 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/10 22:15:01 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
 FLAGS =  -lreadline
-RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include -g
+RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include -g 
 SRCS = Parsing/parse.c\
 		Parsing/redir.c\
 		Parsing/parse_token.c\

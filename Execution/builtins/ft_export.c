@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/08 06:00:31 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/10 22:36:05 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,19 +130,13 @@ void    ft_export_replace(t_exec *exec, char *arg, int index)
     free(temp);
 }
 
-// int ft_check_export(char *str)
-// {
-//     int i;
-
-//     i = 0;
-//     while(str[i])
-//     {
-//         if(!(str[i] >= 'a' && str[i] <= 'z' || str[i] >= 'A' && str[i] <= 'Z' || str[i] == '_'))
-//             return (0);
-//         i++;
-//     }
-//     return (1);
-// }
+int    ft_check_export_string(char *str)
+{
+    if(!(str[0] >= 'a' && str[0] <= 'z' ||
+        str[0] >= 'A' && str[0] <= 'Z' || str[0] == '_'))
+        return (0);
+    return (1);
+}
 
 void    ft_apply_export(t_exec *exec, char *new)
 {
@@ -173,6 +167,13 @@ void    ft_export(t_exec *exec, char **argv, int index) ////leak
 
     i = 0;
     printf("PASS\n");
+    if(!ft_check_export_string(argv[index + 1]))
+    {
+        printf("minishell : \'%s\' : not a value identifier\n", argv[index + 1]);
+        exec->env.exit_value = 1;
+        return ;
+        
+    }
     if(!argv[index + 1]) // GGGGGGGG ?????? GGGGGGGGGGGGG ??????
     {
         ft_export_no_args_case(exec);

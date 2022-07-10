@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/08 01:40:27 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/10 22:06:39 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 	int head_flag = 0;
 	char	*temp;
 
-	exec->command = malloc(sizeof(char *) * ft_count_tokens(token) + 1);
+	exec->command = malloc(sizeof(char *) * (ft_count_tokens(token) + 1));
 	while(token)
 	{
 		if(token->type != WORD && head_flag == 0)
