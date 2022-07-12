@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/08 01:18:12 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/10 22:47:42 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 {
 	if(ft_strncmp(parser[0], "export", 6) == 0)
 	{
-		ft_export(exec, parser, index);
+		ft_export(exec, parser);
 		return (1);
 	}
 	if(ft_strncmp(parser[0], "env", 3) == 0)
@@ -79,7 +79,7 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 	parser = ft_split(exec->command[0], ' ');
 	if(ft_strncmp(parser[0], "export", 6) == 0)
 	{
-		ft_export(exec, parser, index);
+		ft_export(exec, parser);
 			ft_free(parser);
 		return (1);
 	}

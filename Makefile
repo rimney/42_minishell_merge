@@ -12,7 +12,6 @@
 
 NAME = minishell
 CC = gcc
-CONTROL = @stty -echoctl
 FLAGS =  -lreadline
 RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include -g 
 SRCS = Parsing/parse.c\
@@ -66,8 +65,7 @@ SRCS = Parsing/parse.c\
 
 
 $(NAME) : $(SRCS)
-		$(CONTROL)
-		$(CC) $(SRCS) $(RL_FLAGS) $(FLAGS) -o $(NAME) 
+			$(CC) $(SRCS) $(RL_FLAGS) $(FLAGS) -o $(NAME) 
 
 all : $(NAME)
 

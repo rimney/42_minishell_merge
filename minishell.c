@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/08 05:02:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/12 03:21:59 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,16 +120,16 @@ void	ft_test(t_token *token, char **envp, int exit_value)
 
 	while(token)
 	{
-		if(token->value[0] == '$' && token->value[1] != '?' && token->value && token->quote == '\"')
-		{
-			temp = token->value;
-			token->value = ft_expand(token->value, envp);
-			free(temp);
-		}
 		if(ft_strcmp(token->value, "$?") == 0 && token->value)
 		{
 			temp = token->value;
 			token->value = ft_itoa(exit_value % 255);
+			free(temp);
+		}
+		if(token->value[0] == '$' && token->value[1] != '?' && token->value)
+		{
+			temp = token->value;
+			token->value = ft_expand(token->value, envp);
 			free(temp);
 		}
 		token = token->next;

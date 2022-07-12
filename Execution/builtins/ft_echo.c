@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 22:49:49 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/12 03:19:17 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@ int ft_echo_edge_case(char *str)
     return (1);
 }
 
+void    ft_echo_single_quote(char *str)
+{
+    int i;
+
+    i = 1;
+    while(i < ft_strlen(str) - 1)
+        printf("%c", str[i++]);
+}
+
 int    ft_echo(char **str, int index, t_exec *exec)
 {
     int i;
@@ -50,6 +59,11 @@ int    ft_echo(char **str, int index, t_exec *exec)
     {
         if(str[i][0] == '$')
             i++;
+        if(str[i][0] == '\'')
+        {
+            ft_echo_single_quote(str[i]);
+            i++;
+        }
         if(!str[i])
             break;
         printf("%s", str[i]);
