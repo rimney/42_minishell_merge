@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:23 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 00:30:00 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/13 01:59:50 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,19 +133,14 @@ int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe)
         || ft_strcmp(exec->command[index + 1], ">>") == 0
             || ft_strcmp(exec->command[index + 1], "<") == 0) && exec->pipe_count > 2)
     {
-        printf("PASS\n");
         ft_redirect_after_pipe_flag(exec, tpipe, fd, index - 2, in_save);
         exec->redirecion_flag = 0;
         return (index);
     }
     if (index < tpipe->max)
     {
-      //  printf("%d << exec->pipe\n", exec->pipe_flag);
-        if(exec->pipe_flag && index == tpipe->max - 2)
-        {
-            printf("DDDDDDDD\n");
+        if((exec->pipe_flag) && index == tpipe->max - 2)
             ft_redirect_after_pipe_flag(exec, tpipe, fd, index , in_save);
-        }
         execute_pipe(exec, index + 2, in_save , tpipe);
     }
 	waitpid(pid, &exec->env.exit_value, 0);

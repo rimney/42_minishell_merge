@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/11 22:30:06 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/12 03:59:04 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,8 @@ void    ft_export(t_exec *exec, char **argv) ////leak
     }
     if(!ft_find_variable_index(argv[index], '='))
     {
-        printf("eeee\n");
         index++;
+        return ;
     }
     while(exec->envp[i])
     {
