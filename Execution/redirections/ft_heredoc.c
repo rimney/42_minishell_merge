@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/13 02:13:54 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/15 04:41:23 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
     char *delimiter;
     char *line;
     int out;
+    int in;
+
+    in = -1;
     
     out  = -1;
     delimiter = strdup(exec->command[index + 1]);
@@ -41,26 +44,42 @@ int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
     {
         exec->redirection_count = ft_count_till_other_token(exec, index + 2, ">");
          out = open(exec->command[index + exec->redirection_count + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
-       //  exec->heredoc_count;
     }
-        
+    if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == APPEND)
+    {
+        exec->append_count = ft_count_till_other_token(exec, index + 2, ">>");
+         out = open(exec->command[index + exec->append_count + 1], O_APPEND | O_APPEND | O_RDWR, 0644);
+    }
+    if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == REDIRIN)
+    {
+        exec->input_count = ft_count_till_other_token(exec, index + 2, "<");
+        in = open(exec->command[index + exec->input_count + 1], O_RDONLY);
+    }
     while((line = readline("heredoc > ")))
     {
-        if (ft_strcmp(line, delimiter) != 0)
+        if (ft_strcmp(line, delimiter) != 0 && in != -1)
         {
             write(fd[1],line,strlen(line));
             write(fd[1], "\n", 1);
         }
         if (ft_strcmp(line, delimiter) == 0)
         {
+            if(in != -1)
+            {
+                dup2(in, 0);
+                close(in);
+            }
             if(out != -1)
             {
                 dup2(out, 1);
                 close(out);
             }
             close(fd[1]);
-            dup2(fd[0], 0);
-           close(fd[0]);
+            if(in == -1)
+            {
+                dup2(fd[0], 0);
+                close(fd[0]);
+            }
             ft_execute_command(exec, command_loaction);
             return (1);
         }
@@ -87,7 +106,6 @@ void ft_heredoc(t_exec *exec, int command_location, int index)
         close(fd[1]);
         waitpid(pid, 0, 0);
     }
- 
 }
 
 int ft_basic_heredoc(t_exec *exec, int index)
