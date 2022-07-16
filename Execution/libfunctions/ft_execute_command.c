@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:47:44 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/07 03:55:49 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/15 19:27:22 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,30 @@ char    *ft_filter_command_single_quote(char *temp)
     return (str);
 }
 
+void    ft_filter_command_single_quote_2d_array(char **argv)
+{
+    int i;
+    char    *temp;
+    i = 0;
+    while(argv[i])
+    {
+        if(argv[i][0] == '\'')
+        {
+            temp = argv[i];
+            argv[i] = ft_filter_command_single_quote(argv[i]);
+            free(temp);   
+        }
+        i++;
+    }
+}
+
 void    ft_execute_command(t_exec *exec, int index)
 {
     char **command_parser;
     char *temp;
 
     command_parser = ft_split(exec->command[index], ' ');
-    if(command_parser[0][0] == '\'')
-    {
-    temp = command_parser[0];
-    command_parser[0] = ft_filter_command_single_quote(command_parser[0]);
-    free(temp);
-    }
+    ft_filter_command_single_quote_2d_array(command_parser);
     if(ft_is_a_builtin(command_parser[0]))
     {
         ft_execute_builtin(command_parser, exec, index);

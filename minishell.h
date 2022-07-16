@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/10 22:48:03 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/16 18:12:51 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,5 +284,5 @@ int	ft_is_a_builtin(char *command);
 int		ft_execute_builtin(char **parser, t_exec *exec, int index);
 void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index);
 char	*ft_itoa(int nb);
-
+int		ft_find_next_flag(t_exec *exec, int *index, int *fd);
 #endif

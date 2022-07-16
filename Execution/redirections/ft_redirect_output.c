@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 00:30:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/16 18:15:27 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,30 @@ void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int lo
 	WIFEXITED(exec->env.exit_value);
 }
 
+
+
 int	ft_redirect(int index, t_exec *exec, int command_location)
 {
 	int fd;
 	int pid;
+	int s_flag;
+
+	s_flag = 0;
 
 	while(index < exec->redirection_count)
 	{
 		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
-		if(index + 1 == exec->redirection_count)
-		{	
+		if(exec->command[index + 2] && ft_find_next_flag(exec, &index, &fd))
+		{
+			s_flag = 1;
+			
+		}
+		if(index + 1 == exec->redirection_count || s_flag)
+		{
+			printf("fff\n");
 			pid = fork();
 			if(pid == 0)
 			{
-				fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 				dup2(fd, 1);
 				close(fd);
 				ft_execute_command(exec, command_location);
