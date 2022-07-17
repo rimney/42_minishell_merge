@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
+#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/10 22:15:01 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/17 00:24:18 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS = Parsing/parse.c\
 		execution/redirections/ft_mini_redirect_input.c \
 		execution/redirections/ft_mini_heredoc.c \
 		execution/libfunctions/ft_itoa.c \
+		execution/flags/ft_get_next_flag.c \
 
 
 $(NAME) : $(SRCS)

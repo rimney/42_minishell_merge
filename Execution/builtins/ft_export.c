@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/12 03:59:04 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/17 00:33:09 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,10 @@ void    ft_export_replace(t_exec *exec, char *arg, int index)
     free(temp);
 }
 
-int    ft_check_export_string(char *str)
+int ft_check_export_string(char *str)
 {
-    if(!(str[0] >= 'a' && str[0] <= 'z' ||
-        str[0] >= 'A' && str[0] <= 'Z' || str[0] == '_'))
+    if(!(str[0] >= 'a' && str[0] <= 'z') ||
+        (str[0] >= 'A' && str[0] <= 'Z') || str[0] == '_')
         return (0);
     return (1);
 }
@@ -148,7 +148,6 @@ void    ft_apply_export(t_exec *exec, char **new)
     i = 0;
     temp = exec->envp;
     flag = 0;
-    printf("%d <<||<\n", ft_count_elements(new));
     exec->envp = malloc(sizeof(char *) * (ft_count_elements(temp) + ft_count_elements(new) + 1));
     while(temp[i])
     {
@@ -164,7 +163,6 @@ void    ft_apply_export(t_exec *exec, char **new)
         j++;
         i++;
     }
-   // printf("%s <<here\n", new[i]);
     exec->envp[i] = NULL;
     ft_free(temp);
 }

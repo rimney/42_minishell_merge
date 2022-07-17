@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/16 22:52:10 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/17 00:43:08 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,17 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 			pid = fork();
 			if(pid == 0)
 			{
-				dup2(fd, 1);
-				close(fd);
+				if(exec->input_flag)
+				{
+					dup2(fd, 0);
+					close(fd);
+					exec->input_flag = 0;
+				}
+				else
+				{
+					dup2(fd, 1);
+					close(fd);
+				}
 				ft_execute_command(exec, command_location);
 			}
 		}
