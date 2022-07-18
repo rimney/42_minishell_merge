@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/18 04:22:06 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 15:09:35 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 					dup2(in, 0);
 					close(in);
 					exec->input_flag = 0;
+					exec->heredoc_flag = 0;
 				}
 				dup2(fd, 1);
 				close(fd);
