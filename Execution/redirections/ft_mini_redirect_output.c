@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_redirect_output.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:31:43 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/05 00:30:13 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 04:28:45 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i)
 	{
 		if(ft_strcmp(exec->command[i], ">") == 0 && i == 1)
 		{
+			printf("asdf\n");
 			exec->redirection_count = ft_count_till_other_token(exec, i, ">");
 			ft_redirect(i, exec, i - 1);
 			i += exec->redirection_count;

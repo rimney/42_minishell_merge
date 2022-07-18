@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_append.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:20 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 00:29:18 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 04:22:31 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,15 +61,27 @@ int	ft_append(int index, t_exec *exec, int command_location)
 {
 	int pid;
 	int fd;
+	int s_flag;
+	int in;
 
+	s_flag = 0;
 	while(index < exec->append_count)
 	{
+		printf("%d <<<<<\n", exec->input_flag);
 		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
-		if(index + 1 == exec->append_count)
+		if(exec->command[index + 2] && ft_find_next_flag(exec, &index, &fd, &in))
+			s_flag = 1;
+		if((index + 1 == exec->append_count || s_flag))
 		{
 			pid = fork();
 			if(pid == 0)
 			{
+				if(exec->input_flag)
+				{
+					dup2(in, 0);
+					close(in);
+					exec->input_flag = 0;
+				}
 				dup2(fd, 1);
 				close(fd);
 				ft_execute_command(exec, command_location);

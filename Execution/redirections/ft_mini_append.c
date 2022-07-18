@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_append.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 21:22:41 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/04 21:24:14 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 04:32:07 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	ft_mini_append(t_exec *exec, t_pipe *tpipe, int i)
 	{
 		if(ft_strcmp(exec->command[i], ">>") == 0 && i == 1)
 		{
-			exec->append_count = ft_count_till_other_token(exec, i, ">");
+			printf("KKK\n");
+			exec->append_count = ft_count_till_other_token(exec, i, ">>");
 			ft_append(i, exec, i - 1);
 			i += exec->append_count;
 		}

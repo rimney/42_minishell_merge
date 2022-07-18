@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/17 23:50:30 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 04:22:06 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 			pid = fork();
 			if(pid == 0)
 			{
-				if(exec->input_flag)
+				if(exec->input_flag || exec->heredoc_flag)
 				{
 					dup2(in, 0);
 					close(in);

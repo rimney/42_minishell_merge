@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/17 17:37:40 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 04:27:37 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int		ft_minishell_executor(t_exec *exec, t_pipe *tpipe, int i, int flag)
 	exec->initial_flag = 1;
 	if(flag == REDIROUT)
 	{
+		printf("EEEE\n");
 		ft_mini_redirect_output(exec, tpipe, i);
 		return (i + exec->redirection_count);
 	}
@@ -97,9 +98,15 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index)
 		while(exec->command[i + 1] != NULL)
 		{
 			if(ft_strcmp(exec->command[i], ">") == 0 && exec->redirecion_flag == 0 && exec->initial_flag == 0)
+			{
+				printf("ass\n");
 				i = ft_minishell_executor(exec, tpipe, i, REDIROUT);
+			}
 			if(ft_strcmp(exec->command[i], ">>") == 0 && exec->initial_flag == 0)
+			{
+				printf("PASS\n");
 				i = ft_minishell_executor(exec, tpipe, i, APPEND);
+			}
 			if(ft_strcmp(exec->command[i], "<<") == 0 && exec->initial_flag == 0)
 				i = ft_minishell_executor(exec, tpipe, i, HEREDOC);
 			if(ft_strcmp(exec->command[i], "<") == 0 && exec->initial_flag == 0)
