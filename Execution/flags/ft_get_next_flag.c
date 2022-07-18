@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_flag.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/18 02:20:43 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 03:16:29 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 				*index += 2;
 				return (1);
 			}
-			if(ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2] && ft_is_another_flag(exec, *index + 2) == HEREDOC)
+			if(ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2])
 			{
 				ft_basic_heredoc(exec, *index);
 				*index += 2;
