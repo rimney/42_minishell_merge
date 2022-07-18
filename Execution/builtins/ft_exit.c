@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 01:42:34 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 05:01:26 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/17 17:38:48 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ int    apply_exit(char **argv, t_exec *exec)
     }
     return (0);
 }
-void    ft_exit(t_exec *exec, int index, char **argv)// leaks
-{
 
+void    ft_exit(t_exec *exec, int index, char **argv)
+{
     if(apply_exit(argv, exec))
-    {
+     {
         printf("exit\n");
         exit(exec->env.exit_value);
         printf("ss\n");

@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup_and_redirect.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:35:29 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 00:29:35 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/17 17:34:59 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-
-
 
 void	ft_do_input(t_exec *exec, int fd_in, int index)
 {

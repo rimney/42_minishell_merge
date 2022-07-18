@@ -6,13 +6,11 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/13 02:03:28 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/17 17:37:40 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	check_leaks();
 
 t_tok_red	*init_cmd(char *line)
 {
@@ -30,8 +28,8 @@ int	ft_mini_pipe_a(t_exec *exec, t_pipe *tpipe, int i)
 	int fd;
 	fd = -1;
 
-	exec->initial_flag = 1;
-	while(exec->command[i + 1] != NULL)
+exec->initial_flag = 1;
+while(exec->command[i + 1] != NULL)
 	{
 		if(ft_strcmp(exec->command[i], "|") == 0 && i == 1)
 		{

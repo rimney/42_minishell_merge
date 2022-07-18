@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/16 04:56:05 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/17 17:13:23 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
     {
         exec->redirection_count = ft_count_till_other_token(exec, index + 2, ">");
          out = open(exec->command[index + exec->redirection_count + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
-       //  exec->heredoc_count;
     }
         
     while((line = readline("heredoc > ")))

@@ -3,16 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_flag.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/17 16:12:06 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 02:20:43 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_find_next_flag(t_exec *exec, int *index, int *fd)
+void	ft_heredoc_middle(int *in, char *delimiter)
+{
+	int fd[2];
+	int flag;
+	char *line;
+
+	flag = 1;
+	pipe(fd);
+	while(flag)
+	{
+		line = readline("heredoc middle");
+		if(ft_strcmp(line, delimiter) != 0)
+		{
+			write(fd[1], line, ft_strlen(line));
+			write(fd[1], "\n", 1);
+		}
+		else
+		{
+			*in = fd[0];
+			close(fd[1]);
+			flag = 0;
+		}
+		free(line);
+	}
+}
+
+int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 {
 	*index += 2;
 	if(exec->command[*index])
@@ -42,14 +68,37 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd)
 				return (1);
 			}
 			if(ft_is_another_flag(exec, *index) == REDIRIN && exec->command[*index + 2])
+			{
+				*in = open(exec->command[*index + 1], O_RDONLY);
+				if(*in == -1)
+					perror("minishell");
+				exec->input_flag = 1;
 				*index += 2;
+			}
 			if(ft_is_another_flag(exec, *index) == REDIRIN && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) != PIPE))
 			{
-				*fd = open(exec->command[*index + 1], O_RDONLY);
+				*in = open(exec->command[*index + 1], O_RDONLY);
+				if(*in == -1)
+				 perror("minishell");
 				exec->input_flag = 1;
 				*index += 2;
 				return (1);
 			}
+			if(ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2] && ft_is_another_flag(exec, *index + 2) == HEREDOC)
+			{
+				ft_basic_heredoc(exec, *index);
+				*index += 2;
+			}
+			if(ft_is_another_flag(exec, *index) == HEREDOC && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
+			{
+				ft_heredoc_middle(in, exec->command[*index + 1]);
+				exec->heredoc_flag = 1;
+				*index += 2;
+				return (1);
+			}
+			else
+				return (0);
+			*index += 1;
 		}
 	}
 		return (0);
