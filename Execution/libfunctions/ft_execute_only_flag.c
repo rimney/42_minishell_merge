@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/18 23:56:03 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 04:23:22 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 	else if(only_append_flag(exec) > 0)
 		ft_append(1, exec, 0);
 	else if(only_input_flag(exec) > 0)
-		ft_redirect_input(exec, 0, 0);
+		ft_redirect_input(0, exec, 0);
 	else
 		return (0);
 
