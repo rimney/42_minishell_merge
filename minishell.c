@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/18 04:27:37 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 21:35:53 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,11 +148,13 @@ int	main(int argc, char **argv, char **envp)
 	t_tok_red	*cmd;
 	t_exec		exec;
 	t_pipe		pipes;
-	int			env_flag;
+	int			err_flag;
 
+	err_flag = 0;
 	(void)argv;
 	(void)argc;
 	line  = NULL;
+	
 	ft_get_env(&exec, envp);
 	while (g_flag == 0)
 	{
@@ -167,7 +169,10 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		if (!check_redir_correctness(line))
+		{
+			err_flag = 1;
 			handle_error("error in input\n");
+		}
 		add_history(line);
 		cmd = 0;
 		if (g_flag == 0)
@@ -180,11 +185,14 @@ int	main(int argc, char **argv, char **envp)
 			if (!cmd)
 				g_flag = 1;
 		}
+		if(!err_flag)
+		{
 		ft_test(cmd->lst_token, exec.envp, exec.env.exit_value);
 		ft_fill_exec(&exec, cmd->lst_token);
 		ft_initialize_exec(&exec, cmd->lst_token);
 		//ft_print_exec(&exec);
 		ft_minishell(&exec, &pipes, 0);
+		}
 		if (cmd)
 		{
 			if (cmd->lst_redir)
@@ -197,10 +205,12 @@ int	main(int argc, char **argv, char **envp)
 			free_lst_token(cmd->lst_token);
 			free(cmd);
 		}
-		printf("%d << exit\n", exec.env.exit_value % 255);
+	//	printf("%d << exit\n", exec.env.exit_value % 255);
+	if(!err_flag)
 		ft_free(exec.command);
 		g_flag = 0;
 		free(line);
+		err_flag = 0;
 	}
 	exit (0);
 }

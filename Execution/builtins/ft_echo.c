@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/12 03:19:17 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 21:26:30 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void    ft_echo_single_quote(char *str)
         printf("%c", str[i++]);
 }
 
+
 int    ft_echo(char **str, int index, t_exec *exec)
 {
     int i;
@@ -59,7 +60,7 @@ int    ft_echo(char **str, int index, t_exec *exec)
     {
         if(str[i][0] == '$')
             i++;
-        if(str[i][0] == '\'')
+        else if(str[i][0] == '\'')
         {
             ft_echo_single_quote(str[i]);
             i++;
@@ -67,7 +68,8 @@ int    ft_echo(char **str, int index, t_exec *exec)
         if(!str[i])
             break;
         printf("%s", str[i]);
-        printf(" ");
+        if(str[i + 1])
+            printf(" ");
         i++;
     }
     if(!flag)

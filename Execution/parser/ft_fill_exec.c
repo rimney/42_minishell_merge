@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/10 22:06:39 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 23:55:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_assign_tpipe(t_pipe *pipe, int argc)
 
 void	ft_initialize_exec(t_exec *exec, t_token *token)
 {
-	exec->args = ft_count_tokens(token);
+	exec->args = ft_count_elements(exec->command);
 	exec->append_count = 0;
 	exec->heredoc_count = 0;
 	exec->input_count = 0;

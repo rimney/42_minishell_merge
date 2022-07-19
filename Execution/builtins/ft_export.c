@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+ /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/17 00:33:09 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 23:32:35 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,25 +75,27 @@ char    *ft_mystrdup(char *s1,  int flag)
 
 void    ft_export_no_args_case(t_exec *exec)
 {
-    char **temp;
     int i;
+    int j;
 
     i = 0;
-    temp = malloc(sizeof(char *) * ft_count_elements(exec->envp) + 1);
+    ft_sort_string_tab(exec->envp);
     while(exec->envp[i])
     {
-        temp[i] = strdup(exec->envp[i]);
+        j = 0;
+        printf("declare -x ");
+        while(exec->envp[i][j])
+        {
+            if(exec->envp[i][j - 1] == '=')
+                printf("\"");
+            printf("%c", exec->envp[i][j]);
+            j++;
+        }
+        if(ft_contain(exec->envp[i], '='))
+            printf("\"");
+        printf("\n");
         i++;
     }
-    temp[i] = 0;
-    ft_sort_string_tab(temp);
-    i = 0;
-    while(temp[i])
-    {
-        printf("declare -x %s\n", temp[i]);
-        i++;
-    }
-    ft_free(temp);
 }
 
 char    **ft_join_export(t_exec *exec, char *arg)
@@ -125,8 +127,20 @@ void    ft_export_replace(t_exec *exec, char *arg, int index)
     flag = 0;
     if(arg[ft_find_variable_index(arg, '=') + 1]  == '\"')
         flag = 1;
-        temp = exec->envp[index];
-        exec->envp[index] = ft_mystrdup(arg, flag);
+    temp = exec->envp[index];
+    exec->envp[index] = ft_mystrdup(arg, flag);
+    free(temp);
+}
+
+void    ft_export_replace_export(t_exec *exec, char *arg, int index)
+{
+    char *temp;
+    int flag;
+    flag = 0;
+    if(arg[ft_find_variable_index(arg, '=') + 1]  == '\"')
+        flag = 1;
+    temp = exec->export[index];
+    exec->export[index] = ft_mystrdup(arg, flag);
     free(temp);
 }
 
@@ -138,7 +152,7 @@ int ft_check_export_string(char *str)
     return (1);
 }
 
-void    ft_apply_export(t_exec *exec, char **new)
+void    ft_apply_export(t_exec *exec, char *new)
 {
     int i;
     int j;
@@ -146,39 +160,33 @@ void    ft_apply_export(t_exec *exec, char **new)
     int flag;
 
     i = 0;
+    j = 0;
     temp = exec->envp;
     flag = 0;
-    exec->envp = malloc(sizeof(char *) * (ft_count_elements(temp) + ft_count_elements(new) + 1));
+    exec->envp = malloc(sizeof(char *) * (ft_count_elements(temp) + 2));
     while(temp[i])
     {
         exec->envp[i] = strdup(temp[i]);
         i++;
     }
-    j = 0;
-    while(j < ft_count_elements(new))
-    {
-        if(new[j][ft_find_variable_index(new[j], '=') + 1]  == '\"')
-        flag = 1;
-        exec->envp[i] = ft_mystrdup(new[j], flag);
-        j++;
-        i++;
-    }
-    exec->envp[i] = NULL;
+    exec->envp[i] = strdup(new);
+    printf("%s <<<<<<<<< HEEEEERE\n", exec->envp[i]);
+    exec->envp[i + 1] = NULL;
     ft_free(temp);
 }
 
-void    ft_export(t_exec *exec, char **argv) ////leak
+
+void    ft_export(t_exec *exec, char **argv)
 {
     int i;
     int flag;
     int index;
 
     index = 1;
-    // should count the len of
   
-    printf("%s << argv[index]\n", argv[index]);
+  //  printf("%s << argv[index]\n", argv[index]);
     i = 0;
-    if(!argv[index]) // GGGGGGGG ?????? GGGGGGGGGGGGG ??????
+    if(!argv[index]) 
     {
         ft_export_no_args_case(exec);
         return ;
@@ -188,14 +196,9 @@ void    ft_export(t_exec *exec, char **argv) ////leak
         printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
         exec->env.exit_value = 1;
     }
-    if(!ft_find_variable_index(argv[index], '='))
-    {
-        index++;
-        return ;
-    }
     while(exec->envp[i])
     {
-        if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(argv[index], '=')) == 0)
+        if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
         {
             ft_export_replace(exec, argv[index], i);
             printf("%s <- new\n", exec->envp[i]);
@@ -203,7 +206,12 @@ void    ft_export(t_exec *exec, char **argv) ////leak
         }
         i++;
     }
-    if(ft_find_variable_index(argv[index], '='))
-        ft_apply_export(exec, argv + 1);
+    // if(ft_find_variable_index(argv[index], '=') && ft_contain(argv[index], '='))
+   // printf("%s <<\n", *(argv + 2));
+   while(argv[index])
+   {
+        ft_apply_export(exec, argv[index]);
+        index++;
+   }
 }
 

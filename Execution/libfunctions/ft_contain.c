@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_contain.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/01 21:15:41 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/18 23:36:31 by rimney           ###   ########.fr       */
+/*   Created: 2022/07/18 20:32:18 by rimney            #+#    #+#             */
+/*   Updated: 2022/07/18 20:32:34 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void    ft_env(t_exec *exec)
+int ft_contain(char *str, char c)
 {
     int i;
 
     i = 0;
-    while (exec->envp[i])
+    while (str[i])
     {
-        if(ft_contain(exec->envp[i], '='))
-            printf("%s\n", exec->envp[i]);
-        i++;
+        if(str[i] == c)
+            return (1);
+        i++; 
     }
+    return (0);
 }

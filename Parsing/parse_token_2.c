@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 18:41:39 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/07 00:04:35 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 22:24:26 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	handle_words(char *s, char c, t_token *first)
 	{
 		free(first);
 		handle_error("missing quote\n");
-		return (-99);
+		//return (-99);
 	}
 	return (nbwords);
 }

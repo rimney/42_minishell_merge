@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 21:07:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/01 21:07:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/18 17:35:29 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ int ft_find_variable_index(char *str, char c)
             return (i);
         i++;
     }
-    return (0);
+    return (i);
 }
