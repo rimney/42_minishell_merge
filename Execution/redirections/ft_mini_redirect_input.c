@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_redirect_input.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 00:29:57 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 16:13:40 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 04:24:16 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@ int	ft_mini_redirect_input(t_exec *exec, t_pipe *tpipe, int i)
 		if(ft_strcmp(exec->command[i], "<") == 0 && i <= 1)
 		{
 			exec->input_count = ft_count_till_other_token(exec, i, "<");
-			ft_redirect_input(i, exec, 0, tpipe);
+			ft_redirect_input(i, exec, 0);
 			i += exec->input_count;
 		}
-		// if(exec->command[i] && ft_is_another_flag(exec, i) == PIPE)
-		// {
-		// 	exec->pipe_count = ft_count_till_other_token(exec, i, "|");;
-		// 	if((exec->command[i + 2] && (ft_is_another_flag(exec, i + 2) == PIPE
-		// 		|| ft_is_another_flag(exec, i + 2) == APPEND
-		// 		|| ft_is_another_flag(exec, i + 2) == REDIROUT || ft_is_another_flag(exec, i + 2) == REDIRIN
-		// 		|| ft_is_another_flag(exec, i + 2) == HEREDOC))
-		// 		|| exec->command[i + 2] == NULL)
-		// 	{
-		// 		exec->pipe_count = ft_count_till_other_token(exec, i, "|");
-		// 		fd = open(exec->command[i - 1], O_RDWR);
-		// 		i = ft_apply_pipe_middle(exec, tpipe, i, fd) - 1;
-		// 	}
-		// }
+		if(exec->command[i] && ft_is_another_flag(exec, i) == PIPE)
+		{
+			exec->pipe_count = ft_count_till_other_token(exec, i, "|");;
+			if((exec->command[i + 2] && (ft_is_another_flag(exec, i + 2) == PIPE
+				|| ft_is_another_flag(exec, i + 2) == APPEND
+				|| ft_is_another_flag(exec, i + 2) == REDIROUT || ft_is_another_flag(exec, i + 2) == REDIRIN
+				|| ft_is_another_flag(exec, i + 2) == HEREDOC))
+				|| exec->command[i + 2] == NULL)
+			{
+				exec->pipe_count = ft_count_till_other_token(exec, i, "|");
+				fd = open(exec->command[i - 1], O_RDWR);
+				i = ft_apply_pipe_middle(exec, tpipe, i, fd) - 1;
+			}
+		}
 		i++;
 	}
 	wait(NULL);

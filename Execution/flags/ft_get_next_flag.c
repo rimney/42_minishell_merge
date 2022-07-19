@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/18 16:34:12 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 17:59:52 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 		while(exec->command[*index + 2] || ft_is_another_flag(exec, *index) != PIPE)
 		{
 			if(ft_is_another_flag(exec, *index) == APPEND && exec->command[*index + 2])
-			{
 				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
-				*index += 2;
-			}
 			if(ft_is_another_flag(exec, *index) == APPEND && !exec->command[*index + 2])
 			{
 				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
@@ -61,19 +58,32 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 			{
 				*in = open(exec->command[*index + 1], O_RDONLY);
 				if(*in == -1)
+				{
 					perror("minishell");
+					return (0);
+				}
 				exec->input_flag = 1;
-				*index += 2;
 			}
 			if(ft_is_another_flag(exec, *index) == REDIRIN && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
 			{
 				*in = open(exec->command[*index + 1], O_RDONLY);
 				if(*in == -1)
-				 perror("minishell");
+				{
+					perror("minishell");
+					return (0);
+				}
 				exec->input_flag = 1;
 				*index += 2;
 				return (1);
 			}
+			if(ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2] && ft_is_another_flag(exec, *index + 2) == HEREDOC)
+				ft_basic_heredoc(exec, *index); 
+			if(ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2] && ft_is_another_flag(exec, *index + 2) != HEREDOC)
+			{
+				ft_heredoc_middle(in, exec->command[*index + 1]);
+				exec->heredoc_flag = 1;
+			}
+
 			if(ft_is_another_flag(exec, *index) == HEREDOC && !exec->command[*index + 2])
 			{
 				ft_heredoc_middle(in, exec->command[*index + 1]);
@@ -81,30 +91,16 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 				*index += 2;
 				return (1);
 			}
-			if(ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2] && (ft_is_another_flag(exec, *index + 2) == REDIROUT || ft_is_another_flag(exec, *index + 2) == APPEND))
-			{
-				ft_heredoc_middle(in, exec->command[*index + 1]);
-				exec->heredoc_flag = 1;
-				*index += 2;
-				//return (1);
-			}
 			if(ft_is_another_flag(exec, *index) == REDIROUT && exec->command[*index + 2])
-			{
 				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
-				*index += 2;
-			}
 			if(ft_is_another_flag(exec, *index) == REDIROUT && !exec->command[*index + 2])
 			{
 				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 				*index += 2;
 				return (1);
 			}
-			else
-			{
-				return (1);
-			}
 			*index += 2;
 		}
 	}
-		return (0);
+	return (1);
 }

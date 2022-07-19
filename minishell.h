@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/19 16:10:14 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 04:14:42 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,7 @@ int	ft_redirect(int index, t_exec *exec, int command_location);
 void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location);
 void	ft_single_redirect(char *argv);
 //input
-int	ft_redirect_input(int index, t_exec *exec, int command_location, t_pipe *tpipe);
+int	ft_redirect_input(int index, t_exec *exec, int command_location);
 //void    redirect(t_exec *exec, int command_location, int index);
 //pipe
 int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe);
