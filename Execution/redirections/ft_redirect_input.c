@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:25 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 21:17:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 23:06:07 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,9 @@ int	ft_redirect_input(int index, t_exec *exec, int command_location)
 
 	s_flag = 0;
     fd = -1;
-    if(ft_is_another_flag(exec, index - 1) == REDIRIN)
+    if(ft_is_another_flag(exec, 0) == REDIRIN)
         return (ft_minishell_input_final_case(exec, index));
-    if(exec->command[index] && index > 0)
+    else if(exec->command[index] && ft_is_another_flag(exec, 1) == REDIRIN)
     {
             printf("DDD\n");
         while(index < exec->input_count)
@@ -153,3 +153,4 @@ int	ft_redirect_input(int index, t_exec *exec, int command_location)
 	WIFEXITED(exec->env.exit_value);
 	return (index);
 }
+// }

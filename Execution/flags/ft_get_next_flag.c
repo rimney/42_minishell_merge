@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 23:32:34 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 23:01:44 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 	*index += 2;
 	if(exec->command[*index])
 	{
-		if(ft_is_another_flag(exec, *index) == PIPE)
-			return (1);
+		// if(ft_is_another_flag(exec, *index) == PIPE)
+		// 	return (1);
 		while(exec->command[*index + 2] || ft_is_another_flag(exec, *index) != PIPE)
 		{
 			if(ft_is_another_flag(exec, *index) == APPEND && exec->command[*index + 2] && ft_is_another_flag(exec, *index) != PIPE)
