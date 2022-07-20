@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 02:16:22 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 17:41:43 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 		ft_free(parser);
 		
 	}
-		if(index == 1 && ft_is_another_flag(exec, index) == REDIROUT)
+	else
 	{
 		index = 1;
-	}
+		command_location = 0;
 	while(index < exec->redirection_count)
 	{
 		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
@@ -113,5 +113,6 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 	waitpid(pid, &exec->env.exit_value, 0);
 	WIFEXITED(exec->env.exit_value);
 	exec->in = fd;
+	}
 	return (index);
 }

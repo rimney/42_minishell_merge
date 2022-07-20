@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 16:59:31 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 17:31:30 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,9 +229,8 @@ int ft_execute_heredoc(t_exec *exec, int index)
     }
     else
     {
-        command_location = 0;
         index = 1;
-    }
+        command_location = 0;
     pid = fork();
     if(pid == 0)
     {
@@ -266,5 +265,6 @@ int ft_execute_heredoc(t_exec *exec, int index)
         }
         signal(SIGINT, SIG_DFL);
     }
-    return (0);
+    }
+    return (1);
 }

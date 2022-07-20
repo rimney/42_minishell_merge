@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/19 23:31:24 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 17:16:45 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,5 +288,5 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index);
 char	*ft_itoa(int nb);
 int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in);
 int ft_contain(char *str, char c);
-
+int ft_redi_is_last(t_exec *exec);
 #endif

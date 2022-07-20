@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
+#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/19 20:29:57 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/20 17:19:38 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,6 +64,8 @@ SRCS = Parsing/parse.c\
 		execution/libfunctions/ft_itoa.c \
 		execution/flags/ft_get_next_flag.c \
 		execution/libfunctions/ft_contain.c \
+		execution/parser/ft_check_errors_rm.c \
+		
 
 
 $(NAME) : $(SRCS)

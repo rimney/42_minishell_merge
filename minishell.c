@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/20 00:48:57 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 17:33:46 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int	ft_mini_pipe_a(t_exec *exec, t_pipe *tpipe, int i)
 		}
 		if(exec->command[i] && ft_is_another_flag(exec, i) == PIPE)
 		{
+			printf("EEEEE\n");
 			exec->pipe_count = ft_count_till_other_token(exec, i, "|");
-			fd = open(exec->command[i - 1], O_RDWR);
+			fd = open(exec->command[i + 1], O_RDWR);
 			i = ft_apply_pipe_middle(exec, tpipe, i, fd) - 1;
 		}
 		i++;
@@ -189,6 +190,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 		ft_test(cmd->lst_token, exec.envp, exec.env.exit_value);
 		ft_fill_exec(&exec, cmd->lst_token);
+	//	ft_redi_is_last(&exec);
 		ft_initialize_exec(&exec, cmd->lst_token);
 		//ft_print_exec(&exec);
 		ft_minishell(&exec, &pipes, 0);
