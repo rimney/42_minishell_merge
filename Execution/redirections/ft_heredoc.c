@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/17 17:13:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 00:46:00 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,21 +131,11 @@ int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
 
 void ft_heredoc(t_exec *exec, int command_location, int index)
 {
-    int i;
-    int pid;
-
-    i = 1;
     int fd[2];
     pipe(fd);
-    pid = fork();
-    if(pid == 0)
-        ft_exec_heredoc(exec, index, fd, command_location);
-    else
-    {
-        close(fd[0]);
-        close(fd[1]);
-        waitpid(pid, 0, 0);
-    }
+    ft_exec_heredoc(exec, index, fd, command_location);
+    close(fd[0]);
+    close(fd[1]);
 }
 
 int ft_basic_heredoc(t_exec *exec, int index)
@@ -160,7 +150,8 @@ int ft_basic_heredoc(t_exec *exec, int index)
         {
             free(delimiter);
             free(line);
-            return (1);
+        //    return (1);
+            exit(0);
         }
         free(line);
     }
@@ -175,35 +166,56 @@ void    ft_advanced_heredoc(t_exec *exec, int index, int command_location)
     while (i < ft_get_last_delimiter(exec, index) && exec->heredoc_count > 2)
     {
         if (ft_strcmp(exec->command[i], "<<") == 0)
-            ft_basic_heredoc(exec, i);
+                ft_basic_heredoc(exec, i);
         i += 2;
         index += 2;
     }
-    ft_heredoc(exec, command_location, index);
-        
-    
+    ft_heredoc(exec, command_location, index);    
 }
+
+// int heredoc_sig()
+
 
 int ft_execute_heredoc(t_exec *exec, int index)
 {
     int command_location;
+    int pid;
+    int info;
 
     command_location = index - 1;
-
-    if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == PIPE)
+    pid = fork();
+    if(pid == 0)
     {
-        ft_basic_heredoc(exec, index);
-        return (1);
-    }
-    else if(ft_strcmp(exec->command[index], "<<") == 0 && exec->command[index + 2] == NULL)
-    { 
-        ft_heredoc(exec, command_location, index);
-        return (1);
+            if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == PIPE)
+            {
+                ft_basic_heredoc(exec, index);
+            return (1);
+        }
+        else if(ft_strcmp(exec->command[index], "<<") == 0 && exec->command[index + 2] == NULL)
+        { 
+            ft_heredoc(exec, command_location, index);
+            return (1);
+        }
+        else
+        {
+            ft_advanced_heredoc(exec, index, command_location);
+            return (1);
+        }
     }
     else
     {
-        ft_advanced_heredoc(exec, index, command_location);
-        return (1);
+        signal(SIGINT, SIG_IGN);
+        waitpid(pid, &info, 0);
+        if (WIFEXITED(info))
+        {
+            exec->env.exit_value = WEXITSTATUS(info);
+        }
+        else if (WIFSIGNALED(info))
+        {
+            if (WTERMSIG(info) == 2)
+                exec->env.exit_value = 1;
+        }
+        signal(SIGINT, SIG_DFL);
     }
     return (0);
 }

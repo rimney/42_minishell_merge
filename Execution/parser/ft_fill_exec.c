@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/18 23:55:21 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 23:32:55 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ft_initialize_exec(t_exec *exec, t_token *token)
 	exec->pipe_count = 0;
 	exec->pipe_flag = 0;
 	exec->sev_flag = 0;
+	exec->error_flag = 0;
 }
 
 

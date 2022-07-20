@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:25 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 04:35:55 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 23:45:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,36 @@ int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index)
 //     return (i - 1);
 // }
 
+int    ft_minishell_input_final_case(t_exec *exec, int index)
+{
+    char **parser;
+    int in;
+    int fd;
+    int pid;
+
+
+    parser = ft_split(exec->command[1], ' ');
+    if(ft_count_elements(parser) == 1)
+        return (1);
+    in = open(parser[0], O_RDONLY);
+    exec->in = in;
+    ft_find_next_flag(exec, &index, &fd, &in);
+    pid = fork();
+    if(pid == 0)
+    {
+          in = open(parser[0], O_RDONLY);
+            dup2(in, 0);
+            close(in);
+            dup2(fd, 1);
+            close(fd);
+            execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+    }
+    else
+        waitpid(pid, 0, 0);
+    ft_free(parser);
+    return (index);
+}
+
 int	ft_redirect_input(int index, t_exec *exec, int command_location)
 {
 	int fd;
@@ -85,50 +115,33 @@ int	ft_redirect_input(int index, t_exec *exec, int command_location)
 
 	s_flag = 0;
     if(index == 0 && ft_is_another_flag(exec, index) == REDIRIN)
+        return (ft_minishell_input_final_case(exec, index));
+    if(exec->command[index])
     {
-        if(exec->args == 2)
-        {
-            parser = ft_split(exec->command[1], ' ');
-            printf("EE\n");
-            pid = fork();
-            if(pid == 0)
-            {
-                in = open(parser[0], O_RDONLY);
-                dup2(in, 0);
-                close(in);
-                execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
-            }
-            else
-            {
-                waitpid(pid, 0, 0);
-                ft_free(parser);
-            }
-        }
-    }
-	while(index < exec->input_count)
-	{
-		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
-		if(exec->command[index + 2] && ft_find_next_flag(exec, &index, &fd, &in))
-			s_flag = 1;
-		if((index + 1 == exec->redirection_count || s_flag))
-		{
-			pid = fork();
-			if(pid == 0)
-			{
-				if(exec->input_flag || exec->heredoc_flag)
-				{
-					dup2(in, 0);
-					close(in);
-					exec->input_flag = 0;
+	    while(index < exec->input_count + 2)
+	    {
+		    if(exec->command[index + 2] && ft_find_next_flag(exec, &index, &fd, &in))
+			    s_flag = 1;
+    		if((index + 1 == exec->input_count || s_flag))
+	    	{
+		    	pid = fork();
+    			if(pid == 0)
+    			{
+	    			if(exec->input_flag || exec->heredoc_flag)
+    				{
+	    				dup2(in, 0);
+		    			close(in);
+			    		exec->input_flag = 0;
 					exec->heredoc_flag = 0;
-				}
-				dup2(fd, 1);
-				close(fd);
-				ft_execute_command(exec, command_location);
-			}
-		}
-		index += 2;
-	}
+	    			}
+    				dup2(fd, 1);
+    				close(fd);
+	    			ft_execute_command(exec, command_location);
+    			}
+	    	}
+            index += 1;
+    	}
+    }
 	waitpid(pid, &exec->env.exit_value, 0);
 	WIFEXITED(exec->env.exit_value);
 	return (index);

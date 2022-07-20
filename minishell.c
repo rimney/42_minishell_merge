@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/18 21:35:53 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 00:48:57 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	ft_mini_pipe_a(t_exec *exec, t_pipe *tpipe, int i)
 	int fd;
 	fd = -1;
 
-exec->initial_flag = 1;
-while(exec->command[i + 1] != NULL)
+	exec->initial_flag = 1;
+	while(exec->command[i + 1] != NULL)
 	{
 		if(ft_strcmp(exec->command[i], "|") == 0 && i == 1)
 		{

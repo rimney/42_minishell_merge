@@ -6,14 +6,14 @@
 #    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/18 20:33:09 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/19 20:29:57 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
 FLAGS =  -lreadline
-RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include -g 
+RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include
 SRCS = Parsing/parse.c\
 		Parsing/redir.c\
 		Parsing/parse_token.c\

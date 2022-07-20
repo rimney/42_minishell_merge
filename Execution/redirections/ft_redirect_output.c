@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 17:46:37 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 01:10:55 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int lo
 	int pid;
 	int location_save;
 
-	fd_in = open(exec->command[index - 3], O_RDONLY);
-	pid = fork();
-	if(pid == 0)
+		fd_in = open(exec->command[index - 3], O_RDONLY);
+		fd_out = open(exec->command[index + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
+	while(index < exec->redirection_count)
 	{
-		while(index < exec->redirection_count)
+		if(index + 1 == exec->redirection_count)
 		{
-			fd_out = open(exec->command[index + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
-			if(index + 1 == exec->redirection_count)
+			pid = fork();
+			if(pid == 0)
 			{
 				dup2(fd_in, 0);
 				close(fd_in);
@@ -40,8 +40,8 @@ void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int lo
 				close(fd_out);
 				ft_execute_command(exec, location);
 			}
-			index += 2;
 		}
+		index += 2;
 	}
 	waitpid(pid, &exec->env.exit_value, 0);
 	WIFEXITED(exec->env.exit_value);
@@ -59,13 +59,19 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 	s_flag = 0;
 	while(index < exec->redirection_count)
 	{
+		printf("%s << \n", exec->command[index + 1]);
 		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
-		if(exec->command[index + 2] && ft_find_next_flag(exec, &index, &fd, &in))
+		if(ft_find_next_flag(exec, &index, &fd, &in))
 			s_flag = 1;
-		if(!s_flag)
-			return (0);
-		if((index + 1 == exec->redirection_count || s_flag))
+		if(exec->error_flag)
 		{
+			printf("OUT\n");
+			exec->error_flag = 0;
+			return (0);
+		}
+		if((index + 1 == exec->redirection_count || s_flag == 1))
+		{
+			printf("EEEE\n");
 			pid = fork();
 			if(pid == 0)
 			{

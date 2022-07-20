@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 17:59:52 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 23:32:34 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 	*index += 2;
 	if(exec->command[*index])
 	{
+		if(ft_is_another_flag(exec, *index) == PIPE)
+			return (1);
 		while(exec->command[*index + 2] || ft_is_another_flag(exec, *index) != PIPE)
 		{
-			if(ft_is_another_flag(exec, *index) == APPEND && exec->command[*index + 2])
+			if(ft_is_another_flag(exec, *index) == APPEND && exec->command[*index + 2] && ft_is_another_flag(exec, *index) != PIPE)
 				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
-			if(ft_is_another_flag(exec, *index) == APPEND && !exec->command[*index + 2])
+			if(ft_is_another_flag(exec, *index) == APPEND && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
 			{
 				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
 				*index += 2;
@@ -59,6 +61,7 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 				*in = open(exec->command[*index + 1], O_RDONLY);
 				if(*in == -1)
 				{
+					exec->error_flag = 1;
 					perror("minishell");
 					return (0);
 				}
@@ -69,6 +72,7 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 				*in = open(exec->command[*index + 1], O_RDONLY);
 				if(*in == -1)
 				{
+					exec->error_flag = 1;
 					perror("minishell");
 					return (0);
 				}

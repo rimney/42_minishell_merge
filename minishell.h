@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/19 04:14:42 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 23:31:24 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ typedef struct s_exec
 	int args;
 	int initial_flag;
 	int sev_flag;
+	int error_flag;
+	int in;
     char    **envp;
 	char	**export;
 	t_env env;

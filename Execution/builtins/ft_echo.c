@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/18 21:26:30 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 00:49:42 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int    ft_echo(char **str, int index, t_exec *exec)
     }
     if(!flag)
         printf("\n");
+    exec->env.exit_value = 0;
     return (1);
 }

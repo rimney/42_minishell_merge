@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup_and_redirect.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:35:29 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/17 17:34:59 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/19 19:54:46 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	ft_dup_and_redirect(int fd_in, t_exec *exec, t_pipe *tpipe, int index)
 	}
 	if(ft_is_another_flag(exec, index) == REDIROUT)
 	{
+		printf("dede\n");
 		exec->redirection_count += index - 1;
 		ft_advanced_redirect(index, exec, fd_in, fd_out, index - 1);
 		return (1);
