@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 01:55:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 16:40:35 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 	else if(only_output_redirection_flag(exec) > 0)
 		ft_redirect(0, exec, 0);
 	else if(only_heredoc_flag(exec) > 0)
-		ft_execute_heredoc(exec, 1);
+		ft_execute_heredoc(exec, 0);
 	else if(only_append_flag(exec) > 0)
 		ft_append(1, exec, 0);
 	else if(only_input_flag(exec) > 0)

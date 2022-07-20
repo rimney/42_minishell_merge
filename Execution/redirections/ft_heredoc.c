@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 01:46:24 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 16:59:31 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,46 @@ void    ft_advanced_heredoc(t_exec *exec, int index, int command_location)
     ft_heredoc(exec, command_location, index);    
 }
 
+void    ft_heredoc_final_case(t_exec *exec, int index)
+{
+    char    **parser;
+    char    *delimiter;
+    char    *line;
+    int pid;
+    int fd[2];
 
+    parser = ft_split(exec->command[index + 1], ' ');
+    delimiter = strdup(parser[0]);
+    pipe(fd);
+    pid = fork();
+    if(pid == 0)
+    {
+        while((line = readline("final heredoc >")))
+        {
+            if(ft_strcmp(line, delimiter) != 0)
+            {
+                write(fd[1], line, ft_strlen(line));
+                write(fd[1], "\n", 1);
+            }
+            if(ft_strcmp(line, delimiter) == 0)
+            {
+                close(fd[1]);
+                dup2(fd[0], 0);
+                close(fd[0]);
+                execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+            }
+            free(line);
+        }
+    }
+    else
+    {    
+        close(fd[0]);
+        close(fd[1]);
+        waitpid(pid, 0, 0);
+        ft_free(parser);
+        free(delimiter);
+    }
+}
 
 int ft_execute_heredoc(t_exec *exec, int index)
 {
@@ -181,14 +220,21 @@ int ft_execute_heredoc(t_exec *exec, int index)
     int info;
 
     command_location = index - 1;
+    if(index == 0 && ft_is_another_flag(exec, index) == HEREDOC)
+    {
+        printf("here\n");
+        ft_heredoc_final_case(exec, index);
+        index += 2;
+        return (1);
+    }
+    else
+    {
+        command_location = 0;
+        index = 1;
+    }
     pid = fork();
     if(pid == 0)
     {
-        if(index == 0 && ft_is_another_flag(exec, index) == HEREDOC)
-        {
-            printf("here\n");
-            index += 2;
-        }
         if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == PIPE)
         {
             ft_basic_heredoc(exec, index);
