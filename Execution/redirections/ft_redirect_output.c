@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 01:10:55 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 02:16:22 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,43 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 	int in;
 	int pid;
 	int s_flag;
+	char **parser;
 
 	s_flag = 0;
+	if(index == 0 && ft_is_another_flag(exec, index) == REDIROUT)
+	{
+		parser = ft_split(exec->command[1], ' ');
+		fd = open(parser[0], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		pid = fork();
+		if(pid == 0)
+		{
+			dup2(fd, 1);
+			close(fd);
+			execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+		}
+		else
+			waitpid(pid, 0, 0);
+		index = 2;
+		exec->in = fd;
+		ft_free(parser);
+		
+	}
+		if(index == 1 && ft_is_another_flag(exec, index) == REDIROUT)
+	{
+		index = 1;
+	}
 	while(index < exec->redirection_count)
 	{
-		printf("%s << \n", exec->command[index + 1]);
 		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
 		if(ft_find_next_flag(exec, &index, &fd, &in))
 			s_flag = 1;
 		if(exec->error_flag)
 		{
-			printf("OUT\n");
 			exec->error_flag = 0;
 			return (0);
 		}
 		if((index + 1 == exec->redirection_count || s_flag == 1))
 		{
-			printf("EEEE\n");
 			pid = fork();
 			if(pid == 0)
 			{
@@ -89,7 +109,9 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 		}
 		index += 2;
 	}
+
 	waitpid(pid, &exec->env.exit_value, 0);
 	WIFEXITED(exec->env.exit_value);
+	exec->in = fd;
 	return (index);
 }

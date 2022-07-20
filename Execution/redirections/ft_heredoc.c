@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 00:46:00 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 01:46:24 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,7 @@ int ft_basic_heredoc(t_exec *exec, int index)
         {
             free(delimiter);
             free(line);
-        //    return (1);
-            exit(0);
+           return (1);
         }
         free(line);
     }
@@ -173,7 +172,6 @@ void    ft_advanced_heredoc(t_exec *exec, int index, int command_location)
     ft_heredoc(exec, command_location, index);    
 }
 
-// int heredoc_sig()
 
 
 int ft_execute_heredoc(t_exec *exec, int index)
@@ -186,9 +184,14 @@ int ft_execute_heredoc(t_exec *exec, int index)
     pid = fork();
     if(pid == 0)
     {
-            if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == PIPE)
-            {
-                ft_basic_heredoc(exec, index);
+        if(index == 0 && ft_is_another_flag(exec, index) == HEREDOC)
+        {
+            printf("here\n");
+            index += 2;
+        }
+        if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == PIPE)
+        {
+            ft_basic_heredoc(exec, index);
             return (1);
         }
         else if(ft_strcmp(exec->command[index], "<<") == 0 && exec->command[index + 2] == NULL)
