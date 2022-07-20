@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 17:31:30 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 20:57:09 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
         exec->redirection_count = ft_count_till_other_token(exec, index + 2, ">");
          out = open(exec->command[index + exec->redirection_count + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
     }
-        
+    
     while((line = readline("heredoc > ")))
     {
         if (ft_strcmp(line, delimiter) != 0)
@@ -119,9 +119,9 @@ int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
             close(fd[1]);
             dup2(fd[0], 0);
            close(fd[0]);
+           printf("%s << location\n", exec->command[command_loaction]);
             ft_execute_command(exec, command_loaction);
-            return (1);
-        }
+          }
         free(line);
     }
     free(delimiter);
@@ -162,6 +162,7 @@ void    ft_advanced_heredoc(t_exec *exec, int index, int command_location)
     int i;
 
     i = index;
+    printf("%d << location\n", command_location);
     while (i < ft_get_last_delimiter(exec, index) && exec->heredoc_count > 2)
     {
         if (ft_strcmp(exec->command[i], "<<") == 0)
@@ -220,7 +221,7 @@ int ft_execute_heredoc(t_exec *exec, int index)
     int info;
 
     command_location = index - 1;
-    if(index == 0 && ft_is_another_flag(exec, index) == HEREDOC)
+    if(ft_is_another_flag(exec, 0) == HEREDOC)
     {
         printf("here\n");
         ft_heredoc_final_case(exec, index);

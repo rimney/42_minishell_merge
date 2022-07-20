@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:25 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 23:45:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/20 21:17:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,33 +114,40 @@ int	ft_redirect_input(int index, t_exec *exec, int command_location)
     char **parser;
 
 	s_flag = 0;
-    if(index == 0 && ft_is_another_flag(exec, index) == REDIRIN)
+    fd = -1;
+    if(ft_is_another_flag(exec, index - 1) == REDIRIN)
         return (ft_minishell_input_final_case(exec, index));
-    if(exec->command[index])
+    if(exec->command[index] && index > 0)
     {
-	    while(index < exec->input_count + 2)
-	    {
-		    if(exec->command[index + 2] && ft_find_next_flag(exec, &index, &fd, &in))
-			    s_flag = 1;
-    		if((index + 1 == exec->input_count || s_flag))
-	    	{
-		    	pid = fork();
-    			if(pid == 0)
-    			{
-	    			if(exec->input_flag || exec->heredoc_flag)
-    				{
-	    				dup2(in, 0);
-		    			close(in);
-			    		exec->input_flag = 0;
-					exec->heredoc_flag = 0;
-	    			}
-    				dup2(fd, 1);
-    				close(fd);
-	    			ft_execute_command(exec, command_location);
-    			}
-	    	}
+            printf("DDD\n");
+        while(index < exec->input_count)
+        {
+            in = open(exec->command[index + 1], O_RDONLY);
+            if(ft_find_next_flag(exec, &index, &fd, &in))
+                s_flag = 1;
+            if(exec->error_flag)
+            {
+                exec->error_flag = 0;
+                return (0);
+            }
+ 
+                if((index + 1 == exec->input_count || s_flag))
+                {
+                    pid = fork();
+                    if(pid == 0)
+                {
+                dup2(in, 0);
+                close(in);
+                    if(fd != -1)
+                    {
+                    dup2(fd, 1);
+                    close(fd);
+                    }
+                    ft_execute_command(exec, command_location);
+                }
+            }
             index += 1;
-    	}
+        }
     }
 	waitpid(pid, &exec->env.exit_value, 0);
 	WIFEXITED(exec->env.exit_value);
