@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:49:49 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 23:21:46 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 19:50:45 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,5 @@ void    ft_cd(char *path, t_exec *exec)
     free(p);
     ft_cd_export_replace(exec, s);
     free(s);
-   // free(exec->command[0]);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
+#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/21 16:22:47 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/21 22:21:20 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRCS = Parsing/parse.c\
 		execution/redirections/heredoc/ft_heredoc.c\
 		execution/redirections/ft_pipe.c\
 		execution/redirections/ft_append.c\
-		execution/redirections/ft_redirect_input.c\
+		execution/redirections/input/ft_redirect_input.c\
 		execution/redirections/ft_redirect_output.c\
 		execution/libfunctions/command_parsing.c\
 		execution/libfunctions/ft_get_env.c\
@@ -59,13 +59,14 @@ SRCS = Parsing/parse.c\
 		execution/builtins/ft_pwd.c \
 		execution/builtins/ft_cd.c \
 		execution/redirections/ft_mini_append.c \
-		execution/redirections/ft_mini_redirect_input.c \
+		execution/redirections/input/ft_mini_redirect_input.c \
 		execution/redirections/heredoc/ft_mini_heredoc.c \
 		execution/libfunctions/ft_itoa.c \
 		execution/flags/ft_get_next_flag.c \
 		execution/libfunctions/ft_contain.c \
 		execution/parser/ft_check_errors_rm.c \
 		execution/redirections/heredoc/ft_execute_heredoc.c \
+		execution/redirections/input/ft_redirect_input_final_case.c \
 		
 
 

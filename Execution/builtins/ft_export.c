@@ -184,7 +184,7 @@ void    ft_export(t_exec *exec, char **argv)
 
     index = 1;
     flag = -1;
-  //  printf("%s << argv[index]\n", argv[index]);
+    printf("%s << argv[index]\n", argv[index]);
     i = 0;
     if(!argv[index]) 
     {

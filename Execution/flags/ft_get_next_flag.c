@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 23:01:44 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 22:33:12 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	ft_heredoc_middle(int *in, char *delimiter)
 
 int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 {
-	*index += 2;
+	if(exec->command[*index + 2])
+		*index += 2;
 	if(exec->command[*index])
 	{
 		// if(ft_is_another_flag(exec, *index) == PIPE)
