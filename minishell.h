@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/20 17:16:45 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 12:23:14 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,7 @@ t_redir		*fill_redir_lst(t_redir *lst, t_token *lst_token);
 /******** signals.c functions ********/
 
 void		handle_signals(int sig);
-void		handle_sigquit(int sig);
+void		handle_prompt(int sig);
 
 /******** error.c fucntions ********/
 

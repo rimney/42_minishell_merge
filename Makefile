@@ -3,16 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
+#    By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/20 17:19:38 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/21 12:19:12 by atarchou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = gcc
 FLAGS =  -lreadline
+CTRL = @stty -echoctl
 RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include
 SRCS = Parsing/parse.c\
 		Parsing/redir.c\
@@ -27,6 +28,7 @@ SRCS = Parsing/parse.c\
 		Parsing/error_2.c\
 		Parsing/utils_4.c\
 		Parsing/free_parse.c\
+		Parsing/signals.c\
 		Parsing/expand_quotes.c\
 		execution/libfunctions/ft_count_tokens.c\
 		execution/redirections/ft_heredoc.c\
@@ -69,6 +71,7 @@ SRCS = Parsing/parse.c\
 
 
 $(NAME) : $(SRCS)
+			$(CTRL)
 			$(CC) $(SRCS) $(RL_FLAGS) $(FLAGS) -o $(NAME) 
 
 all : $(NAME)
