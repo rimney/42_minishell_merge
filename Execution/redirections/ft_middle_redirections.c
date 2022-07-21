@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:33:36 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 20:49:16 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 00:44:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd)
 		{
 			printf("HH\n");
 			printf("%d fd<<<<<", fd);
-			ft_dup_and_redirect(fd, exec, tpipe, i + 2);
+			ft_dup_and_redirect(exec->in, exec, tpipe, i + 2);
 			i += ft_get_next_redirection(exec, i + 2);
 			return (i - 1);
 		}
 		else
 		{
-			printf("%d <<in\n", exec->in);
+			printf("%d <<in\n", fd);
 			printf("pipde\n");
 			ft_mini_pipe(exec, tpipe, fd, i - 1, i);
 			i += exec->pipe_count;

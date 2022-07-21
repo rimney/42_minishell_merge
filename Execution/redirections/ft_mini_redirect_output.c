@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:31:43 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 19:53:25 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 00:49:14 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i)
 				|| exec->command[i + 2] == NULL)
 			{
 				exec->pipe_count = ft_count_till_other_token(exec, i, "|");
-				fd = open(exec->command[i - 1], O_RDWR);
+				fd = open(".temp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+				if(fd == -1)
+					printf("ZZZZZ\n");
 				i = ft_apply_pipe_middle(exec, tpipe, i, fd) - 1;
 			}
 		}
