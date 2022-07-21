@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_middle_redirections.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:33:36 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 00:44:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:50:23 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd)
 		{
 			printf("HH\n");
 			printf("%d fd<<<<<", fd);
-			ft_dup_and_redirect(exec->in, exec, tpipe, i + 2);
+			ft_dup_and_redirect(exec->in, exec, i + 2);
 			i += ft_get_next_redirection(exec, i + 2);
 			return (i - 1);
 		}

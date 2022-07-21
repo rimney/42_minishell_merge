@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/21 12:23:14 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:24:05 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_exec
 /******** utils.c functions ********/
 
 int			ft_strcmp(char *s1, char *s2);
-char		*ft_strsub(char *s, unsigned int start, int len);
+char		*ft_strsub(char *s,  int start, int len);
 void		print_lst(t_token *lst);
 void		print_redir(t_redir *lst);
 char		*init_props(char *stro);
@@ -124,7 +124,7 @@ void		check_token_list_end(t_token **lst_token, int nbwords);
 
 /******* utils_4.c functions ********/
 
-static char	*ft_strcpy(char *dest, char *src);
+// static char	*ft_strcpy(char *dest, char *src);
 char		*ft_strdup(const char *src);
 char		*protected_malloc(int size);
 void		*ft_memmove(void *dst, const void *src, size_t len);
@@ -159,13 +159,13 @@ t_tok_red	*parser(t_tok_red *lst, char *line);
 
 int			count_redir(t_token *lst);
 int			check_if_redir(int type);
-void		parse_red(t_redir **red, t_token *tok, int *counts, t_token *head);
+void		parse_red(t_redir **red, t_token *tok, int *counts);
 t_redir		*fill_redir_lst(t_redir *lst, t_token *lst_token);
 
 /******** signals.c functions ********/
 
 void		handle_signals(int sig);
-void		handle_prompt(int sig);
+void		handle_sigquit(int sig);
 
 /******** error.c fucntions ********/
 
@@ -245,7 +245,7 @@ void	ft_free(char **str);
 int ft_is_another_flag(t_exec *exec, int index);
 //fill_exex
 void	ft_fill_exec(t_exec *exec, t_token *token);
-void	ft_initialize_exec(t_exec *exec, t_token *token);
+void	ft_initialize_exec(t_exec *exec);
 //execute only flag
 int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe);
 void	ft_assign_tpipe(t_pipe *pipe, int argc);
@@ -263,11 +263,11 @@ int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i);
 int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd);
 int ft_apply_redin_middle(t_exec *exec, t_pipe *tpipe,  int i);
 int	ft_middle_rediout(t_exec *exec, t_pipe *tpipe, int i);
-int	ft_dup_and_redirect(int fd_in, t_exec *exec, t_pipe *tpipe, int index);
+int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index);
 int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
 // built_ins
 int	ft_mini_append(t_exec *exec, t_pipe *tpipe, int i);
-int    ft_echo(char **str, int index, t_exec *exec);
+int    ft_echo(char **str, t_exec *exec);
 void    ft_export(t_exec *exec, char **argv);
 
 int ft_find_variable_index(char *str, char c);
@@ -289,4 +289,5 @@ char	*ft_itoa(int nb);
 int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in);
 int ft_contain(char *str, char c);
 int ft_redi_is_last(t_exec *exec);
+void    ft_advanced_heredoc_final_case(t_exec *exec, int index);
 #endif

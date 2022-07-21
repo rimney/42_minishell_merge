@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/21 13:04:55 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:53:06 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,42 +142,6 @@ void	ft_test(t_token *token, char **envp, int exit_value)
 	}
 }
 
-char	*handle_line_error(void)
-{
-	char	*line;
-
-	line = readline("\e[0;32m BomusShell$>\033[0;37m");
-	if (line == NULL)
-		exit(0);
-	return (line);
-}
-
-void	handle_cmd_props(char **line, t_tok_red **cmd)
-{
-	char	*temp;
-
-	temp = *line;
-	*line = fix_line(*line);
-	free(temp);
-	*cmd = init_cmd(*line);
-	*cmd = parser(*cmd, *line);
-	if (!(*cmd))
-		g_flag = 1;
-}
-
-void	free_and_free(t_tok_red *cmd, char *line)
-{
-	if (cmd->lst_redir)
-	{
-		if (count_redir(cmd->lst_token) == 0)
-			cmd->lst_redir = NULL;
-		else
-			free_lst_redir(cmd->lst_redir);
-	}
-	free_lst_token(cmd->lst_token);
-	free(cmd);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
@@ -195,9 +159,11 @@ int	main(int argc, char **argv, char **envp)
 	ft_get_env(&exec, envp);
 	while (g_flag == 0)
 	{
-		signal(SIGINT, handle_signals);
-		signal(SIGQUIT, SIG_IGN);
-		line = handle_line_error();
+		// signal(SIGINT, handle_signals);
+		// signal(SIGQUIT, SIG_IGN);
+		line = readline("\e[0;32m BomusShell$>\033[0;37m");
+		if (line == NULL)
+			exit(0);
 		if (line[0] == 0 || ft_isspace(line[0]))
 		{
 			free(line);
@@ -211,18 +177,36 @@ int	main(int argc, char **argv, char **envp)
 		add_history(line);
 		cmd = 0;
 		if (g_flag == 0)
-			handle_cmd_props(&line, &cmd);
+		{
+			temp = line;
+			line = fix_line(line);
+			free(temp);
+			cmd = init_cmd(line);
+			cmd = parser(cmd, line);
+			if (!cmd)
+				g_flag = 1;
+		}
 		if(!err_flag)
 		{
 		ft_test(cmd->lst_token, exec.envp, exec.env.exit_value);
 		ft_fill_exec(&exec, cmd->lst_token);
 	//	ft_redi_is_last(&exec);
-		ft_initialize_exec(&exec, cmd->lst_token);
+		ft_initialize_exec(&exec);
 		//ft_print_exec(&exec);
 		ft_minishell(&exec, &pipes, 0);
 		}
 		if (cmd)
-			free_and_free(cmd, line);
+		{
+			if (cmd->lst_redir)
+			{
+				if (count_redir(cmd->lst_token) == 0)
+					cmd->lst_redir = NULL;
+				else
+					free_lst_redir(cmd->lst_redir);
+			}
+			free_lst_token(cmd->lst_token);
+			free(cmd);
+		}
 	//	printf("%d << exit\n", exec.env.exit_value % 255);
 	if(!err_flag)
 		ft_free(exec.command);

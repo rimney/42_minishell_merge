@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:47:44 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/15 19:27:22 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:53:23 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void    ft_filter_command_single_quote_2d_array(char **argv)
 void    ft_execute_command(t_exec *exec, int index)
 {
     char **command_parser;
-    char *temp;
 
     command_parser = ft_split(exec->command[index], ' ');
     ft_filter_command_single_quote_2d_array(command_parser);

@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 00:29:57 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 06:47:18 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 18:21:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	ft_mini_redirect_input(t_exec *exec, t_pipe *tpipe, int i)
 			ft_redirect_input(0, exec, 0);
 			i += exec->input_count;
 		}
-		if(ft_strcmp(exec->command[i], "<") == 0 && i == 1)
+		 if(ft_strcmp(exec->command[i], "<") == 0 && i == 1)
 		{
 			exec->input_count = ft_count_till_other_token(exec, i, "<");
-			ft_redirect_input(i, exec, 0);
+			ft_redirect_input(1, exec, 0);
 			i += exec->input_count;
 		}
 		if(exec->command[i] && ft_is_another_flag(exec, i) == PIPE)

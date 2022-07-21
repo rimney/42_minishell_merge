@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:10:31 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:24:21 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:55:23 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	count_redir(t_token *lst)
 	return (count);
 }
 
-void	parse_red(t_redir **red, t_token *tok, int *counts, t_token *head)
+void	parse_red(t_redir **red, t_token *tok, int *counts)
 {
 	t_redir	*lst;
 	int		i;
@@ -66,7 +66,7 @@ t_redir	*fill_redir_lst(t_redir *lst, t_token *lst_token)
 		{
 			if (!lst)
 				lst = (t_redir *)malloc(sizeof(t_redir));
-			parse_red(&lst, lst_token, counts, head_tok);
+			parse_red(&lst, lst_token, counts);
 			if (counts[0]++ == 0)
 				head = lst;
 			counts[1]--;

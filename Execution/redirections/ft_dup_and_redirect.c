@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup_and_redirect.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:35:29 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 19:54:46 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:49:51 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	ft_do_input(t_exec *exec, int fd_in, int index)
 	
 }
 
-int	ft_dup_and_redirect(int fd_in, t_exec *exec, t_pipe *tpipe, int index)
+int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index)
 {
 	int fd_out;
 
+	fd_out = -1;
 	if(ft_strcmp(exec->command[index], ">>") == 0)
 	{
 		exec->append_count += index - 1;
@@ -40,7 +41,6 @@ int	ft_dup_and_redirect(int fd_in, t_exec *exec, t_pipe *tpipe, int index)
 	}
 	if(ft_is_another_flag(exec, index) == REDIROUT)
 	{
-		printf("dede\n");
 		exec->redirection_count += index - 1;
 		ft_advanced_redirect(index, exec, fd_in, fd_out, index - 1);
 		return (1);

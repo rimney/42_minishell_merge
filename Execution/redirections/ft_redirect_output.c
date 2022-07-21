@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 17:41:43 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:53:36 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	ft_single_redirect(char *argv)
 void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location)
 {
 	int pid;
-	int location_save;
 
 		fd_in = open(exec->command[index - 3], O_RDONLY);
 		fd_out = open(exec->command[index + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);

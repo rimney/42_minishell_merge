@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 15:37:07 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 02:11:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:43:36 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ char    **ft_new_unset(char **envp, int index)
 
     i = 0;
     j = 0;
-    int k = 0;
     char **temp;
     temp = malloc(sizeof(char *) * (ft_count_elements(envp) + 1));
 

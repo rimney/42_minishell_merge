@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 00:54:51 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 20:59:17 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 16:24:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../../../minishell.h"
 
 int	ft_mini_heredoc(t_exec *exec, t_pipe *tpipe, int i)
 {

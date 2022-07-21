@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:00:29 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/03 17:30:58 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:54:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strsub(char *s, unsigned int start, int len)
+char	*ft_strsub(char *s, int start, int len)
 {
 	int		i;
 	char	*tmp;

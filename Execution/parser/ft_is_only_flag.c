@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_only_flag.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:35:40 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/08 01:39:25 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 07:05:05 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int only_pipe_flag(t_exec *exec)
 {
-	int i;
-
-	i = 0;
 	if(exec->pipe_count > 0 && exec->input_count == 0 && exec->append_count == 0
 		&& exec->heredoc_count == 0 && exec->redirection_count == 0 && exec->args > 0)
 			return (1);

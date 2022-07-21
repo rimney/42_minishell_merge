@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 00:49:42 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:51:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int ft_echo_edge_case(char *str)
 
 void    ft_echo_single_quote(char *str)
 {
-    int i;
+    size_t i;
 
     i = 1;
     while(i < ft_strlen(str) - 1)
@@ -43,7 +43,7 @@ void    ft_echo_single_quote(char *str)
 }
 
 
-int    ft_echo(char **str, int index, t_exec *exec)
+int    ft_echo(char **str, t_exec *exec)
 {
     int i;
     int flag;

@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/13 01:46:31 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:45:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 	int i;
 
 	i = index;
+	count = -1;
 		// if(ft_strcmp(exec->command[i + exec->pipe_count], ">") == 0)
 		// {
 		// 	printf("FOUNDED");

@@ -37,7 +37,7 @@ void    ft_sort_string_tab(char **tab)
 
 char    *ft_mystrdup(char *s1,  int flag)
 {
-    int i;
+    size_t i;
     int j;
     char *str;
 
@@ -183,7 +183,7 @@ void    ft_export(t_exec *exec, char **argv)
     int index;
 
     index = 1;
-  
+    flag = -1;
   //  printf("%s << argv[index]\n", argv[index]);
     i = 0;
     if(!argv[index]) 

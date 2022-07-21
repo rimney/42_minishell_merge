@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:20 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 06:48:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:41:51 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_advanced_append(int index, t_exec *exec, int fd_out, int fd_in, int loca
 	int location_save;
 
 	fd_in = open(exec->command[index - 3], O_RDONLY);
+	location_save = -1;
 	pid = fork();
 	if(pid == 0)
 	{
@@ -51,7 +52,6 @@ int	ft_append(int index, t_exec *exec, int command_location)
 	s_flag = 0;
 	while(index < exec->append_count)
 	{
-		printf("%s << \n", exec->command[index + 1]);
 		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
 		if(ft_find_next_flag(exec, &index, &fd, &in))
 			s_flag = 1;

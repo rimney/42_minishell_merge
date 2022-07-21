@@ -3,17 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+         #
+#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/21 12:19:12 by atarchou         ###   ########.fr        #
+#    Updated: 2022/07/21 16:22:47 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-CC = gcc
+CC = gcc -Wall -Wextra -Werror
 FLAGS =  -lreadline
-CTRL = @stty -echoctl
 RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include
 SRCS = Parsing/parse.c\
 		Parsing/redir.c\
@@ -28,10 +27,9 @@ SRCS = Parsing/parse.c\
 		Parsing/error_2.c\
 		Parsing/utils_4.c\
 		Parsing/free_parse.c\
-		Parsing/signals.c\
 		Parsing/expand_quotes.c\
 		execution/libfunctions/ft_count_tokens.c\
-		execution/redirections/ft_heredoc.c\
+		execution/redirections/heredoc/ft_heredoc.c\
 		execution/redirections/ft_pipe.c\
 		execution/redirections/ft_append.c\
 		execution/redirections/ft_redirect_input.c\
@@ -62,16 +60,16 @@ SRCS = Parsing/parse.c\
 		execution/builtins/ft_cd.c \
 		execution/redirections/ft_mini_append.c \
 		execution/redirections/ft_mini_redirect_input.c \
-		execution/redirections/ft_mini_heredoc.c \
+		execution/redirections/heredoc/ft_mini_heredoc.c \
 		execution/libfunctions/ft_itoa.c \
 		execution/flags/ft_get_next_flag.c \
 		execution/libfunctions/ft_contain.c \
 		execution/parser/ft_check_errors_rm.c \
+		execution/redirections/heredoc/ft_execute_heredoc.c \
 		
 
 
 $(NAME) : $(SRCS)
-			$(CTRL)
 			$(CC) $(SRCS) $(RL_FLAGS) $(FLAGS) -o $(NAME) 
 
 all : $(NAME)

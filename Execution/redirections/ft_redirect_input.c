@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:25 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 06:48:04 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:54:02 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	ft_redirect_input(int index, t_exec *exec, int command_location)
 	int in;
 	int pid;
 	int s_flag;
-    char **parser;
 
 	s_flag = 0;
     fd = -1;

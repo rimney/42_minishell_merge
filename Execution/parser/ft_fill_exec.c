@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/19 23:32:55 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:52:13 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_assign_tpipe(t_pipe *pipe, int argc)
 	pipe->max = argc;
 }
 
-void	ft_initialize_exec(t_exec *exec, t_token *token)
+void	ft_initialize_exec(t_exec *exec)
 {
 	exec->args = ft_count_elements(exec->command);
 	exec->append_count = 0;
@@ -51,7 +51,6 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 	{
 		if(token->type != WORD && head_flag == 0)
 		{
-			printf("DDD\n");
 			exec->command[i] = strdup(token->value);
 			i++;
 		}

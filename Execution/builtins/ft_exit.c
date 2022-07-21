@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 01:42:34 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/17 17:38:48 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:43:57 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int    apply_exit(char **argv, t_exec *exec)
 
 void    ft_exit(t_exec *exec, int index, char **argv)
 {
+    index = 0;
     if(apply_exit(argv, exec))
      {
         printf("exit\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/20 21:11:09 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 15:51:53 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 	}
 	if(ft_strncmp(parser[0], "echo", 4) == 0)
 	{
-		ft_echo(parser, 0, exec);
+		ft_echo(parser, exec);
 		return (1);
 	}
 	return (0);
@@ -115,7 +115,7 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 	}
 	if(ft_strncmp(parser[0], "echo", 4) == 0)
 	{
-		ft_echo(parser, 0, exec);
+		ft_echo(parser, exec);
 			ft_free(parser);
 		return (1);
 	}
@@ -127,7 +127,6 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 {
 	int pid;
-	int count;
 
 	if(exec->args <= 2 && ft_execute_builtin_parent(exec, 0))
 		return (1);
@@ -155,6 +154,5 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 		ft_redirect_input(1, exec, 0);
 	else
 		return (0);
-
 	return(1);
 }
