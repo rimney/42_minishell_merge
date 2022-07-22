@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/22 05:28:53 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 21:44:03 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,4 +292,5 @@ void    ft_advanced_heredoc_final_case(t_exec *exec, int index);
 int    ft_minishell_input_final_case(t_exec *exec, int index);
 void    ft_minishell_input_final_case_2_args(t_exec *exec);
 int ft_open(t_exec *exec, int kind, int index);
+char	**ft_split_special(char *s, char c);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 05:44:31 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 21:43:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,29 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 	return (1);
 }
 
+void	ft_2d(char **str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		printf("%s\n", str[i++]);
+
+}
+
 int		ft_execute_builtin_parent(t_exec *exec, int index)
 {
 	char **parser;
+	char **parser2 = ft_split_special(exec->command[0], ' ');
 
 	parser = ft_split(exec->command[0], ' ');
 	if(ft_strncmp(parser[0], "export", 6) == 0)
 	{
-		ft_export(exec, parser);
-			ft_free(parser);
+		printf("PASSED\n");
+		ft_2d(parser);
+		ft_export(exec, parser2);
+		 	ft_free(parser);
+			ft_free(parser2);
 		return (1);
 	}
 	if(ft_strncmp(parser[0], "env", 3) == 0)
