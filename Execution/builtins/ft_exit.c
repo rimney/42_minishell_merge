@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 01:42:34 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 15:43:57 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 01:16:29 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void    ft_exit(t_exec *exec, int index, char **argv)
      {
         printf("exit\n");
         exit(exec->env.exit_value);
-        printf("ss\n");
     }
 
 }

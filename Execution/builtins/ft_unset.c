@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 15:37:07 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 15:43:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 00:52:33 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,16 @@ void    ft_unset(char *str, t_exec *exec)
     int unset;
     char **temp;
 
+    if(!str)
+    {
+        printf("unset: not enough arguments\n");
+        return;
+    }
     unset = ft_get_unset(exec->envp, str);
     i = 0;
     temp = exec->envp;
     if(!unset)
         return ;
-    if(ft_strncmp(str, "PWD", 3) == 0 || ft_strncmp(str, "OLDPWD", 6) == 0)
-    {
-        printf("YOUC CAN'T DO THAT\n");
-        return ;
-    }
     i = 0;
     j = 0;
     // exec->envp = malloc(sizeof(char *) * (ft_count_elements(exec->envp) + 1));

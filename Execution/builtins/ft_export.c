@@ -62,7 +62,6 @@ char    *ft_mystrdup(char *s1,  int flag)
     else
     {
         str = malloc(sizeof(char) * strlen(s1) + 1);
-        printf("%lu<<\n", strlen(s1));
         while(s1[i])
         {
             str[i] = s1[i];
@@ -77,17 +76,23 @@ void    ft_export_no_args_case(t_exec *exec)
 {
     int i;
     int j;
+    int flag;
 
     i = 0;
     ft_sort_string_tab(exec->envp);
     while(exec->envp[i])
     {
+    flag = 0;
         j = 0;
         printf("declare -x ");
         while(exec->envp[i][j])
         {
-            if(exec->envp[i][j - 1] == '=')
+            if(j != 0 && exec->envp[i][j - 1] == '=' && flag == 0)
+            {
                 printf("\"");
+                flag = 1;
+            }
+
             printf("%c", exec->envp[i][j]);
             j++;
         }
@@ -146,8 +151,8 @@ void    ft_export_replace_export(t_exec *exec, char *arg, int index)
 
 int ft_check_export_string(char *str)
 {
-    if(!(str[0] >= 'a' && str[0] <= 'z') ||
-        (str[0] >= 'A' && str[0] <= 'Z') || str[0] == '_')
+    if(!((str[0] >= 'a' && str[0] <= 'z') ||
+        (str[0] >= 'A' && str[0] <= 'Z') || str[0] == '_'))
         return (0);
     return (1);
 }
@@ -170,13 +175,12 @@ void    ft_apply_export(t_exec *exec, char *new)
         i++;
     }
     exec->envp[i] = strdup(new);
-    printf("%s <<<<<<<<< HEEEEERE\n", exec->envp[i]);
     exec->envp[i + 1] = NULL;
     ft_free(temp);
 }
 
 
-void    ft_export(t_exec *exec, char **argv)
+void    ft_export(t_exec *exec, char *argv)
 {
     int i;
     int flag;
@@ -184,34 +188,28 @@ void    ft_export(t_exec *exec, char **argv)
 
     index = 1;
     flag = -1;
-    printf("%s << argv[index]\n", argv[index]);
     i = 0;
-    if(!argv[index]) 
+    if(!argv) 
     {
         ft_export_no_args_case(exec);
         return ;
     }
-    if(!ft_check_export_string(argv[index]))
+    if(!ft_check_export_string(argv))
     {
-        printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
+        printf("minishell : \'%s\' : not a value identifier\n", argv);
         exec->env.exit_value = 1;
     }
     while(exec->envp[i])
     {
-        if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
+        if(ft_strncmp(argv, exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
         {
-            ft_export_replace(exec, argv[index], i);
-            printf("%s <- new\n", exec->envp[i]);
+            ft_export_replace(exec, argv, i);
             return;
         }
         i++;
     }
     // if(ft_find_variable_index(argv[index], '=') && ft_contain(argv[index], '='))
    // printf("%s <<\n", *(argv + 2));
-   while(argv[index])
-   {
-        ft_apply_export(exec, argv[index]);
-        index++;
-   }
+        ft_apply_export(exec, argv);
 }
 

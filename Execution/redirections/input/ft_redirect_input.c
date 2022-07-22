@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_input.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:25 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 23:05:37 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 00:22:40 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,6 @@ int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index)
     return (1);
 }
 
-// void    ft_apply_redirect_input(t_exec *exec, int index, int command_location)
-// {
-
-// }
 
 void ft_redirect_input_norm(t_exec *exec, int in, int fd, int command_location)
 {
@@ -68,6 +64,21 @@ void ft_redirect_input_norm(t_exec *exec, int in, int fd, int command_location)
         waitpid(pid, &exec->env.exit_value, 0);
         WIFEXITED(exec->env.exit_value);
     }
+}
+
+int ft_error_exit_norm(t_exec *exec, int in)
+{
+    if(in == -1)
+    {
+        perror("minishell : ");
+        return (0);
+    }
+    if(exec->error_flag == 1)
+    {
+        exec->error_flag = 0;
+        return (0);
+    }
+    return (1);
 }
 
 int	ft_redirect_input(int index, t_exec *exec, int command_location)
@@ -90,11 +101,8 @@ int	ft_redirect_input(int index, t_exec *exec, int command_location)
                 return (index);
             if(ft_find_next_flag(exec, &index, &fd, &in))
                 s_flag = 1;
-            if(exec->error_flag || in == -1)
-            {
-                exec->error_flag = 0;
+            if(!ft_error_exit_norm(exec, in))
                 return (0);
-            }
             if((index + 1 == exec->input_count || s_flag))
                 ft_redirect_input_norm(exec, in, fd, command_location);
             index += 2;
