@@ -92,7 +92,6 @@ void    ft_export_no_args_case(t_exec *exec)
                 printf("\"");
                 flag = 1;
             }
-
             printf("%c", exec->envp[i][j]);
             j++;
         }
@@ -190,7 +189,7 @@ void    ft_export(t_exec *exec, char **argv)
     flag = -1;
     i = 0;
     printf("%s << \n", argv[index]);
-    if(!argv) 
+    if(!argv[index]) 
     {
         ft_export_no_args_case(exec);
         return ;

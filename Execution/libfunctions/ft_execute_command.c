@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:47:44 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 15:53:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 05:48:17 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ char    *ft_filter_command_single_quote(char *temp)
         i++;
     }
     str[i] = 0;
-    printf("%s <<\n", str);
     return (str);
 }
 
