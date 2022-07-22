@@ -180,7 +180,7 @@ void    ft_apply_export(t_exec *exec, char *new)
 }
 
 
-void    ft_export(t_exec *exec, char *argv)
+void    ft_export(t_exec *exec, char **argv)
 {
     int i;
     int flag;
@@ -189,27 +189,29 @@ void    ft_export(t_exec *exec, char *argv)
     index = 1;
     flag = -1;
     i = 0;
+    printf("%s << \n", argv[index]);
     if(!argv) 
     {
         ft_export_no_args_case(exec);
         return ;
     }
-    if(!ft_check_export_string(argv))
+    if(!ft_check_export_string(argv[index]))
     {
-        printf("minishell : \'%s\' : not a value identifier\n", argv);
+        printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
         exec->env.exit_value = 1;
     }
     while(exec->envp[i])
     {
-        if(ft_strncmp(argv, exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
+        if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
         {
-            ft_export_replace(exec, argv, i);
+            ft_export_replace(exec, argv[index], i);
             return;
         }
         i++;
     }
     // if(ft_find_variable_index(argv[index], '=') && ft_contain(argv[index], '='))
    // printf("%s <<\n", *(argv + 2));
-        ft_apply_export(exec, argv);
+   while(argv[index])
+        ft_apply_export(exec, argv[index++]);
 }
 

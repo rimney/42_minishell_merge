@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 01:23:37 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 05:44:31 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,41 +38,23 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 
 	parser2 = ft_split(exec->command[0], ' ');
 	if(ft_strcmp(parser2[0], "export") == 0)
-	{
-		ft_export(exec, parser[1]);
-		return (1);
-	}
+		ft_export(exec, parser);
 	if(ft_strcmp(parser2[0], "env") == 0)
-	{
 		ft_env(exec);
-		return (1);
-	}
 	if(ft_strcmp(parser2[0], "exit") == 0)
-	{
 		ft_exit(exec, index, parser2);
-		return (1);
-	}
 	if(ft_strcmp(parser2[0], "unset") == 0)
-	{
 		ft_unset(parser[1], exec);
-		return (1);
-	}
 	if(ft_strcmp(parser2[0], "pwd") == 0)
-	{
 		ft_pwd();
-		return (1);
-	}
 	if(ft_strcmp(parser2[0], "cd") == 0)
-	{
 		ft_cd(parser[1], exec);
-		return (1);
-	}
 	if(ft_strcmp(parser2[0], "echo") == 0)
-	{
 		ft_echo(parser, exec);
-		return (1);
-	}
-	return (0);
+	else
+		return (0);
+	
+	return (1);
 }
 
 int		ft_execute_builtin_parent(t_exec *exec, int index)
@@ -82,7 +64,7 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 	parser = ft_split(exec->command[0], ' ');
 	if(ft_strncmp(parser[0], "export", 6) == 0)
 	{
-		ft_export(exec, parser[1]);
+		ft_export(exec, parser);
 			ft_free(parser);
 		return (1);
 	}

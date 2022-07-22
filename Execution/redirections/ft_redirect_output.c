@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 15:53:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 05:41:50 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int lo
 {
 	int pid;
 
-		fd_in = open(exec->command[index - 3], O_RDONLY);
-		fd_out = open(exec->command[index + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
+		fd_in = ft_open(exec, REDIRIN, index - 3);
+		fd_out = ft_open(exec, REDIROUT, index + 1);
 	while(index < exec->redirection_count)
 	{
 		if(index + 1 == exec->redirection_count)
@@ -57,9 +57,9 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 	char **parser;
 
 	s_flag = 0;
+	parser = ft_split(exec->command[1], ' ');
 	if(index == 0 && ft_is_another_flag(exec, index) == REDIROUT)
 	{
-		parser = ft_split(exec->command[1], ' ');
 		fd = open(parser[0], O_CREAT | O_RDWR | O_TRUNC, 0644);
 		pid = fork();
 		if(pid == 0)
@@ -81,7 +81,7 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 		command_location = 0;
 	while(index < exec->redirection_count)
 	{
-		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		fd = ft_open(exec, REDIROUT, index + 1);
 		if(ft_find_next_flag(exec, &index, &fd, &in))
 			s_flag = 1;
 		if(exec->error_flag)
@@ -113,5 +113,6 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 	WIFEXITED(exec->env.exit_value);
 	exec->in = fd;
 	}
+	ft_free(parser);
 	return (index);
 }

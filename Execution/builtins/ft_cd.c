@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:49:49 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 01:48:38 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 03:44:14 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ void    ft_cd(char *path, t_exec *exec)
     temp = p;
     p = ft_strjoin_f("PWD=", p);
     free(temp);
-    ft_export(exec, p);
+    ft_export(exec, &p);
     free(p);
-    ft_export(exec, s);
+    ft_export(exec, &s);
     free(s);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/22 00:50:30 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 05:28:53 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,7 +268,7 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
 // built_ins
 int	ft_mini_append(t_exec *exec, t_pipe *tpipe, int i);
 int    ft_echo(char **str, t_exec *exec);
-void    ft_export(t_exec *exec, char *argv);
+void    ft_export(t_exec *exec, char **argv);
 int ft_find_variable_index(char *str, char c);
 void    ft_env(t_exec *exec);
 void    ft_exit(t_exec *exec, int index, char **argv);
@@ -291,4 +291,5 @@ int ft_redi_is_last(t_exec *exec);
 void    ft_advanced_heredoc_final_case(t_exec *exec, int index);
 int    ft_minishell_input_final_case(t_exec *exec, int index);
 void    ft_minishell_input_final_case_2_args(t_exec *exec);
+int ft_open(t_exec *exec, int kind, int index);
 #endif

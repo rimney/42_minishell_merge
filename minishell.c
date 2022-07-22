@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/21 15:53:06 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 04:54:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,19 @@ void	ft_test(t_token *token, char **envp, int exit_value)
 	}
 }
 
+
+void	ft_print_exec(t_exec *exec)
+{
+	int i;
+
+	i = 0;
+	while (exec->command[i])
+	{
+		printf("<< %s >>\n", exec->command[i]);
+		i++;
+	}
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
@@ -192,7 +205,7 @@ int	main(int argc, char **argv, char **envp)
 		ft_fill_exec(&exec, cmd->lst_token);
 	//	ft_redi_is_last(&exec);
 		ft_initialize_exec(&exec);
-		//ft_print_exec(&exec);
+		ft_print_exec(&exec);
 		ft_minishell(&exec, &pipes, 0);
 		}
 		if (cmd)

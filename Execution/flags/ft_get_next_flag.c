@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 22:33:12 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 05:37:15 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 		while(exec->command[*index + 2] || ft_is_another_flag(exec, *index) != PIPE)
 		{
 			if(ft_is_another_flag(exec, *index) == APPEND && exec->command[*index + 2] && ft_is_another_flag(exec, *index) != PIPE)
-				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
+				*fd = ft_open(exec, APPEND, *index + 1);
 			if(ft_is_another_flag(exec, *index) == APPEND && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
 			{
-				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
+				*fd = ft_open(exec, APPEND, *index + 1);
 				*index += 2;
 				return (1);
 			}
@@ -97,10 +97,10 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 				return (1);
 			}
 			if(ft_is_another_flag(exec, *index) == REDIROUT && exec->command[*index + 2])
-				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+				*fd = ft_open(exec, REDIROUT, *index + 1);
 			if(ft_is_another_flag(exec, *index) == REDIROUT && !exec->command[*index + 2])
 			{
-				*fd = open(exec->command[*index + 1], O_CREAT | O_RDWR | O_TRUNC, 0644);
+				*fd = ft_open(exec, REDIROUT, *index + 1);
 				*index += 2;
 				return (1);
 			}

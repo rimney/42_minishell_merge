@@ -6,7 +6,7 @@
 #    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/21 22:21:20 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/22 05:14:51 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,6 +67,7 @@ SRCS = Parsing/parse.c\
 		execution/parser/ft_check_errors_rm.c \
 		execution/redirections/heredoc/ft_execute_heredoc.c \
 		execution/redirections/input/ft_redirect_input_final_case.c \
+		execution/libfunctions/ft_open.c \
 		
 
 
