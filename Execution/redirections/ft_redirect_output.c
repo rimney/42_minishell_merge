@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 18:33:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 21:40:29 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 			waitpid(pid, 0, 0);
 		index = 2;
 		exec->in = fd;
-		//ft_free(parser);
 	}
 	else
 	{
