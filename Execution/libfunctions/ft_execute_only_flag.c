@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 21:43:21 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 06:03:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 {
 	char	**parser2;
 
-	parser2 = ft_split(exec->command[0], ' ');
+	parser2 = ft_split(exec->command[index], ' ');
+	printf("%s <<<<<<<<<<<<\n", parser2[0]);
 	if(ft_strcmp(parser2[0], "export") == 0)
 		ft_export(exec, parser);
 	if(ft_strcmp(parser2[0], "env") == 0)

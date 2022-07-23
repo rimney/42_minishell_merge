@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 03:02:24 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 05:30:34 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 		return (i + exec->pipe_count);
 	 }
 	 if(i == 1)
-	 			execute_pipe(exec, 0, in, pipes);
+	 		execute_pipe(exec, 0, in, pipes);
 	else
 		execute_pipe(exec, i + 1, in, pipes);
 	exec->pipe_flag = 0;

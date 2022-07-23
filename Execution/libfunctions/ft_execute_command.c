@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_command.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:47:44 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 05:48:17 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 06:01:26 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void    ft_execute_command(t_exec *exec, int index)
     ft_filter_command_single_quote_2d_array(command_parser);
     if(ft_is_a_builtin(command_parser[0]))
     {
+        printf("%s <<\n", command_parser[0]);
         ft_execute_builtin(command_parser, exec, index);
         ft_free(command_parser);
         exit(0);
