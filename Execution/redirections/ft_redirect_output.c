@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 05:41:50 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 18:33:36 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 	if(index == 0 && ft_is_another_flag(exec, index) == REDIROUT)
 	{
 		fd = open(parser[0], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		ft_find_next_flag(exec, &index, &fd, &in);
 		pid = fork();
 		if(pid == 0)
 		{
@@ -72,8 +73,7 @@ int	ft_redirect(int index, t_exec *exec, int command_location)
 			waitpid(pid, 0, 0);
 		index = 2;
 		exec->in = fd;
-		ft_free(parser);
-		
+		//ft_free(parser);
 	}
 	else
 	{
