@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/23 16:53:06 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 17:20:54 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index)
 	
 	exec->initial_flag = 0;
 	ft_count_till_last_token(exec, tpipe);
-
 	if(ft_execute_only_flag(exec, tpipe))
 		 	return ;
 	else
@@ -99,9 +98,7 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index)
 			if(ft_strcmp(exec->command[i], ">") == 0 && exec->initial_flag == 0)
 				i = ft_minishell_executor(exec, tpipe, i, REDIROUT);
 			if(ft_strcmp(exec->command[i], ">>") == 0 && exec->initial_flag == 0)
-			{
 				i = ft_minishell_executor(exec, tpipe, i, APPEND);
-			}
 			if(ft_strcmp(exec->command[i], "<<") == 0 && exec->initial_flag == 0)
 				i = ft_minishell_executor(exec, tpipe, i, HEREDOC);
 			if(ft_strcmp(exec->command[i], "<") == 0 && exec->initial_flag == 0)

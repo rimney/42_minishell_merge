@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 05:30:34 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 17:18:39 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 		// printf("%d << \n", exec->input_count);
 	}
 	ft_assign_tpipe(pipes, index + exec->pipe_count - 1);
-	printf("%d <<<<\n", exec->pipe_flag);
 	 if(exec->pipe_flag)
 	 {
 		execute_pipe(exec, i - 1, in, pipes); ////////// SHOULD START FROM HERE !!!

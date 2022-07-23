@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 05:06:59 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 16:38:28 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 17:19:16 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int ft_open(t_exec *exec, int kind, int index)
     fd = -1;
     file = ft_split(exec->command[index], ' ');
     if(kind == 1)
-    {
-        printf("temp <<||\n");
         fd = open(".temp", O_CREAT | O_RDONLY | O_TRUNC, 0644);
-    }
     if (kind == REDIROUT)
         fd = open(file[0], O_CREAT | O_RDWR | O_TRUNC, 0644);
     if (kind == APPEND)

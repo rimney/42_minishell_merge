@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_flag.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 05:37:15 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 18:17:03 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)
 		*index += 2;
 	if(exec->command[*index])
 	{
+		printf("%s <<<<<<\n", exec->command[*index]);
 		// if(ft_is_another_flag(exec, *index) == PIPE)
 		// 	return (1);
 		while(exec->command[*index + 2] || ft_is_another_flag(exec, *index) != PIPE)

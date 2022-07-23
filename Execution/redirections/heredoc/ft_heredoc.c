@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 18:18:53 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 18:24:39 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int ft_get_last_delimiter(t_exec *exec, int index)
 {
     int i;
     int delimiter;
-
 
     i = index;
     delimiter = 0;
@@ -113,16 +112,95 @@ void    ft_advanced_heredoc(t_exec *exec, int index, int command_location)
     ft_heredoc(exec, command_location, index);    
 }
 
-int ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2])
+// int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int out)
+// {
+//     // char *line;
+//     char *delimiter;
+//     char **parser;
+//     int in;
+
+
+//     parser = ft_split(exec->command[index + 1], ' ');
+//     delimiter = strdup(parser[0]);
+//     // while((line = readline("final heredoc >")))
+//     // {
+//     //     exec->heredoc_flag = 1;
+//         in = fd[0];
+//     //     if(ft_strcmp(line, delimiter) != 0)
+//     //     {
+//     //         write(fd[1], line, ft_strlen(line));
+//     //         write(fd[1], "\n", 1);
+//     //     }
+//     //     if(ft_strcmp(line, delimiter) == 0)
+//     //     {
+//             ft_find_next_flag(exec, &index, &out, &in);
+//             close(fd[1]);
+//             if(out != -1)
+//             {
+//                 dup2(out, 1);
+//                 close(out);
+//             }
+//             dup2(in, 0);
+//             close(in);
+//             execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+//         // }
+//      //   free(line);
+//     // }
+//     return (1);
+// }
+
+int ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out)
 {
-    char *line;
+    // char *line;
     char *delimiter;
     char **parser;
+    int in;
+
+
+    parser = ft_split(exec->command[index + 1], ' ');
+    delimiter = strdup(parser[0]);
+    // while((line = readline("final heredoc >")))
+    // {
+    //     exec->heredoc_flag = 1;
+        in = fd[0];
+    //     if(ft_strcmp(line, delimiter) != 0)
+    //     {
+    //         write(fd[1], line, ft_strlen(line));
+    //         write(fd[1], "\n", 1);
+    //     }
+    //     if(ft_strcmp(line, delimiter) == 0)
+    //     {
+        if(exec->heredoc_count > 2)
+                ft_find_next_flag(exec, &index, &out, &in);
+            close(fd[1]);
+            if(out != -1)
+            {
+                dup2(out, 1);
+                close(out);
+            }
+            dup2(in, 0);
+            close(in);
+            execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+        // }
+     //   free(line);
+    // }
+    return (1);
+}
+
+int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int out)
+{
+     char *line;
+    char *delimiter;
+    char **parser;
+    int in;
+
 
     parser = ft_split(exec->command[index + 1], ' ');
     delimiter = strdup(parser[0]);
     while((line = readline("final heredoc >")))
     {
+        exec->heredoc_flag = 1;
+        in = fd[0];
         if(ft_strcmp(line, delimiter) != 0)
         {
             write(fd[1], line, ft_strlen(line));
@@ -130,25 +208,49 @@ int ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2])
         }
         if(ft_strcmp(line, delimiter) == 0)
         {
+            ft_find_next_flag(exec, &index, &out, &in);
             close(fd[1]);
-            dup2(fd[0], 0);
-            close(fd[0]);
+            if(out != -1)
+            {
+                dup2(out, 1);
+                close(out);
+            }
+            dup2(in, 0);
+            close(in);
             execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
         }
-        free(line);
+       free(line);
     }
     return (1);
 }
 
+int ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out)
+{
+    // char *line;
+    char *delimiter;
+    char **parser;
+
+
+    parser = ft_split(exec->command[index + 1], ' ');
+    delimiter = strdup(parser[0]);
+    if(ft_count_elements(parser) == 2)
+        ft_heredoc_final_case_child_2(exec, index, fd, out);
+    else
+        ft_heredoc_final_case_child_1(exec, index, fd, out);
+    return (1);
+}
 void    ft_heredoc_final_case(t_exec *exec, int index)
 {
     int pid;
     int fd[2];
+    int out;
 
+
+    out = -1;
     pipe(fd);
     pid = fork();
     if(pid == 0)
-        ft_heredoc_final_case_child(exec, index, fd);
+        ft_heredoc_final_case_child(exec, index, fd, out);
     else
     {    
         close(fd[0]);

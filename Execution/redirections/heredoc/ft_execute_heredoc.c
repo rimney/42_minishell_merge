@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 16:10:42 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 18:13:41 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 17:22:29 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,11 @@ void    ft_apply_heredoc_parent(int pid, t_exec *exec, int info)
     signal(SIGINT, SIG_IGN);
     waitpid(pid, &info, 0);
     if (WIFEXITED(info))
-    {
         exec->env.exit_value = WEXITSTATUS(info);
-    }
     else if (WIFSIGNALED(info))
     {
         if (WTERMSIG(info) == 2)
-        {
-            exec->env.exit_value = 1;
-            exit(1);
-        }
+            exec->env.exit_value = 2;
     }
     signal(SIGINT, SIG_DFL);
 }
