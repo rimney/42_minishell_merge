@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 15:45:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 03:02:24 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 		// printf("%d << count\n", exec->pipe_count);
 		if(ft_strcmp(exec->command[index + 2], ">") == 0)
 		{
-			exec->append_flag = 1;
 			exec->pipe_flag = 1;
 			exec->redirection_count = ft_count_till_other_token(exec, i + 2, ">");
 			// printf("%d << here\n", exec->pipe_flag);
@@ -68,6 +67,8 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 		i++;
 		return (i + exec->pipe_count);
 	 }
+	 if(i == 1)
+	 			execute_pipe(exec, 0, in, pipes);
 	else
 		execute_pipe(exec, i + 1, in, pipes);
 	exec->pipe_flag = 0;
