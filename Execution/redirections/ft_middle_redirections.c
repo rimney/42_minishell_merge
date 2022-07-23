@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:33:36 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 15:50:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 16:40:15 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,22 @@ int	ft_get_next_redirection(t_exec *exec, int index)
 
 int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd)
 {
-	printf("EN\n");
 	if((exec->command[i + 2] && ft_is_another_flag(exec, i + 2))
 			|| exec->command[i + 2] == NULL)
 	{
 		if(exec->command[i + 2] && (ft_get_next_redirection(exec, i + 2)))
 		{
-			printf("HH\n");
-			printf("%d fd<<<<<", fd);
 			ft_dup_and_redirect(exec->in, exec, i + 2);
 			i += ft_get_next_redirection(exec, i + 2);
 			return (i - 1);
 		}
 		else
 		{
-			printf("%d <<in\n", fd);
+			if(exec->in == -1)
+				exec->in =  fd = open(".temp", O_CREAT | O_RDONLY | O_TRUNC, 0644);
+			printf("%d <<idddddn\n", fd);
 			printf("pipde\n");
-			ft_mini_pipe(exec, tpipe, fd, i - 1, i);
+			ft_mini_pipe(exec, tpipe, exec->in, i - 1, i);
 			i += exec->pipe_count;
 		wait(NULL);
 		}
