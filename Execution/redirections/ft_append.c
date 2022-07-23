@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:20 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 15:41:51 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 22:03:23 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,47 @@ void	ft_advanced_append(int index, t_exec *exec, int fd_out, int fd_in, int loca
 	WIFEXITED(exec->env.exit_value);
 }
 
+
+
 int	ft_append(int index, t_exec *exec, int command_location)
 {
-	int pid;
 	int fd;
-	int s_flag;
 	int in;
+	int pid;
+	int s_flag;
+	char **parser;
 
 	s_flag = 0;
+	parser = ft_split(exec->command[1], ' ');
+	if(index == 0 && ft_is_another_flag(exec, index) == APPEND)
+	{
+		fd = open(parser[0], O_CREAT | O_RDWR | O_APPEND, 0644);
+		ft_find_next_flag(exec, &index, &fd, &in);
+		pid = fork();
+		if(pid == 0)
+		{
+			dup2(fd, 1);
+			close(fd);
+			execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+		}
+		else
+			waitpid(pid, 0, 0);
+		index = 2;
+		exec->in = fd;
+	}
+	else
+	{
+		index = 1;
+		command_location = 0;
 	while(index < exec->append_count)
 	{
-		fd = open(exec->command[index + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
+		fd = ft_open(exec, APPEND, index + 1);
 		if(ft_find_next_flag(exec, &index, &fd, &in))
 			s_flag = 1;
 		if(exec->error_flag)
 		{
 			exec->error_flag = 0;
-			return(0);
+			return (0);
 		}
 		if((index + 1 == exec->append_count || s_flag == 1))
 		{
@@ -79,7 +103,11 @@ int	ft_append(int index, t_exec *exec, int command_location)
 		}
 		index += 2;
 	}
+
 	waitpid(pid, &exec->env.exit_value, 0);
 	WIFEXITED(exec->env.exit_value);
+	exec->in = fd;
+	}
+	ft_free(parser);
 	return (index);
 }
