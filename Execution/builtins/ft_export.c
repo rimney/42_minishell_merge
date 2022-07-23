@@ -188,7 +188,6 @@ void    ft_export(t_exec *exec, char **argv)
     index = 1;
     flag = -1;
     i = 0;
-    printf("%s << \n", argv[index]);
     if(!argv[index]) 
     {
         ft_export_no_args_case(exec);
@@ -208,8 +207,6 @@ void    ft_export(t_exec *exec, char **argv)
         }
         i++;
     }
-    // if(ft_find_variable_index(argv[index], '=') && ft_contain(argv[index], '='))
-   // printf("%s <<\n", *(argv + 2));
    while(argv[index])
         ft_apply_export(exec, argv[index++]);
 }

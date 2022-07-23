@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:33:36 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 16:40:15 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 16:58:33 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd)
 		}
 		else
 		{
-			if(exec->in == -1)
-				exec->in =  fd = open(".temp", O_CREAT | O_RDONLY | O_TRUNC, 0644);
-			printf("%d <<idddddn\n", fd);
-			printf("pipde\n");
+			exec->in =  fd = open(".temp", O_CREAT | O_RDONLY | O_TRUNC, 0644);
 			ft_mini_pipe(exec, tpipe, exec->in, i - 1, i);
 			i += exec->pipe_count;
 		wait(NULL);
