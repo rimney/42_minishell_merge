@@ -49,7 +49,9 @@ char    *ft_mystrdup(char *s1,  int flag)
         while(i < ft_strlen(s1) - 1)
         {
             if(s1[i] == '\"')
+            {
                 i++;
+            }
             str[j] = s1[i];
             i++;
             j++;
@@ -80,26 +82,47 @@ void    ft_export_no_args_case(t_exec *exec)
     ft_sort_string_tab(exec->envp);
     while(exec->envp[i])
     {
-		flag = 0;
-		j = 0;
-		printf("declare -x ");
-		while(exec->envp[i][j])
-		{
-			if(j != 0 && exec->envp[i][j - 1] == '=' && flag == 0)
-			{
-				printf("\"");
-				flag = 1;
-			}
-			printf("%c", exec->envp[i][j]);
-			j++;
-		}
-		if(ft_contain(exec->envp[i], '='))
-			printf("\"");
-		printf("\n");
-		i++;
-}
+    flag = 0;
+        j = 0;
+        printf("declare -x ");
+        while(exec->envp[i][j])
+        {
+            if(j != 0 && exec->envp[i][j - 1] == '=' && flag == 0)
+            {
+                printf("\"");
+                flag = 1;
+            }
+            printf("%c", exec->envp[i][j]);
+            j++;
+        }
+        if(ft_contain(exec->envp[i], '='))
+            printf("\"");
+        printf("\n");
+        i++;
+    }
 }
 
+char    **ft_join_export(t_exec *exec, char *arg)
+{
+    int i;
+    char **temp;
+
+    i = 0;
+    temp = exec->envp;
+    exec->envp = (char **)malloc(sizeof(char *) * ft_count_elements(exec->envp) + 1 + 1);
+    if(ft_find_variable_index(arg, '='))
+    {
+        while(temp[i])
+        {
+            exec->envp[i] = strdup(temp[i]);
+            i++;
+        }
+        exec->envp[i] = strdup(arg);
+        printf("| %s | has been joined  \n" , exec->envp[i]);
+        exec->envp[i + 1] = 0;
+    }
+    return(exec->envp);
+}
 
 void    ft_export_replace(t_exec *exec, char *arg, int index)
 {
@@ -113,6 +136,17 @@ void    ft_export_replace(t_exec *exec, char *arg, int index)
     free(temp);
 }
 
+void    ft_export_replace_export(t_exec *exec, char *arg, int index)
+{
+    char *temp;
+    int flag;
+    flag = 0;
+    if(arg[ft_find_variable_index(arg, '=') + 1]  == '\"')
+        flag = 1;
+    temp = exec->export[index];
+    exec->export[index] = ft_mystrdup(arg, flag);
+    free(temp);
+}
 
 int ft_check_export_string(char *str)
 {
@@ -125,11 +159,12 @@ int ft_check_export_string(char *str)
 void    ft_apply_export(t_exec *exec, char *new)
 {
     int i;
+    int j;
     char **temp;
     int flag;
-	// char *temp2;
 
     i = 0;
+    j = 0;
     temp = exec->envp;
     flag = 0;
     exec->envp = malloc(sizeof(char *) * (ft_count_elements(temp) + 2));
@@ -138,43 +173,44 @@ void    ft_apply_export(t_exec *exec, char *new)
         exec->envp[i] = strdup(temp[i]);
         i++;
     }
-    if(new[ft_find_variable_index(new, '=') + 1]  == '\"')
-        flag = 1;
-    exec->envp[i] = ft_mystrdup(new, flag);
+    exec->envp[i] = strdup(new);
     exec->envp[i + 1] = NULL;
     ft_free(temp);
 }
 
 
-void	ft_export(t_exec *exec, char **argv)
+void    ft_export(t_exec *exec, char **argv)
 {
-	int	i;
-	int	flag;
-    int	index;
+    int i;
+    int flag;
+    int index;
 
-	index = 1;
-	flag = 0;
-	i = 0;
-	if(!argv[index]) 
-	{
-		ft_export_no_args_case(exec);
-		return ;
-	}
-	if(!ft_check_export_string(argv[index]))
-	{
-		printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
-		exec->env.exit_value = 1;
-	}
-	while(exec->envp[i])
+    index = 1;
+    flag = -1;
+    i = 0;
+    printf("%s << \n", argv[index]);
+    if(!argv[index]) 
     {
-		if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
-		{
-			ft_export_replace(exec, argv[index], i);
-			return;
-		}
-		i++;
-	}
-	while(argv[index])
-		ft_apply_export(exec, argv[index++]);
+        ft_export_no_args_case(exec);
+        return ;
+    }
+    if(!ft_check_export_string(argv[index]))
+    {
+        printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
+        exec->env.exit_value = 1;
+    }
+    while(exec->envp[i])
+    {
+        if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
+        {
+            ft_export_replace(exec, argv[index], i);
+            return;
+        }
+        i++;
+    }
+    // if(ft_find_variable_index(argv[index], '=') && ft_contain(argv[index], '='))
+   // printf("%s <<\n", *(argv + 2));
+   while(argv[index])
+        ft_apply_export(exec, argv[index++]);
 }
 

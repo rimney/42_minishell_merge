@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/23 00:35:08 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/22 21:44:03 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef enum e_type
 typedef struct s_env
 {
     char    **envp;
+	char	**export;
     int     exit_value;
 } t_env;
 
@@ -93,6 +94,7 @@ typedef struct s_exec
 	int error_flag;
 	int in;
     char    **envp;
+	char	**export;
 	t_env env;
 } t_exec;
 

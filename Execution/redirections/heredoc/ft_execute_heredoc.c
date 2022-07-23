@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_heredoc.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 16:10:42 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 22:53:03 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/21 18:13:41 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,7 @@ int ft_execute_heredoc(t_exec *exec, int index)
         if(pid == 0)
             ft_apply_heredoc_child(exec, index, command_location);
         else
-        {
-                signal(SIGINT, SIG_IGN);
-    waitpid(pid, &info, 0);
-    if (WIFEXITED(info))
-    {
-        exec->env.exit_value = WEXITSTATUS(info);
-    }
-    else if (WIFSIGNALED(info))
-    {
-        if (WTERMSIG(info) == 2)
-        {
-            exec->env.exit_value = 1;
-            exit(1);
-        }
-    }
-    signal(SIGINT, SIG_DFL);
-        }
+            ft_apply_heredoc_parent(pid, exec, info);
     }
     return (1);
 }
