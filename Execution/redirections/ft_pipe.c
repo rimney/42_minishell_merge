@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:23 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/13 01:59:50 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 01:43:46 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@ void	ft_pipe(int in, t_pipe *tpipe, t_exec *exec, int index)
     }
 
     close(tpipe->fd[0]);
+    printf("%s << hhere\n", exec->command[index + 1]);
+    //exit(0);
         ft_execute_command(exec, index);
 }
 
  void    ft_apply_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index)
  {
-
     if (in != -1)
     {
         dup2(in, 0);
@@ -129,14 +130,14 @@ int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe)
         close(in);
     if (tpipe->fd[1] !=  -1)
         close(tpipe->fd[1]);
-    if(exec->command[index + 1] && (ft_strcmp(exec->command[index + 1], ">") == 0 
-        || ft_strcmp(exec->command[index + 1], ">>") == 0
-            || ft_strcmp(exec->command[index + 1], "<") == 0) && exec->pipe_count > 2)
-    {
-        ft_redirect_after_pipe_flag(exec, tpipe, fd, index - 2, in_save);
-        exec->redirecion_flag = 0;
-        return (index);
-    }
+    // if(exec->command[index + 1] && (ft_strcmp(exec->command[index + 1], ">") == 0 
+    //     || ft_strcmp(exec->command[index + 1], ">>") == 0
+    //         || ft_strcmp(exec->command[index + 1], "<") == 0) && exec->pipe_count > 2)
+    // {
+    //     ft_redirect_after_pipe_flag(exec, tpipe, fd, index - 2, in_save);
+    //     exec->redirecion_flag = 0;
+    //     return (index);
+    // }
     if (index < tpipe->max)
     {
         if((exec->pipe_flag) && index == tpipe->max - 2)

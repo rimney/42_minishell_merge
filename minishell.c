@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/22 04:54:11 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/23 01:39:54 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,13 +199,11 @@ int	main(int argc, char **argv, char **envp)
 			if (!cmd)
 				g_flag = 1;
 		}
-		if(!err_flag)
+		if(!err_flag && !g_flag)
 		{
 		ft_test(cmd->lst_token, exec.envp, exec.env.exit_value);
 		ft_fill_exec(&exec, cmd->lst_token);
-	//	ft_redi_is_last(&exec);
 		ft_initialize_exec(&exec);
-		ft_print_exec(&exec);
 		ft_minishell(&exec, &pipes, 0);
 		}
 		if (cmd)
@@ -221,7 +219,7 @@ int	main(int argc, char **argv, char **envp)
 			free(cmd);
 		}
 	//	printf("%d << exit\n", exec.env.exit_value % 255);
-	if(!err_flag)
+	if(!err_flag && !g_flag)
 		ft_free(exec.command);
 		g_flag = 0;
 		free(line);
