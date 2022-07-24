@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:23 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/13 01:59:50 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 19:54:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,6 @@ void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int fd, int ind
 {
     int pid;    
 
-    // if(exec->pipe_flag == 1)
-    // {
-    //     printf("PIIIIIPE FLAAAAG\n");
-    //     fd = open(exec->command[i + 2])
-    // }
-    printf("PASSED\n");
-    printf("%s <<|| \n", exec->command[index + exec->redirection_count + 2]);
     if(exec->pipe_flag == 1)
         fd = open(exec->command[index + exec->redirection_count + 2], O_CREAT | O_TRUNC | O_RDWR, 0644);
     if(exec->redirecion_flag == 1)

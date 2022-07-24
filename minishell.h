@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 19:45:21 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 20:38:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,4 +272,5 @@ int ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out);
 int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int out);
 int ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out);
 int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in);
+int	ft_is_a_mini_flag(t_exec *exec, int i);
 #endif

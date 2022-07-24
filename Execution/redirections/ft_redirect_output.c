@@ -6,19 +6,11 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 21:40:29 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 19:54:26 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	ft_single_redirect(char *argv)
-{
-	// int fd;
-
-	// fd = open(argv, O_RDWR , 0644);
-	printf("%s\n", argv);
-}
 
 void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location)
 {

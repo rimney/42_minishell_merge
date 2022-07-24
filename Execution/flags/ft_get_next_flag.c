@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 18:17:03 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 20:38:50 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,17 @@ void	ft_heredoc_middle(int *in, char *delimiter)
 		}
 		free(line);
 	}
+}
+
+int	ft_is_a_mini_flag(t_exec *exec, int i)
+{
+	if((exec->command[i + 2] && (ft_is_another_flag(exec, i + 2) == PIPE
+		|| ft_is_another_flag(exec, i + 2) == APPEND
+		|| ft_is_another_flag(exec, i + 2) == REDIROUT || ft_is_another_flag(exec, i + 2) == REDIRIN
+		|| ft_is_another_flag(exec, i + 2) == HEREDOC))
+				|| exec->command[i + 2] == NULL)
+		return (1);
+	return (0);
 }
 
 int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in)

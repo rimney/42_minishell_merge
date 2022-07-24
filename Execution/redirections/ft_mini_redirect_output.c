@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:31:43 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 17:18:31 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 20:39:56 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,7 @@ int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i)
 		if(exec->command[i] && ft_is_another_flag(exec, i) == PIPE)
 		{
 			exec->pipe_count = ft_count_till_other_token(exec, i, "|");;
-			if((exec->command[i + 2] && (ft_is_another_flag(exec, i + 2) == PIPE
-				|| ft_is_another_flag(exec, i + 2) == APPEND
-				|| ft_is_another_flag(exec, i + 2) == REDIROUT || ft_is_another_flag(exec, i + 2) == REDIRIN
-				|| ft_is_another_flag(exec, i + 2) == HEREDOC))
-				|| exec->command[i + 2] == NULL)
+			if(ft_is_a_mini_flag(exec, i))
 			{
 				exec->pipe_count = ft_count_till_other_token(exec, i, "|");
 				fd = open(".temp", O_CREAT | O_RDONLY | O_TRUNC, 0644);
