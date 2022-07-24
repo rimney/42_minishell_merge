@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 18:41:32 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:48:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,20 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 	return (1);
 }
 
+int	ft_execute_only_flag_norm(t_exec *exec)
+{
+	if(only_output_redirection_flag(exec) > 0)
+		ft_redirect(0, exec, 0);
+	else if(only_heredoc_flag(exec) > 0)
+		ft_execute_heredoc(exec, 0);
+	else if(only_append_flag(exec) > 0)
+		ft_append(0, exec, 0);
+	else if(only_input_flag(exec) > 0)
+		ft_redirect_input(1, exec, 0);
+	else
+		return (0);
+	return (1);
+}
 
 int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 {
@@ -110,15 +124,7 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 		execute_pipe(exec, 0, -1, tpipe);
 		wait(NULL);
 	}
-	else if(only_output_redirection_flag(exec) > 0)
-		ft_redirect(0, exec, 0);
-	else if(only_heredoc_flag(exec) > 0)
-		ft_execute_heredoc(exec, 0);
-	else if(only_append_flag(exec) > 0)
-		ft_append(0, exec, 0);
-	else if(only_input_flag(exec) > 0)
-		ft_redirect_input(1, exec, 0);
-	else
+	else if(!ft_execute_only_flag_norm(exec))
 		return (0);
 	return(1);
 }

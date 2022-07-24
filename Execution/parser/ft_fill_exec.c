@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 16:39:29 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 19:31:35 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,39 +39,44 @@ void	ft_initialize_exec(t_exec *exec)
 }
 
 
+void	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
+{
+	char *temp;
+	if(token->type != WORD && *head_flag == 0)
+	{
+		exec->command[*i] = strdup(token->value);
+		*i += 1;
+	}
+	if(token->type == WORD && *head_flag == 0)
+	{
+		exec->command[*i] = strdup(token->value);
+		*head_flag = 1;
+	}
+	else if(token->type == WORD && *head_flag == 1)
+	{
+		temp = exec->command[*i];
+		exec->command[*i] = ft_simple_strjoin(exec->command[*i], token->value);
+		free(temp);
+	}
+	else if(token->type != WORD && *head_flag)
+	{
+		*i += 1;
+		exec->command[*i] = strdup(token->value);
+		*head_flag = 0;
+		*i += 1;	
+	}
+}
+
+
 void	ft_fill_exec(t_exec *exec, t_token *token)
 {
 	int i = 0;
 	int head_flag = 0;
-	char	*temp;
 
 	exec->command = malloc(sizeof(char *) * (ft_count_tokens(token) + 1));
 	while(token)
 	{
-		printf(">> %s <<\n", token->value);
-		if(token->type != WORD && head_flag == 0)
-		{
-			exec->command[i] = strdup(token->value);
-			i++;
-		}
-		if(token->type == WORD && head_flag == 0)
-		{
-			exec->command[i] = strdup(token->value);
-			head_flag = 1;
-		}
-		else if(token->type == WORD && head_flag == 1)
-		{
-			temp = exec->command[i];
-			exec->command[i] = ft_simple_strjoin(exec->command[i], token->value);
-			free(temp);
-		}
-		else if(token->type != WORD && head_flag)
-		{
-			i++;
-			exec->command[i] = strdup(token->value);
-			head_flag = 0;
-			i++;		
-		}
+		ft_fill_exec_norm(exec, token, &head_flag, &i);
 		token = token->next;
 	}
 	exec->command[i + 1] = 0;

@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 18:40:40 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 19:45:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,5 +268,8 @@ void    ft_filter_command_single_quote_2d_array(char **argv);
 char    *ft_filter_command_double_quotes(char *temp);
 char    *ft_filter_command_single_quote(char *temp);
 void    ft_filter_command_quotes(char **argv);
-
+int ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out);
+int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int out);
+int ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out);
+int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in);
 #endif
