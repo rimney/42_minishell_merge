@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/02 13:48:12 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/08 03:34:07 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 21:59:56 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	get_size_new_line(char *str)
 	{
 		if (check_if_op(str[i], str[i + 1]) && (!ft_isspace(str[i - 1])
 				|| !ft_isspace(str[i + 1])))
-			c++;
+			c = c + 2;
 		i++;
 	}
 	size = ft_strlen(str) + c;
