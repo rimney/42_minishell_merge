@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 19:31:35 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 22:58:39 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,10 @@ void	ft_initialize_exec(t_exec *exec)
 	exec->error_flag = 0;
 }
 
-
 void	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
 {
 	char *temp;
+\
 	if(token->type != WORD && *head_flag == 0)
 	{
 		exec->command[*i] = strdup(token->value);

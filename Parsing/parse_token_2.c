@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 18:41:39 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 17:34:16 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 22:48:42 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_token	*handle_quotes(t_token *lst, int *flag, char **s)
 				|| (tools[3] == -1))
 			{
 				free(lst);
-				handle_error("missing \n");
+				handle_error("missing lol\n");
 				return (NULL);
 			}
 			else if (tools[3] != -1)
@@ -108,7 +108,7 @@ int	handle_words(char *s, char c, t_token *first)
 	{
 		free(first);
 		handle_error("missing quote\n");
-		//return (-99);
+		return (-99);
 	}
 	return (nbwords);
 }

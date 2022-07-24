@@ -3,31 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:54:17 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/20 00:32:19 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 23:04:12 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_signals(int sig)
+void	ft_putchar_fd(char c, int fd)
 {
-	if (sig == SIGINT)
-	{
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	write(fd, &c, 1);
 }
 
-void	handle_prompt(int sig)
+void	handle_signals(int sig)
 {
-	if (sig == SIGQUIT)
-	{
-		printf("^\\Quit: 3");
-		exit(0);
-	}
+	(void)sig;
+	rl_replace_line("", 0);
+	ft_putchar_fd('\n', 1);
+	rl_on_new_line();
+	rl_redisplay();
 }
