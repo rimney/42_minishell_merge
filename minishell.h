@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 20:38:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 23:07:51 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ int		ft_atoi(char *str);
 void	ft_free(char **str);
 void	ft_env(t_exec *exec);
 int		ft_is_space(char *str);
-void	*handle_error(char *str);
+void	handle_error(char *str);
 char	*ft_locate_env(char **env);
 int		only_pipe_flag(t_exec *exec);
 void	free_lst_token(t_token *lst);
