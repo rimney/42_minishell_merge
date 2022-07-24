@@ -136,18 +136,6 @@ void    ft_export_replace(t_exec *exec, char *arg, int index)
     free(temp);
 }
 
-void    ft_export_replace_export(t_exec *exec, char *arg, int index)
-{
-    char *temp;
-    int flag;
-    flag = 0;
-    if(arg[ft_find_variable_index(arg, '=') + 1]  == '\"')
-        flag = 1;
-    temp = exec->export[index];
-    exec->export[index] = ft_mystrdup(arg, flag);
-    free(temp);
-}
-
 int ft_check_export_string(char *str)
 {
     if(!((str[0] >= 'a' && str[0] <= 'z') ||

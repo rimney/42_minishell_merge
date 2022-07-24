@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 04:08:43 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 16:53:48 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,6 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 	return (1);
 }
 
-void	ft_2d(char **str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		printf("%s\n", str[i++]);
-
-}
 
 int		ft_execute_builtin_parent(t_exec *exec, int index)
 {

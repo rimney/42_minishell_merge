@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 04:17:50 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 16:31:34 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 # define GREEN_COLOR "\e[0;32m"
+# include <readline/readline.h>
+# include <readline/history.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <signal.h>
@@ -21,8 +23,8 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+
+int				g_flag;
 typedef struct s_token
 {
 	struct s_token	*next;
@@ -31,7 +33,7 @@ typedef struct s_token
 	char			*value;
 	char			quote;
 }				t_token;
-int				g_flag;
+
 typedef struct s_redir
 {
 	int				type;
@@ -46,8 +48,6 @@ typedef struct s_tok_red
 	t_redir	*lst_redir;
 }				t_tok_red;
 
-
-
 typedef enum e_type
 {
 	WORD,
@@ -60,14 +60,11 @@ typedef enum e_type
 
 typedef struct s_env
 {
-    char    **envp;
-	char	**export;
     int     exit_value;
 } t_env;
 
 typedef struct s_pipe
 {
-	
 	int fd[2];
 	int in;
 	int max;
@@ -77,26 +74,24 @@ typedef struct s_pipe
 
 typedef struct s_exec
 {
-	char **command;
-	int input_count;
-	int input_flag;
-	int redirection_count;
-	int redirecion_flag;
-	int append_count;
-	int append_flag;
-	int heredoc_count;
-	int heredoc_flag;
-	int pipe_count;
-	int pipe_flag;
-	int args;
-	int initial_flag;
-	int sev_flag;
-	int error_flag;
-	int in;
-    char    **envp;
-	char	**export;
-	t_env env;
-} t_exec;
+	int		in;
+	int		args;
+	t_env	env;
+    char	**envp;
+	char	**command;
+	int		pipe_flag;
+	int		pipe_count;
+	int		input_flag;
+	int		error_flag;
+	int		input_count;
+	int		append_flag;
+	int		initial_flag;
+	int		heredoc_flag;
+	int		append_count;
+	int		heredoc_count;
+	int		redirecion_flag;
+	int		redirection_count;
+}	t_exec;
 
 /******** utils.c functions ********/
 
@@ -183,116 +178,90 @@ int			check_redir_correctness(char *str);
 int			fix_diff(char *str);
 
 /******** free_parse.c fucntions ********/
-void		free_lst_token(t_token *lst);
-void		free_lst_redir(t_redir *lst);
-void		*handle_error(char *str);
-
-/******** expand_quotes.c fucntions ********/
-
-int			ft_strncmp(char *s1, char *s2, int n);
-int			ft_find_last_character(char *str, char c);
-int			check_if_redir_exist(char *str);
-char		*ft_expand(char *expand, char **envp);
-void		ft_assign_expand(t_token *token, char **envp);
-
-/******** EXECuTIOH STILL IN PROGRESS !!!!!! ****/ 
-//output
-int	ft_redirect(int index, t_exec *exec, int command_location);
-void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location);
-void	ft_single_redirect(char *argv);
-//input
-int	ft_redirect_input(int index, t_exec *exec, int command_location);
-//void    redirect(t_exec *exec, int command_location, int index);
-//pipe
-int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe);
-void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int fd, int index, int in_save);
-void   ft_apply_input_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
-void    ft_apply_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
-void	ft_pipe(int in, t_pipe *tpipe, t_exec *exec, int index);
-//heredoc
-int ft_execute_heredoc(t_exec *exec, int index);
-void    ft_advanced_heredoc(t_exec *exec, int index, int command_location);
-int ft_basic_heredoc(t_exec *exec, int index);
-void ft_heredoc(t_exec *exec, int command_location, int index);
-int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction);
-int ft_get_last_delimiter(t_exec *exec, int index);
-//append
-int	ft_append(int index, t_exec *exec, int command_location);
-void	ft_single_append(int argc, char **argv);
-void	ft_advanced_append(int index, t_exec *exec, int fd_out, int fd_in, int location);
-//count
-int	ft_count_tokens(t_token *token);
-void ft_count_till_last_token(t_exec *exec, t_pipe *pipes);
-int	ft_count_till_other_token(t_exec *exec, int index, char *token);
-// command parsing
-char	*ft_exec_command(char **envp, char *command);
-char	*ft_filter_command(char *command);
-int	ft_count_elements(char **str);
-char	*ft_locate_env(char **env);
-int	ft_is_space(char *str);
-//envp assignment
-void    ft_get_env(t_exec *exec, char **env);
-//split
-char	**ft_split(char const *s, char c);
-//join
-char    *ft_strjoin(char *s1, char *s2, char *s3);
-char	*ft_simple_strjoin(char *s1, char *s2);
-//execute command
-void    ft_execute_command(t_exec *exec, int index);
-//free
+void	ft_pwd(void);
+int		ft_atoi(char *str);
 void	ft_free(char **str);
-//is_another_flag
-int ft_is_another_flag(t_exec *exec, int index);
-//fill_exex
-void	ft_fill_exec(t_exec *exec, t_token *token);
-void	ft_initialize_exec(t_exec *exec);
-//execute only flag
-int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe);
-void	ft_assign_tpipe(t_pipe *pipe, int argc);
-//only_flag
-int only_pipe_flag(t_exec *exec);
-int only_command_flag(t_exec *exec);
-int only_output_redirection_flag(t_exec *exec);
-int only_heredoc_flag(t_exec *exec);
-int only_append_flag(t_exec *exec);
-int only_input_flag(t_exec *exec);
+void	ft_env(t_exec *exec);
+int		ft_is_space(char *str);
+void	*handle_error(char *str);
+char	*ft_locate_env(char **env);
+int		only_pipe_flag(t_exec *exec);
+void	free_lst_token(t_token *lst);
+void	free_lst_redir(t_redir *lst);
+int		only_input_flag(t_exec *exec);
+int		ft_redi_is_last(t_exec *exec);
 void	ft_check_expand(t_exec *exec);
-
-//mini
-int	ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i);
-int ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd);
-int ft_apply_redin_middle(t_exec *exec, t_pipe *tpipe,  int i);
-int	ft_middle_rediout(t_exec *exec, t_pipe *tpipe, int i);
-int	ft_dup_and_redirect(int fd_in, t_exec *exec, int index);
-int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
-// built_ins
-int	ft_mini_append(t_exec *exec, t_pipe *tpipe, int i);
-int    ft_echo(char **str, t_exec *exec);
-void    ft_export(t_exec *exec, char **argv);
-int ft_find_variable_index(char *str, char c);
-void    ft_env(t_exec *exec);
-void    ft_exit(t_exec *exec, int index, char **argv);
-int ft_atoi(char *str);
-void    ft_unset(char *str, t_exec *exec);
-void    ft_pwd(void);
-void    ft_export_replace(t_exec *exec, char *arg, int index);
-void    ft_cd(char *path, t_exec *exec);
-int ft_path_exists(char **envp);
-int	ft_mini_redirect_input(t_exec *exec, t_pipe *tpipe, int i);
-int ft_advanced_redirect_input(t_exec *exec, int fd_in, int index);
-int	ft_mini_heredoc(t_exec *exec, t_pipe *tpipe, int i);
-int	ft_is_a_builtin(char *command);
+int		ft_count_elements(char **str);
+int		only_append_flag(t_exec *exec);
+void	ft_single_redirect(char *argv);
+int		only_heredoc_flag(t_exec *exec);
+int		only_command_flag(t_exec *exec);
+int		check_if_redir_exist(char *str);
+void	ft_cd(char *path, t_exec *exec);
+int		ft_count_tokens(t_token *token);
+void	ft_initialize_exec(t_exec *exec);
+char	*ft_filter_command(char *command);
+char	**ft_split(char const *s, char c);
+void	ft_unset(char *str, t_exec *exec);
+int		ft_echo(char **str, t_exec *exec);
+char	**ft_split_special(char *s, char c);
+void	ft_export(t_exec *exec, char **argv);
+void	ft_get_env(t_exec *exec, char **env);
+int		ft_strncmp(char *s1, char *s2, int n);
+char	*ft_expand(char *expand, char **envp);
+char	*ft_simple_strjoin(char *s1, char *s2);
+void	ft_single_append(int argc, char **argv);
+void	ft_assign_tpipe(t_pipe *pipe, int argc);
+int		ft_find_last_character(char *str, char c);
+char	*ft_strjoin(char *s1, char *s2, char *s3);
+int		ft_basic_heredoc(t_exec *exec, int index);
+int		ft_open(t_exec *exec, int kind, int index);
+int		only_output_redirection_flag(t_exec *exec);
+void	ft_fill_exec(t_exec *exec, t_token *token);
+int		ft_execute_heredoc(t_exec *exec, int index);
+int		ft_is_another_flag(t_exec *exec, int index);
+void	ft_execute_command(t_exec *exec, int index);
+char	*ft_exec_command(char **envp, char *command);
+void	ft_exit(t_exec *exec, int index, char **argv);
+void	ft_assign_expand(t_token *token, char **envp);
+int		ft_get_last_delimiter(t_exec *exec, int index);
+int		ft_execute_only_flag(t_exec *exec, t_pipe *tpipe);
+int		ft_middle_rediout(t_exec *exec, t_pipe *tpipe, int i);
+void	ft_count_till_last_token(t_exec *exec, t_pipe *pipes);
+int		ft_dup_and_redirect(int fd_in, t_exec *exec, int index);
+void	ft_pipe(int in, t_pipe *tpipe, t_exec *exec, int index);
+int		ft_append(int index, t_exec *exec, int command_location);
+void	ft_heredoc(t_exec *exec, int command_location, int index);
+int		ft_apply_redin_middle(t_exec *exec, t_pipe *tpipe,  int i);
+int		ft_redirect(int index, t_exec *exec, int command_location);
+int		ft_mini_redirect_output(t_exec *exec, t_pipe *tpipe, int i);
+int		execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe);
+int		ft_count_till_other_token(t_exec *exec, int index, char *token);
+int		ft_redirect_input(int index, t_exec *exec, int command_location);
+void	ft_advanced_heredoc(t_exec *exec, int index, int command_location);
+int		ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction);
+void	ft_advanced_append(int index, t_exec *exec, int fd_out, int fd_in, int location);
+void	ft_apply_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
+void	ft_apply_input_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
+void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location);
+void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int fd, int index, int in_save);
+int		ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd);
+int		ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
+int		ft_mini_append(t_exec *exec, t_pipe *tpipe, int i);
+int		ft_find_variable_index(char *str, char c);
+void	ft_export_replace(t_exec *exec, char *arg, int index);
+int		ft_path_exists(char **envp);
+int		ft_mini_redirect_input(t_exec *exec, t_pipe *tpipe, int i);
+int		ft_advanced_redirect_input(t_exec *exec, int fd_in, int index);
+int		ft_mini_heredoc(t_exec *exec, t_pipe *tpipe, int i);
+int		ft_is_a_builtin(char *command);
 int		ft_execute_builtin(char **parser, t_exec *exec, int index);
 void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index);
 char	*ft_itoa(int nb);
-int	ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in);
-int ft_contain(char *str, char c);
-int ft_redi_is_last(t_exec *exec);
-void    ft_advanced_heredoc_final_case(t_exec *exec, int index);
-int    ft_minishell_input_final_case(t_exec *exec, int index);
-void    ft_minishell_input_final_case_2_args(t_exec *exec);
-int ft_open(t_exec *exec, int kind, int index);
-char	**ft_split_special(char *s, char c);
-
+int		ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in);
+int		ft_contain(char *str, char c);
+void	ft_advanced_heredoc_final_case(t_exec *exec, int index);
+int		ft_minishell_input_final_case(t_exec *exec, int index);
+void	ft_minishell_input_final_case_2_args(t_exec *exec);
 
 #endif

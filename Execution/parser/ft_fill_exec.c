@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 04:52:51 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 16:39:29 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_initialize_exec(t_exec *exec)
 	exec->redirecion_flag = 0;
 	exec->pipe_count = 0;
 	exec->pipe_flag = 0;
-	exec->sev_flag = 0;
 	exec->error_flag = 0;
 }
 
@@ -49,6 +48,7 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 	exec->command = malloc(sizeof(char *) * (ft_count_tokens(token) + 1));
 	while(token)
 	{
+		printf(">> %s <<\n", token->value);
 		if(token->type != WORD && head_flag == 0)
 		{
 			exec->command[i] = strdup(token->value);

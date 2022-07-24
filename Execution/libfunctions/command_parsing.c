@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:23:45 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 05:47:59 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 16:51:23 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,6 @@ int	ft_count_elements(char **str)
 	return (i);
 }
 
-char	*ft_filter_command(char *command)
-{
-	char	*ret;
-	int		i;
-
-	i = 0;
-	if (ft_is_space(command))
-		return (command);
-	while (command[i] && command[i] != ' ')
-		i++;
-	ret = malloc(sizeof(char) * (i + 1));
-	i = 0;
-	while (command[i] != ' ')
-	{
-		ret[i] = command[i];
-		i++;
-	}
-	ret[i] = '\0';
-	return (ret);
-}
 
 char	*ft_exec_command(char **envp, char *command)
 {
