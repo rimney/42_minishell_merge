@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 23:02:58 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/24 23:45:27 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,42 @@ int	ft_execute_only_flag_norm(t_exec *exec)
 	return (1);
 }
 
+int	ft_check_quotes_final_case(char *str)
+{
+	int i;
+
+	i = 0;
+	if((str[0] == '\"' && str[ft_strlen(str) - 1] != '\"')
+		|| (str[0] != '\"' && str[ft_strlen(str) - 1] == '\"'))
+	{
+		printf("missing quotes\n");
+		return (0);
+	}
+	return (1);
+}
+
+int quote_loop(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		if(str[i] != '\"')
+			return (1);
+		i++;
+	}
+	printf("minishell : command not found\n");
+	return (0);
+}
+
 int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 {
 	int pid;
 
-	if(exec->command[0][0] == '\"')
-	{
-		printf("found it\n");
+	if(ft_contain(exec->command[0], '\"')
+		&& (!ft_check_quotes_final_case(exec->command[0]) || !quote_loop(exec->command[0]) ))
 		return (0);
-	}
 	if(exec->args <= 2 && ft_execute_builtin_parent(exec, 0))
 		return (1);
 	if(only_command_flag(exec) > 0)

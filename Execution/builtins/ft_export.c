@@ -169,7 +169,10 @@ void    ft_export(t_exec *exec, char **argv)
     while(exec->envp[i])
     {
         if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
+        {
             ft_export_replace(exec, argv[index], i);
+            return ;
+        }
         i++;
     }
     while(argv[index])
