@@ -6,25 +6,12 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:23:45 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 16:51:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:31:17 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_is_space(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == ' ')
-			return (0);
-		i++;
-	}
-	return (1);
-}
 
 char	*ft_locate_env(char **env)
 {
@@ -46,6 +33,17 @@ int	ft_count_elements(char **str)
 	return (i);
 }
 
+void	ft_exec_command_norm(char **env, char *command, char **temp)
+{
+	int i;
+
+	i = 0;
+	while(temp[i])
+	{
+		env[i] = ft_strjoin(temp[i], "/", command);
+		i++;
+	}
+}
 
 char	*ft_exec_command(char **envp, char *command)
 {
@@ -62,12 +60,7 @@ char	*ft_exec_command(char **envp, char *command)
 		return ("/bin/ls");
 	temp = ft_split(ft_locate_env(envp) + 5, ':');
 	env = malloc(sizeof(char *) * (ft_count_elements(temp)));
-	while(temp[i])
-	{
-		env[i] = ft_strjoin(temp[i], "/", command);
-		i++;
-	}
-	i = 0;
+	ft_exec_command_norm(env, command, temp);
 	while (env[i])
 	{
 		if (access(env[i], F_OK) == 0)
