@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:49:49 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 03:44:14 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 02:41:46 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,18 +69,20 @@ void    ft_cd(char *path, t_exec *exec)
     free(temp);
     if(chdir(path) == -1)
     {
-        printf("cd: %s: no such file or directory\n", path);
+        if(path)
+            printf("cd: %s: no such file or directory\n", path);
         exec->env.exit_value = 1;
         free(s);
         return ;
     }
-        p = getcwd(NULL, 0);
+    
+    ft_export(exec, &p);
+    p = getcwd(NULL, 0);
     temp = p;
     p = ft_strjoin_f("PWD=", p);
     free(temp);
-    ft_export(exec, &p);
-    free(p);
-    ft_export(exec, &s);
+    ft_cd_export_replace(exec, s);
+    ft_cd_export_replace(exec, p);
     free(s);
+    free(p);
 }
-

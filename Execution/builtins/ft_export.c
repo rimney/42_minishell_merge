@@ -173,7 +173,9 @@ void    ft_apply_export(t_exec *exec, char *new)
         exec->envp[i] = strdup(temp[i]);
         i++;
     }
-    exec->envp[i] = strdup(new);
+    if(new[ft_find_variable_index(new, '=') + 1]  == '\"')
+        flag = 1;
+    exec->envp[i] = ft_mystrdup(new, flag);
     exec->envp[i + 1] = NULL;
     ft_free(temp);
 }

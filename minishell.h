@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/22 21:44:03 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 04:17:50 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 # define GREEN_COLOR "\e[0;32m"
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <signal.h>
@@ -23,6 +21,8 @@
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 typedef struct s_token
 {
 	struct s_token	*next;
@@ -293,4 +293,6 @@ int    ft_minishell_input_final_case(t_exec *exec, int index);
 void    ft_minishell_input_final_case_2_args(t_exec *exec);
 int ft_open(t_exec *exec, int kind, int index);
 char	**ft_split_special(char *s, char c);
+
+
 #endif

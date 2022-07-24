@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 22:04:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 04:08:43 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,10 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 	{
 		pid = fork();
 		if(pid == 0)
+		{
+			signal(SIGQUIT, SIG_DFL);
 			ft_execute_command(exec, 0);
+		}
 		waitpid(pid, &exec->env.exit_value, 0);
 		WIFEXITED(exec->env.exit_value);
     }

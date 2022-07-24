@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/23 22:10:55 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 03:59:16 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in)
 				*fd = ft_open(exec, APPEND, *index + 1);
 			if(ft_is_another_flag(exec, *index) == APPEND && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
 			{
+                printf("EEEEEE\n");
 				*fd = ft_open(exec, APPEND, *index + 1);
 				*index += 2;
 				return (1);
@@ -158,7 +159,7 @@ int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in)
 				ft_basic_heredoc(exec, *index); 
 			if(ft_is_another_flag(exec, *index) == REDIROUT && exec->command[*index + 2])
 				*fd = ft_open(exec, REDIROUT, *index + 1);
-			if(ft_is_another_flag(exec, *index) == REDIROUT && !exec->command[*index + 2])
+			if(ft_is_another_flag(exec, *index) == REDIROUT && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
 			{
 				*fd = ft_open(exec, REDIROUT, *index + 1);
 				*index += 2;
@@ -182,7 +183,8 @@ int ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out)
     in = fd[0];
     if(exec->heredoc_count > 2)
         ft_find_next_flag(exec, &index, &out, &in);
-    close(fd[1]);
+    exec->in = in;
+        close(fd[1]);
         if(out != -1)
         {
             dup2(out, 1);
@@ -217,15 +219,20 @@ int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int out)
         {
             if(exec->args > 2)
                 ft_find_next_flag_heredoc(exec, &index, &out, &in);
+            dup2(in, 0);
+            close(in);
             close(fd[1]);
             if(out != -1)
             {
                 dup2(out, 1);
                 close(out);
             }
-            dup2(in, 0);
-            close(in);
-            execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+            if(execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp) == -1)
+            {
+                perror(exec->command[index]);
+                ft_free(parser);
+                exit(127);
+            }
         }
        free(line);
     }

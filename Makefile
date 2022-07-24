@@ -3,23 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
+#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/22 21:42:59 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/24 04:28:51 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-CC = gcc -Wall -Wextra -Werror
-FLAGS =  -lreadline
-RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include
+CC = gcc -Wall -Wextra -Werror -I /private/tmp/homebrew/opt/readline/include
+FLAGS =  -lreadline 
+RL_FLAGS = -L /private/tmp/homebrew/opt/readline/lib
 SRCS = Parsing/parse.c\
 		Parsing/redir.c\
 		Parsing/parse_token.c\
 		Parsing/parse_token_2.c\
 		Parsing/utils.c\
 		Parsing/utils_2.c\
+		Parsing/signals.c \
 		minishell.c\
 		Parsing/utils_3.c\
 		Parsing/parse_env.c\
@@ -69,10 +70,12 @@ SRCS = Parsing/parse.c\
 		execution/redirections/input/ft_redirect_input_final_case.c \
 		execution/libfunctions/ft_open.c \
 		execution/libfunctions/ft_special_split.c \
-		
+
+
 
 
 $(NAME) : $(SRCS)
+			stty -echoctl
 			$(CC) $(SRCS) $(RL_FLAGS) $(FLAGS) -o $(NAME) 
 
 all : $(NAME)
