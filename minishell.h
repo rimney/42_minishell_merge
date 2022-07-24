@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 18:25:33 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:40:40 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,5 +267,6 @@ void    ft_filter_command_double_quotes_2d_array(char **argv);
 void    ft_filter_command_single_quote_2d_array(char **argv);
 char    *ft_filter_command_double_quotes(char *temp);
 char    *ft_filter_command_single_quote(char *temp);
+void    ft_filter_command_quotes(char **argv);
 
 #endif

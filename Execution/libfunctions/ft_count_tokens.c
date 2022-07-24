@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:07:26 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 18:31:48 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:32:52 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void ft_count_till_last_token(t_exec *exec, t_pipe *pipes)
 			exec->heredoc_count += 2;
 		i++;
 	}
-
 }
 
 int	ft_count_till_other_token(t_exec *exec, int index, char *token)
