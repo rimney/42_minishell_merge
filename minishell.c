@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 21:50:16 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/24 16:44:12 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,8 +150,8 @@ int	main(int argc, char **argv, char **envp)
 	ft_get_env(&exec, envp);
 	while (g_flag == 0)
 	{
-		signal(SIGINT, handle_signals);
-		signal(SIGQUIT, SIG_IGN);
+		// signal(SIGINT, handle_signals);
+		// signal(SIGQUIT, SIG_IGN);
 		line = readline("\e[0;32m BomusShell$>\033[0;37m");
 		if (line == NULL)
 			exit(0);
