@@ -102,28 +102,6 @@ void    ft_export_no_args_case(t_exec *exec)
     }
 }
 
-char    **ft_join_export(t_exec *exec, char *arg)
-{
-    int i;
-    char **temp;
-
-    i = 0;
-    temp = exec->envp;
-    exec->envp = (char **)malloc(sizeof(char *) * ft_count_elements(exec->envp) + 1 + 1);
-    if(ft_find_variable_index(arg, '='))
-    {
-        while(temp[i])
-        {
-            exec->envp[i] = strdup(temp[i]);
-            i++;
-        }
-        exec->envp[i] = strdup(arg);
-        printf("| %s | has been joined  \n" , exec->envp[i]);
-        exec->envp[i + 1] = 0;
-    }
-    return(exec->envp);
-}
-
 void    ft_export_replace(t_exec *exec, char *arg, int index)
 {
     char *temp;
@@ -191,13 +169,10 @@ void    ft_export(t_exec *exec, char **argv)
     while(exec->envp[i])
     {
         if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
-        {
             ft_export_replace(exec, argv[index], i);
-            return;
-        }
         i++;
     }
-   while(argv[index])
+    while(argv[index])
         ft_apply_export(exec, argv[index++]);
 }
 

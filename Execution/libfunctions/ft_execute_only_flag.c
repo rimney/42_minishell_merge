@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 16:53:48 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:25:49 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_execute_builtin(char **parser, t_exec *exec, int index)
 	if(ft_strcmp(parser2[0], "exit") == 0)
 		ft_exit(exec, index, parser2);
 	if(ft_strcmp(parser2[0], "unset") == 0)
-		ft_unset(parser[1], exec);
+		ft_unset(parser, exec);
 	if(ft_strcmp(parser2[0], "pwd") == 0)
 		ft_pwd();
 	if(ft_strcmp(parser2[0], "cd") == 0)
@@ -71,7 +71,7 @@ int		ft_execute_builtin_parent(t_exec *exec, int index)
 	else if(ft_strcmp(parser[0], "exit") == 0)
 		ft_exit(exec, index, parser);
 	else if(ft_strcmp(parser[0], "unset") == 0)
-		ft_unset(parser[1], exec);
+		ft_unset(parser, exec);
 	else if(ft_strcmp(parser[0], "pwd") == 0)
 		ft_pwd();
 	else if(ft_strcmp(parser[0], "cd") == 0)

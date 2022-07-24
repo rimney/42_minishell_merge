@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:49:49 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 02:41:46 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:07:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-
 
 int    ft_cd_export_replace(t_exec *exec, char *arg)
 {
@@ -57,6 +55,16 @@ char    *ft_strjoin_f(char *s1, char *s2)
     str[i] = '\0';
     return (str);
 }
+
+void    ft_cd_norm(char *path, t_exec *exec, char *s)
+{
+    if(path)
+        printf("cd: %s: no such file or directory\n", path);
+    exec->env.exit_value = 1;
+    free(s);
+    return ;
+}
+
 void    ft_cd(char *path, t_exec *exec)
 {
     char *s;
@@ -69,14 +77,9 @@ void    ft_cd(char *path, t_exec *exec)
     free(temp);
     if(chdir(path) == -1)
     {
-        if(path)
-            printf("cd: %s: no such file or directory\n", path);
-        exec->env.exit_value = 1;
-        free(s);
+        ft_cd_norm(path, exec, s);
         return ;
     }
-    
-    ft_export(exec, &p);
     p = getcwd(NULL, 0);
     temp = p;
     p = ft_strjoin_f("PWD=", p);

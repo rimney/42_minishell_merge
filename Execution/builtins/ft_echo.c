@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 15:51:11 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:13:12 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,8 @@ void    ft_echo_single_quote(char *str)
         printf("%c", str[i++]);
 }
 
-
-int    ft_echo(char **str, t_exec *exec)
+void    ft_echo_norm(char **str, int i)
 {
-    int i;
-    int flag;
-
-    i = 1;
-    flag = 0;
-    if(ft_echo_edge_case(str[i]))
-    {
-        flag = 1;
-        while (ft_echo_edge_case(str[i]))
-            i++;
-    }
     while(str[i])
     {
         if(str[i][0] == '$')
@@ -72,6 +60,23 @@ int    ft_echo(char **str, t_exec *exec)
             printf(" ");
         i++;
     }
+}
+
+
+int    ft_echo(char **str, t_exec *exec)
+{
+    int i;
+    int flag;
+
+    i = 1;
+    flag = 0;
+    if(ft_echo_edge_case(str[i]))
+    {
+        flag = 1;
+        while (ft_echo_edge_case(str[i]))
+            i++;
+    }
+    ft_echo_norm(str, i);
     if(!flag)
         printf("\n");
     exec->env.exit_value = 0;

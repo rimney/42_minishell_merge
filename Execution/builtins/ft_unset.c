@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 15:37:07 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 00:52:33 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:25:20 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char    **ft_env_is_last(char **envp)
         i++;
     }
     temp[ft_count_elements(envp) - 1] = NULL;
-
     return (temp);
 }
 
@@ -53,7 +52,6 @@ char    **ft_new_unset(char **envp, int index)
     j = 0;
     char **temp;
     temp = malloc(sizeof(char *) * (ft_count_elements(envp) + 1));
-
     while (i < ft_count_elements(envp))
     {
         if(i != index)
@@ -61,14 +59,10 @@ char    **ft_new_unset(char **envp, int index)
         i++;
     }
     temp[j] = NULL;
-    // while(temp[k])
-    // {
-    //     printf("%s <\n", temp[k++]);
-    // }
     return (temp);
 }
 
-void    ft_unset(char *str, t_exec *exec)
+void    ft_apply_unset(char *str, t_exec *exec)
 {
     int i;
     int j;
@@ -87,42 +81,22 @@ void    ft_unset(char *str, t_exec *exec)
         return ;
     i = 0;
     j = 0;
-    // exec->envp = malloc(sizeof(char *) * (ft_count_elements(exec->envp) + 1));
-    // if(unset == ft_count_elements(exec->envp) - 1)
-    // {
-    //     printf("FALAAAGGG\n");
-    //     temp = exec->envp;
-    //     exec->envp = ft_env_is_last(exec->envp);
-    //     ft_free(temp);
-    //     return ;
-    // }
-    // else
-    // {
-       temp = exec->envp;
-        exec->envp = ft_new_unset(exec->envp, unset);
-       ft_free(temp);
-    // }
+    temp = exec->envp;
+    exec->envp = ft_new_unset(exec->envp, unset);
+    ft_free(temp);
+    printf("%d<\n", ft_count_elements(exec->envp));
+}
 
-    // while(i < ft_count_elements(temp))
-    // {
-    //     if(i != unset)
-    //         exec->envp[j++] = strdup(temp[i]);
-    //     i++;
-    // }
-    // exec->envp[i] = NULL;
-    // if(unset != ft_count_elements(exec->envp) - 1)
-    // {
-    //     temp = malloc(sizeof(char *) * ft_count_elements(exec->envp));
-    //     while (exec->envp[i + 1])
-    //     {
-    //         if(j == unset)
-    //             i++;
-    //         temp[j] = strdup(exec->envp[i]);
-    //         i++;
-    //         j++;
-    //     }
-    //     temp[ft_count_elements(exec->envp)] = NULL;
-    //ft_free(temp);
-        printf("%d<\n", ft_count_elements(exec->envp));
-    // }
+void    ft_unset(char **str, t_exec *exec)
+{
+    int i;
+
+    i  = 1;
+    if(!str[i])
+    {
+        printf("unset: not enough arguments\n");
+        return;
+    }
+    while(str[i])
+        ft_apply_unset(str[i++], exec);
 }

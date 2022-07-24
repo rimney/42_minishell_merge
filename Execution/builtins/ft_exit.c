@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 01:42:34 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/22 01:16:29 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:17:01 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,27 @@ int is_all_num(char *str)
     return (1);
 }
 
+int     ft_apply_exit_norm(char **argv, t_exec *exec, int count)
+{
+    if (!is_all_num(argv[count - 1]))
+    {
+        printf("minishell: exit : %s: numeric argument required\n", argv[count - 1]);
+        exec->env.exit_value = 255;
+        return (1);
+    }
+    if(is_all_num(argv[count - 1]) && ft_atoi(argv[count - 1]) > 255)
+    {
+        exec->env.exit_value = ft_atoi(argv[count - 1]) % 256;
+        return (1);
+    }
+    if(is_all_num(argv[count - 1]) && ft_atoi(argv[count - 1]) < 255)
+    {
+        exec->env.exit_value = ft_atoi(argv[count - 1]);
+        return (1);
+    }
+    return (0);
+}
+
 int    apply_exit(char **argv, t_exec *exec)
 {
     int count;
@@ -43,22 +64,8 @@ int    apply_exit(char **argv, t_exec *exec)
     }
     if(count == 2)
     {
-        if (!is_all_num(argv[count - 1]))
-        {
-            printf("minishell: exit : %s: numeric argument required\n", argv[count - 1]);
-            exec->env.exit_value = 255;
-            return (1);
-        }
-        if(is_all_num(argv[count - 1]) && ft_atoi(argv[count - 1]) > 255)
-        {
-            exec->env.exit_value = ft_atoi(argv[count - 1]) % 256;
-            return (1);
-        }
-        if(is_all_num(argv[count - 1]) && ft_atoi(argv[count - 1]) < 255)
-        {
-            exec->env.exit_value = ft_atoi(argv[count - 1]);
-            return (1);
-        }
+        if(ft_apply_exit_norm(argv, exec, count))
+        return (1);
     }
     return (0);
 }

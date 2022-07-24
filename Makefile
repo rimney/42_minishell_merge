@@ -6,7 +6,7 @@
 #    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/24 16:32:25 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/24 18:01:33 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS = Parsing/parse.c\
 		execution/redirections/input/ft_redirect_input_final_case.c \
 		execution/libfunctions/ft_open.c \
 		execution/libfunctions/ft_special_split.c \
+		execution/parser/ft_filter_quotes.c
 
 
 

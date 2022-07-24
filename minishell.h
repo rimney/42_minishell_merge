@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 16:31:34 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/24 18:25:33 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,7 +202,7 @@ int		ft_count_tokens(t_token *token);
 void	ft_initialize_exec(t_exec *exec);
 char	*ft_filter_command(char *command);
 char	**ft_split(char const *s, char c);
-void	ft_unset(char *str, t_exec *exec);
+void    ft_unset(char **str, t_exec *exec);
 int		ft_echo(char **str, t_exec *exec);
 char	**ft_split_special(char *s, char c);
 void	ft_export(t_exec *exec, char **argv);
@@ -263,5 +263,9 @@ int		ft_contain(char *str, char c);
 void	ft_advanced_heredoc_final_case(t_exec *exec, int index);
 int		ft_minishell_input_final_case(t_exec *exec, int index);
 void	ft_minishell_input_final_case_2_args(t_exec *exec);
+void    ft_filter_command_double_quotes_2d_array(char **argv);
+void    ft_filter_command_single_quote_2d_array(char **argv);
+char    *ft_filter_command_double_quotes(char *temp);
+char    *ft_filter_command_single_quote(char *temp);
 
 #endif
