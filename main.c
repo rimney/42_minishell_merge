@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:59:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 05:55:29 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 09:03:50 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,31 @@ void	free_and_free(t_tok_red *cmd)
 	free(cmd);
 }
 
-int	ft_mini_pipe_a(t_exec *exec, t_pipe *tpipe, int i)
+int	main(int argc, char **argv, char **envp)
 {
-	int	fd;
+	char		*line;
+	t_tok_red	*cmd;
+	t_exec		exec;
+	t_pipe		pipes;
 
-	fd = -1;
-	exec->initial_flag = 1;
-	while (exec->command[i + 1] != NULL)
+	ft_kill_args(argc, argv);
+	line = NULL;
+	ft_get_env(&exec, envp);
+	while (g_flag == 0)
 	{
-		if (ft_strcmp(exec->command[i], "|") == 0 && i == 1)
+		ft_signals();
+		line = handle_line_error();
+		add_history(line);
+		if (line[0] == 0 || ft_isspace(line[0]))
 		{
-			exec->pipe_count = ft_count_till_other_token(exec, i, "|");
-			ft_mini_pipe(exec, tpipe, -1, i);
-			i += exec->pipe_count;
+			free(line);
+			continue ;
 		}
-		if (exec->command[i] && ft_is_another_flag(exec, i) == PIPE)
-		{
-			exec->pipe_count = ft_count_till_other_token(exec, i, "|");
-			fd = open(exec->command[i + 1], O_RDWR);
-			i = ft_apply_pipe_middle(exec, tpipe, i, fd) - 1;
-		}
-		i++;
+		ft_minishell_line(line, &exec.err_flag);
+		if (g_flag == 0)
+			handle_cmd_props(&line, &cmd);
+		if (!exec.err_flag && !g_flag)
+			ft_minishell_execution(&exec, &pipes, cmd);
+		ft_reset_minishell(&exec, cmd, line, exec.err_flag);
 	}
-	wait(NULL);
-	return (i);
 }

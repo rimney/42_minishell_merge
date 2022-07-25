@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc_final_case.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:37:54 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 07:48:21 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 08:58:29 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out)
 	int		in;
 
 	parser = ft_split(exec->command[index + 1], ' ');
-	delimiter = strdup(parser[0]);
+	delimiter = ft_mystrdup(parser[0], 0);
 	in = fd[0];
 	if (exec->heredoc_count > 2)
 		ft_find_next_flag(exec, &index, &out, &in);
@@ -38,7 +38,7 @@ int	ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out)
 
 void	ft_dup_and_close_norm(int fd[2], int out)
 {
-	if(out != -1)
+	if (out != -1)
 	{
 		dup2(out, 1);
 		close(out);
@@ -48,7 +48,6 @@ void	ft_dup_and_close_norm(int fd[2], int out)
 	close(fd[1]);
 }
 
-
 int	ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int flag)
 {
 	char	*line;
@@ -56,7 +55,7 @@ int	ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int flag)
 	char	**parser;
 
 	parser = ft_split(exec->command[index + 1], ' ');
-	delimiter = strdup(parser[0]);
+	delimiter = ft_mystrdup(parser[0], 0);
 	while (flag == 0)
 	{
 		line = readline("> ");
@@ -84,7 +83,7 @@ int	ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out)
 	char	**parser;
 
 	parser = ft_split(exec->command[index + 1], ' ');
-	delimiter = strdup(parser[0]);
+	delimiter = ft_mystrdup(parser[0], 0);
 	if (ft_count_elements(parser) <= 2)
 		ft_heredoc_final_case_child_2(exec, index, fd, 0);
 	else

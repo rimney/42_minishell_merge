@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 12:54:17 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 23:04:12 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 08:49:31 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,10 @@ void	handle_signals(int sig)
 	ft_putchar_fd('\n', 1);
 	rl_on_new_line();
 	rl_redisplay();
+}
+
+void	ft_signals(void)
+{
+	signal(SIGINT, handle_signals);
+	signal(SIGQUIT, SIG_IGN);
 }

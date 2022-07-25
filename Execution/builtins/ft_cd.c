@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:49:49 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:50:14 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 08:56:47 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_cd_export_replace(t_exec *exec, char *arg)
 				ft_find_variable_index(arg, '=') == 0))
 		{
 			temp = exec->envp[i];
-			exec->envp[i] = strdup(arg);
+			exec->envp[i] = ft_mystrdup(arg, 0);
 			free(temp);
 			return (1);
 		}

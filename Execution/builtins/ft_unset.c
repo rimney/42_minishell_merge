@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 15:37:07 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:04:32 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 08:57:21 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**ft_new_unset(char **envp, int index)
 	while (i < ft_count_elements(envp))
 	{
 		if (i != index)
-			temp[j++] = strdup(envp[i]);
+			temp[j++] = ft_mystrdup(envp[i], 0);
 		i++;
 	}
 	temp[j] = NULL;

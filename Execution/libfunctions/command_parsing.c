@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:23:45 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:46:48 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 08:57:33 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*ft_exec_command(char **envp, char *command)
 	{
 		if (access(env[i], F_OK) == 0)
 		{
-			ret = strdup(env[i]);
+			ret = ft_mystrdup(env[i], 0);
 			return (ret);
 		}
 		i++;

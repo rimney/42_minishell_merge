@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 07:42:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 08:45:40 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	ft_heredoc_final_case(t_exec *exec, int index)
 	int	pid;
 	int	fd[2];
 	int	out;
+	int	info;
 
 	out = -1;
 	pipe(fd);
@@ -43,7 +44,16 @@ void	ft_heredoc_final_case(t_exec *exec, int index)
 	{
 		close(fd[0]);
 		close(fd[1]);
-		waitpid(pid, 0, 0);
+		signal(SIGINT, SIG_IGN);
+		waitpid(pid, &info, 0);
+		if (WIFEXITED(info))
+			exec->env.exit_value = WEXITSTATUS(info);
+		else if (WIFSIGNALED(info))
+		{
+			if (WTERMSIG(info) == 2)
+			exec->env.exit_value = 2;
+		}
+		signal(SIGINT, SIG_DFL);
 	}
 }
 
@@ -51,7 +61,7 @@ int	ft_basic_heredoc_final_case(t_exec *exec, int index)
 {
 	char	*line;
 	char	**parser;
-	int flag;
+	int		flag;
 
 	flag = 0;
 	parser = ft_split(exec->command[index + 1], ' ');

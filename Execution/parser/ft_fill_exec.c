@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:57:32 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 08:57:58 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
 
 	if (token->type != WORD && *head_flag == 0)
 	{
-		exec->command[*i] = strdup(token->value);
+		exec->command[*i] = ft_mystrdup(token->value, 0);
 		*i += 1;
 	}
 	if (token->type == WORD && *head_flag == 0)
 	{
-		exec->command[*i] = strdup(token->value);
+		exec->command[*i] = ft_mystrdup(token->value, 0);
 		*head_flag = 1;
 	}
 	else if (token->type == WORD && *head_flag == 1)
@@ -60,7 +60,7 @@ void	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
 	else if (token->type != WORD && *head_flag)
 	{
 		*i += 1;
-		exec->command[*i] = strdup(token->value);
+		exec->command[*i] = ft_mystrdup(token->value, 0);
 		*head_flag = 0;
 		*i += 1;
 	}

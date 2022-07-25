@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:51:04 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 08:57:00 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_find_expand(char **envp, char *arg)
 		if (ft_strncmp(arg + 1, envp[i],
 				ft_find_variable_index(envp[i], '=')) == 0)
 		{
-			temp = strdup(envp[i]);
+			temp = ft_mystrdup(envp[i], 0);
 			printf("%s", temp + ft_find_variable_index(envp[i], '=') + 1);
 			free(temp);
 			return (1);

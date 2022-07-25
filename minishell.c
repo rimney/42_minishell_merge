@@ -3,113 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 08:37:14 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 09:03:54 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_minishell_executor2(t_exec *exec, t_pipe *tpipe, int i, int flag)
-{
-	if (flag == HEREDOC)
-	{
-		ft_mini_heredoc(exec, tpipe, i);
-		return (i + exec->heredoc_count);
-	}
-	if (flag == PIPE)
-	{
-		ft_mini_pipe_a(exec, tpipe, i);
-		return (i + exec->pipe_count);
-	}
-	return (0);
-}
-
-int	ft_minishell_executor(t_exec *exec, t_pipe *tpipe, int i, int flag)
-{
-	exec->initial_flag = 1;
-	if (flag == REDIROUT)
-	{
-		ft_mini_redirect_output(exec, tpipe, i);
-		return (i + exec->redirection_count);
-	}
-	if (flag == APPEND)
-	{
-		ft_mini_append(exec, tpipe, i);
-		return (i + exec->append_count);
-	}
-	if (flag == REDIRIN)
-	{
-		ft_mini_redirect_input(exec, tpipe, i);
-		return (i + exec->input_count);
-	}
-	else
-		ft_minishell_executor2(exec, tpipe, i, flag);
-	return (0);
-}
-
-void	ft_minishell_norm(t_exec *exec, t_pipe *tpipe, int *i)
-{
-	if (ft_strcmp(exec->command[*i], ">") == 0
-		&& exec->initial_flag == 0)
-		*i = ft_minishell_executor(exec, tpipe, *i, REDIROUT);
-	if (ft_strcmp(exec->command[*i], ">>") == 0
-		&& exec->initial_flag == 0)
-		*i = ft_minishell_executor(exec, tpipe, *i, APPEND);
-	if (ft_strcmp(exec->command[*i], "<<") == 0
-		&& exec->initial_flag == 0)
-		*i = ft_minishell_executor(exec, tpipe, *i, HEREDOC);
-	if (ft_strcmp(exec->command[*i], "<") == 0
-		&& exec->initial_flag == 0)
-		*i = ft_minishell_executor(exec, tpipe, *i, REDIRIN);
-	if (ft_strcmp(exec->command[*i], "|") == 0
-		&& exec->initial_flag == 0)
-		*i = ft_minishell_executor(exec, tpipe, *i, PIPE);
-}
-
-void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index)
-{
-	int	i;
-
-	i = index;
-	exec->initial_flag = 0;
-	ft_count_till_last_token(exec, tpipe);
-	if (ft_execute_only_flag(exec, tpipe))
-		return ;
-	else
-	{
-		while (exec->command[i + 1] != NULL)
-		{
-			ft_minishell_norm(exec, tpipe, &i);
-			i++;
-		}
-	}
-	wait(NULL);
-}
-
-void	ft_launch_expand(t_token *token, char **envp, int exit_value)
-{
-	char	*temp;
-
-	while (token)
-	{
-		if (ft_strcmp(token->value, "$?") == 0 && token->value)
-		{
-			temp = token->value;
-			token->value = ft_itoa(exit_value % 255);
-			free(temp);
-		}
-		if (token->value[0] == '$' && token->value[1] != '?' && token->value)
-		{
-			temp = token->value;
-			token->value = ft_expand(token->value, envp);
-			free(temp);
-		}
-		token = token->next;
-	}
-}
 
 void	ft_minishell_execution(t_exec *exec, t_pipe *pipes, t_tok_red *cmd)
 {
@@ -146,37 +47,28 @@ void	ft_kill_args(int argc, char **argv)
 	(void)argv;
 }
 
-void	ft_signals(void)
+int	ft_mini_pipe_a(t_exec *exec, t_pipe *tpipe, int i)
 {
-	// signal(SIGINT, handle_signals);
-	// signal(SIGQUIT, SIG_IGN);
-}
+	int	fd;
 
-int	main(int argc, char **argv, char **envp)
-{
-	char		*line;
-	t_tok_red	*cmd;
-	t_exec		exec;
-	t_pipe		pipes;
-
-	ft_kill_args(argc, argv);
-	line = NULL;
-	ft_get_env(&exec, envp);
-	while (g_flag == 0)
+	fd = -1;
+	exec->initial_flag = 1;
+	while (exec->command[i + 1] != NULL)
 	{
-		ft_signals();
-		line = handle_line_error();
-		add_history(line);
-		if (line[0] == 0 || ft_isspace(line[0]))
+		if (ft_strcmp(exec->command[i], "|") == 0 && i == 1)
 		{
-			free(line);
-			continue;
+			exec->pipe_count = ft_count_till_other_token(exec, i, "|");
+			ft_mini_pipe(exec, tpipe, -1, i);
+			i += exec->pipe_count;
 		}
-		ft_minishell_line(line, &exec.err_flag);
-		if (g_flag == 0)
-			handle_cmd_props(&line, &cmd);
-		if (!exec.err_flag && !g_flag)
-			ft_minishell_execution(&exec, &pipes, cmd);
-		ft_reset_minishell(&exec, cmd, line, exec.err_flag);
+		if (exec->command[i] && ft_is_another_flag(exec, i) == PIPE)
+		{
+			exec->pipe_count = ft_count_till_other_token(exec, i, "|");
+			fd = open(exec->command[i + 1], O_RDWR);
+			i = ft_apply_pipe_middle(exec, tpipe, i, fd) - 1;
+		}
+		i++;
 	}
+	wait(NULL);
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:54:01 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 08:57:11 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_apply_export(t_exec *exec, char *new)
 	exec->envp = malloc(sizeof(char *) * (ft_count_elements(temp) + 2));
 	while (temp[i])
 	{
-		exec->envp[i] = strdup(temp[i]);
+		exec->envp[i] = ft_mystrdup(temp[i], 0);
 		i++;
 	}
 	if (new[ft_find_variable_index(new, '=') + 1] == '\"')

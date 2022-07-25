@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_special_split2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:48:59 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 04:17:19 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 08:10:22 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_bzero(void *b, size_t n)
 		*dest++ = 0;
 }
 
-unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
+int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
 	unsigned int	count;
 	unsigned int	i;

@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:39:45 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 05:25:45 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 09:01:02 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_sort_string_tab(char **tab)
 
 char	*ft_mystrdu_norm(char *str, char *s1, size_t i, int j)
 {
-	str = malloc(sizeof(char) * strlen(s1) - 1);
+	str = malloc(sizeof(char) * ft_strlen(s1) - 1);
 	while (i < ft_strlen(s1) - 1)
 	{
 		if (s1[i] == '\"')
@@ -67,7 +67,7 @@ char	*ft_mystrdup(char *s1, int flag)
 	}
 	else
 	{
-		str = malloc(sizeof(char) * strlen(s1) + 1);
+		str = malloc(sizeof(char) * ft_strlen(s1) + 1);
 		while (s1[i])
 		{
 			str[i] = s1[i];

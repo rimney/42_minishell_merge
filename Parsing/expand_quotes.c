@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 21:43:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/03 17:30:17 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 08:59:28 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ char	*ft_expand(char *expand, char **envp)
 		{
 			if (ft_strncmp(expand + 1, envp[i],
 					ft_find_last_character(envp[i], '=')) == 0)
-				return (strdup(envp[i]
-						+ ft_find_last_character(envp[i], '=') + 1));
+				return (ft_mystrdup(envp[i]
+						+ ft_find_last_character(envp[i], '=') + 1, 0));
 				i++;
 		}
 	}
-	return (strdup(expand));
+	return (ft_mystrdup(expand, 0));
 }
 
 int	check_if_redir_exist(char *str)
