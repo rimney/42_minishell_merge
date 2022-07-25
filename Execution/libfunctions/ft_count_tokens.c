@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:07:26 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 18:32:52 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:29:24 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	ft_count_till_other_token(t_exec *exec, int index, char *token)
 
 	count = 0;
 	i = index;
-	while(exec->command[i])
+	while (exec->command[i])
 	{
-		if(ft_strcmp(exec->command[i], token) == 0)
+		if (ft_strcmp(exec->command[i], token) == 0)
 			count += 2;
 		else
 			return count;

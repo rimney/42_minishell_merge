@@ -6,7 +6,7 @@
 /*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:23:45 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 18:31:17 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:29:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_exec_command_norm(char **env, char *command, char **temp)
 	int i;
 
 	i = 0;
-	while(temp[i])
+	while (temp[i])
 	{
 		env[i] = ft_strjoin(temp[i], "/", command);
 		i++;
@@ -54,9 +54,9 @@ char	*ft_exec_command(char **envp, char *command)
 
 	i = 0;
 	env = NULL;
-	if((access(command, F_OK) == 0 && command[0] == '/') || command[0] == '.')
+	if ((access(command, F_OK) == 0 && command[0] == '/') || command[0] == '.')
 		return (command);
-	if(ft_strcmp(command, "ls") == 0 && ft_path_exists(envp))
+	if (ft_strcmp(command, "ls") == 0 && ft_path_exists(envp))
 		return ("/bin/ls");
 	temp = ft_split(ft_locate_env(envp) + 5, ':');
 	env = malloc(sizeof(char *) * (ft_count_elements(temp)));
