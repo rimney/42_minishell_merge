@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_append.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 21:22:41 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 20:37:58 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:11:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	ft_mini_append(t_exec *exec, t_pipe *tpipe, int i)
 	int fd;
 	fd = -1;
 
-	exec->initial_flag = 1;
 	while(exec->command[i + 1] != NULL)
 	{
 		if(ft_strcmp(exec->command[i], ">>") == 0 && i == 1)

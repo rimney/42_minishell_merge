@@ -3,22 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 19:54:08 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:17:13 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
+void	ft_get_next_flag_pipe(t_exec *exec, int index, int i)
 {
-
-	int i;
-
-	i = index;
-	count = -1;
 	if(exec->pipe_count == 2 && exec->command[index + 2])
 	{
 		if(ft_strcmp(exec->command[index + 2], ">") == 0)
@@ -42,10 +37,20 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 		exec->input_flag = 1;
 		exec->input_count = ft_count_till_other_token(exec, i + exec->pipe_count, "<");
 	}
+}
+
+int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
+{
+
+	int i;
+
+	i = index;
+	count = -1;
+	ft_get_next_flag_pipe(exec, index, i);
 	ft_assign_tpipe(pipes, index + exec->pipe_count - 1);
-	 if(exec->pipe_flag)
+	if(exec->pipe_flag)
 	 {
-		execute_pipe(exec, i - 1, in, pipes); ////////// SHOULD START FROM HERE !!!
+		execute_pipe(exec, i - 1, in, pipes);
 		exec->pipe_flag = 0;
 		i++;
 		return (i + exec->pipe_count);
@@ -56,6 +61,5 @@ int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
 		execute_pipe(exec, i + 1, in, pipes);
 	exec->pipe_flag = 0;
 	exec->input_count = 0;
-
 	return (i + exec->pipe_count);
 }
