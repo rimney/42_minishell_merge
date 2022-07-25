@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:59:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 12:00:52 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/26 00:08:32 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_get_env(&exec, envp);
 	while (g_flag == 0)
 	{
-		ft_signals();
+		// ft_signals();
 		line = handle_line_error();
 		add_history(line);
 		if (line[0] == 0 || ft_isspace(line[0]))
