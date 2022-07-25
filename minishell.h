@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 07:47:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 08:10:32 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct s_exec
 	int		redirecion_flag;
 	int		redirection_count;
 	int		pipe_index;
+	int		err_flag;
 }	t_exec;
 
 /******** utils.c functions ********/
