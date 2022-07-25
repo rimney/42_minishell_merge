@@ -49,9 +49,7 @@ char    *ft_mystrdup(char *s1,  int flag)
         while(i < ft_strlen(s1) - 1)
         {
             if(s1[i] == '\"')
-            {
                 i++;
-            }
             str[j] = s1[i];
             i++;
             j++;
@@ -146,6 +144,23 @@ void    ft_apply_export(t_exec *exec, char *new)
     ft_free(temp);
 }
 
+int	ft_check_export_replace(t_exec *exec, char **argv, int index)
+{
+	int i;
+
+	i = 0;
+    while(exec->envp[i])
+    {
+        if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
+        {
+            ft_export_replace(exec, argv[index], i);
+            return (1);
+        }
+        i++;
+    }
+	return (0);
+	
+}
 
 void    ft_export(t_exec *exec, char **argv)
 {
@@ -166,16 +181,11 @@ void    ft_export(t_exec *exec, char **argv)
         printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
         exec->env.exit_value = 1;
     }
-    while(exec->envp[i])
-    {
-        if(ft_strncmp(argv[index], exec->envp[i], ft_find_variable_index(exec->envp[i], '=')) == 0)
-        {
-            ft_export_replace(exec, argv[index], i);
-            return ;
-        }
-        i++;
-    }
     while(argv[index])
-        ft_apply_export(exec, argv[index++]);
+	{
+		if(!ft_check_export_replace(exec, argv, index))
+        	ft_apply_export(exec, argv[index]);
+		index++;
+	}
 }
 
