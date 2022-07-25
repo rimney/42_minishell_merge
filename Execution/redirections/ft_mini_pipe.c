@@ -3,60 +3,74 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:17:13 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 05:52:31 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_get_next_flag_pipe(t_exec *exec, int index, int i)
+void	ft_get_next_flag2(t_exec *exec, int i)
 {
-	if(exec->pipe_count == 2 && exec->command[index + 2])
-	{
-		if(ft_strcmp(exec->command[index + 2], ">") == 0)
-		{
-			exec->pipe_flag = 1;
-			exec->redirection_count = ft_count_till_other_token(exec, i + 2, ">");
-		}
-	}
-	if(exec->command[i + exec->pipe_count] && ft_strcmp(exec->command[i + exec->pipe_count], ">") == 0 && exec->pipe_count > 2)
-	{
-		exec->redirecion_flag = 1;
-		exec->redirection_count = ft_count_till_other_token(exec, i + exec->pipe_count, ">");
-	}
-	if(exec->command[i + exec->pipe_count] && ft_strcmp(exec->command[i + exec->pipe_count], ">>") == 0 && exec->pipe_count > 2)
+	if (exec->command[i + exec->pipe_count]
+		&& ft_strcmp(exec->command[i + exec->pipe_count], ">>") == 0
+		&& exec->pipe_count > 2)
 	{
 		exec->append_flag = 1;
-		exec->append_count = ft_count_till_other_token(exec, i + exec->pipe_count, ">>");
+		exec->append_count
+			= ft_count_till_other_token(exec, i + exec->pipe_count, ">>");
 	}
-	if(exec->command[i + exec->pipe_count] && ft_strcmp(exec->command[i + exec->pipe_count], "<") == 0 && exec->pipe_count > 2)
+	if (exec->command[i + exec->pipe_count]
+		&& ft_strcmp(exec->command[i + exec->pipe_count], "<") == 0
+		&& exec->pipe_count > 2)
 	{
 		exec->input_flag = 1;
-		exec->input_count = ft_count_till_other_token(exec, i + exec->pipe_count, "<");
+		exec->input_count
+			= ft_count_till_other_token(exec, i + exec->pipe_count, "<");
 	}
 }
 
-int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index)
+void	ft_get_next_flag_pipe(t_exec *exec, int index, int i)
 {
+	if (exec->pipe_count == 2 && exec->command[index + 2])
+	{
+		if (ft_strcmp(exec->command[index + 2], ">") == 0)
+		{
+			exec->pipe_flag = 1;
+			exec->redirection_count
+				= ft_count_till_other_token(exec, i + 2, ">");
+		}
+	}
+	if (exec->command[i + exec->pipe_count]
+		&& ft_strcmp(exec->command[i + exec->pipe_count], ">") == 0
+		&& exec->pipe_count > 2)
+	{
+		exec->redirecion_flag = 1;
+		exec->redirection_count
+			= ft_count_till_other_token(exec, i + exec->pipe_count, ">");
+	}
+	else
+		ft_get_next_flag2(exec, i);
+}
 
-	int i;
+int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int index)
+{
+	int	i;
 
 	i = index;
-	count = -1;
 	ft_get_next_flag_pipe(exec, index, i);
 	ft_assign_tpipe(pipes, index + exec->pipe_count - 1);
-	if(exec->pipe_flag)
-	 {
+	if (exec->pipe_flag)
+	{
 		execute_pipe(exec, i - 1, in, pipes);
 		exec->pipe_flag = 0;
 		i++;
 		return (i + exec->pipe_count);
-	 }
-	 if(i == 1)
-	 		execute_pipe(exec, 0, in, pipes);
+	}
+	if (i == 1)
+		execute_pipe(exec, 0, in, pipes);
 	else
 		execute_pipe(exec, i + 1, in, pipes);
 	exec->pipe_flag = 0;

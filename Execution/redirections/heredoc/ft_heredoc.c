@@ -3,151 +3,53 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 02:12:11 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 04:25:20 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../minishell.h"
 
-int ft_get_last_delimiter(t_exec *exec, int index)
+void	ft_advanced_heredoc(t_exec *exec, int index, int command_location)
 {
-    int i;
-    int delimiter;
+	int	i;
 
-    i = index;
-    delimiter = 0;
-    while(i < exec->args)
-    {
-        if(ft_strcmp(exec->command[i], "<<") == 0)
-            delimiter = i;
-        i++;
-    }
-    return (delimiter);
+	i = index;
+	printf("%d << location\n", command_location);
+	while (i < ft_get_last_delimiter(exec, index) && exec->heredoc_count > 2)
+	{
+		if (ft_strcmp(exec->command[i], "<<") == 0)
+			ft_basic_heredoc(exec, i);
+		i += 2;
+		index += 2;
+	}
+	ft_heredoc(exec, command_location, index);
 }
-
-
-int ft_check_next_redi_heredoc_norm(t_exec *exec, int index, int *out)
-{
-    if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == REDIROUT)
-    {
-        exec->redirection_count = ft_count_till_other_token(exec, index + 2, ">");
-         *out = open(exec->command[index + exec->redirection_count + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
-    }
-    else if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == APPEND)
-    {
-        exec->append_count = ft_count_till_other_token(exec, index + 2, ">>");
-         *out = open(exec->command[index + exec->append_count + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
-    }
-
-    return (1);
-}
-
-void    ft_heredoc_write(int fd[2], char *line)
-{
-    write(fd[1],line,strlen(line));
-    write(fd[1], "\n", 1);
-}
-
-int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
-{
-    char *delimiter;
-    char *line;
-    int out;
-
-    out  = -1;
-    delimiter = strdup(exec->command[index + 1]);
-    ft_check_next_redi_heredoc_norm(exec, index, &out);
-    while((line = readline("heredoc > ")))
-    {
-        if (ft_strcmp(line, delimiter) != 0)
-            ft_heredoc_write(fd, line);
-        if (ft_strcmp(line, delimiter) == 0)
-        {
-            if(out != -1)
-            {
-                dup2(out, 1);
-                close(out);
-            }
-            ft_dup_and_close_norm(fd);
-            ft_execute_command(exec, command_loaction);
-          }
-        free(line);
-    }
-    free(delimiter);
-    return(0); 
-}
-
-
-void ft_heredoc(t_exec *exec, int command_location, int index)
-{
-    int fd[2];
-    pipe(fd);
-    ft_exec_heredoc(exec, index, fd, command_location);
-    close(fd[0]);
-    close(fd[1]);
-}
-
-int ft_basic_heredoc(t_exec *exec, int index)
-{
-    char *line;
-    char *delimiter;
-
-    delimiter = strdup(exec->command[index + 1]);
-    while((line = readline("heredoc_basic >")))
-    {
-        if(ft_strcmp(line, delimiter) == 0)
-        {
-            free(delimiter);
-            free(line);
-           return (1);
-        }
-        free(line);
-    }
-    return (0);
-}
-
-void    ft_advanced_heredoc(t_exec *exec, int index, int command_location)
-{
-    int i;
-
-    i = index;
-    printf("%d << location\n", command_location);
-    while (i < ft_get_last_delimiter(exec, index) && exec->heredoc_count > 2)
-    {
-        if (ft_strcmp(exec->command[i], "<<") == 0)
-                ft_basic_heredoc(exec, i);
-        i += 2;
-        index += 2;
-    }
-    ft_heredoc(exec, command_location, index);    
-}
-
 
 int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in)
 {
-	if(exec->command[*index + 2])
+	if (exec->command[*index + 2])
 		*index += 2;
-	if(exec->command[*index])
+	if (exec->command[*index])
 	{
 		printf("%s <<<<<<\n", exec->command[*index]);
-		while(exec->command[*index + 2] || ft_is_another_flag(exec, *index) != PIPE)
+		while (exec->command[*index + 2] || ft_is_another_flag(exec, *index) != PIPE)
 		{
-			if(ft_is_another_flag(exec, *index) == APPEND && exec->command[*index + 2] && ft_is_another_flag(exec, *index) != PIPE)
+			if (ft_is_another_flag(exec, *index) == APPEND && exec->command[*index + 2] && ft_is_another_flag(exec, *index) != PIPE)
 				*fd = ft_open(exec, APPEND, *index + 1);
-			if(ft_is_another_flag(exec, *index) == APPEND && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
+			if (ft_is_another_flag(exec, *index) == APPEND && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
 			{
-                printf("EEEEEE\n");
+				printf("EEEEEE\n");
 				*fd = ft_open(exec, APPEND, *index + 1);
 				*index += 2;
 				return (1);
 			}
-			if(ft_is_another_flag(exec, *index) == REDIRIN && exec->command[*index + 2])
+			if (ft_is_another_flag(exec, *index) == REDIRIN && exec->command[*index + 2])
 			{
 				*in = open(exec->command[*index + 1], O_RDONLY);
-				if(*in == -1)
+				if (*in == -1)
 				{
 					exec->error_flag = 1;
 					perror("minishell");
@@ -155,10 +57,10 @@ int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in)
 				}
 				exec->input_flag = 1;
 			}
-			if(ft_is_another_flag(exec, *index) == REDIRIN && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
+			if (ft_is_another_flag(exec, *index) == REDIRIN && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
 			{
 				*in = open(exec->command[*index + 1], O_RDONLY);
-				if(*in == -1)
+				if (*in == -1)
 				{
 					exec->error_flag = 1;
 					perror("minishell");
@@ -168,11 +70,11 @@ int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in)
 				*index += 2;
 				return (1);
 			}
-			if(ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2] && ft_is_another_flag(exec, *index + 2) == HEREDOC)
-				ft_basic_heredoc(exec, *index); 
-			if(ft_is_another_flag(exec, *index) == REDIROUT && exec->command[*index + 2])
+			if (ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2] && ft_is_another_flag(exec, *index + 2) == HEREDOC)
+				ft_basic_heredoc(exec, *index);
+			if (ft_is_another_flag(exec, *index) == REDIROUT && exec->command[*index + 2])
 				*fd = ft_open(exec, REDIROUT, *index + 1);
-			if(ft_is_another_flag(exec, *index) == REDIROUT && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
+			if (ft_is_another_flag(exec, *index) == REDIROUT && (!exec->command[*index + 2] || ft_is_another_flag(exec, *index + 2) == PIPE))
 			{
 				*fd = ft_open(exec, REDIROUT, *index + 1);
 				*index += 2;
@@ -184,57 +86,55 @@ int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in)
 	return (1);
 }
 
-void    ft_heredoc_final_case(t_exec *exec, int index)
+void	ft_heredoc_final_case(t_exec *exec, int index)
 {
-    int pid;
-    int fd[2];
-    int out;
+	int	pid;
+	int	fd[2];
+	int	out;
 
-
-    out = -1;
-    pipe(fd);
-    pid = fork();
-    if(pid == 0)
-        ft_heredoc_final_case_child(exec, index, fd, out);
-    else
-    {    
-        close(fd[0]);
-        close(fd[1]);
-        waitpid(pid, 0, 0);
-    }
+	out = -1;
+	pipe(fd);
+	pid = fork();
+	if (pid == 0)
+		ft_heredoc_final_case_child(exec, index, fd, out);
+	else
+	{
+		close(fd[0]);
+		close(fd[1]);
+		waitpid(pid, 0, 0);
+	}
 }
 
-int ft_basic_heredoc_final_case(t_exec *exec, int index)
+int	ft_basic_heredoc_final_case(t_exec *exec, int index)
 {
-    char *line;
-    char **parser;
+	char	*line;
+	char	**parser;
 
-    parser = ft_split(exec->command[index + 1], ' ');
-    while((line = readline("heredoc_basic >")))
-    {
-        if(ft_strcmp(line, parser[0]) == 0)
-        {
-            ft_free(parser);
-            free(line);
-            return (1);
-        }
-        free(line);
-    }
-    return (0);
+	parser = ft_split(exec->command[index + 1], ' ');
+	while ((line = readline(">")))
+	{
+		if (ft_strcmp(line, parser[0]) == 0)
+		{
+			ft_free(parser);
+			free(line);
+			return (1);
+		}
+		free(line);
+	}
+	return (0);
 }
 
-void    ft_advanced_heredoc_final_case(t_exec *exec, int index)
+void	ft_advanced_heredoc_final_case(t_exec *exec, int index)
 {
-    int i;
+	int	i;
 
-    i = index;
-    while (i < ft_get_last_delimiter(exec, index) && exec->heredoc_count > 2)
-    {
-        if (ft_strcmp(exec->command[i], "<<") == 0)
-                ft_basic_heredoc_final_case(exec, i);
-        i += 2;
-        index += 2;
-    }
-    ft_heredoc_final_case(exec, index);    
+	i = index;
+	while (i < ft_get_last_delimiter(exec, index) && exec->heredoc_count > 2)
+	{
+		if (ft_strcmp(exec->command[i], "<<") == 0)
+			ft_basic_heredoc_final_case(exec, i);
+		i += 2;
+		index += 2;
+	}
+	ft_heredoc_final_case(exec, index);
 }
-

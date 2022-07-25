@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:25:13 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 04:45:09 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location)
 {
-	int pid;
+	int	pid;
 
-		fd_in = ft_open(exec, REDIRIN, index - 3);
-		fd_out = ft_open(exec, REDIROUT, index + 1);
-	while(index < exec->redirection_count)
+	fd_in = ft_open(exec, REDIRIN, index - 3);
+	fd_out = ft_open(exec, REDIROUT, index + 1);
+	while (index < exec->redirection_count)
 	{
-		if(index + 1 == exec->redirection_count)
+		if (index + 1 == exec->redirection_count)
 		{
 			pid = fork();
-			if(pid == 0)
+			if (pid == 0)
 			{
 				dup2(fd_in, 0);
 				close(fd_in);
@@ -40,14 +40,13 @@ void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int lo
 
 void	ft_redirect_final_case(t_exec *exec, int index, char **parser, int in)
 {
-	int fd;
-	int pid;
-
+	int	fd;
+	int	pid;
 
 	fd = open(parser[0], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	ft_find_next_flag(exec, &index, &fd, &in);
 	pid = fork();
-	if(pid == 0)
+	if (pid == 0)
 	{
 		dup2(fd, 1);
 		close(fd);
@@ -57,11 +56,10 @@ void	ft_redirect_final_case(t_exec *exec, int index, char **parser, int in)
 		waitpid(pid, 0, 0);
 }
 
-
 int	ft_redirect_child(t_exec *exec, int in, int fd, int command_location)
 {
 	exec->in = fd;
-	if(exec->input_flag || exec->heredoc_flag)
+	if (exec->input_flag || exec->heredoc_flag)
 	{
 		dup2(in, 0);
 		close(in);
@@ -74,26 +72,27 @@ int	ft_redirect_child(t_exec *exec, int in, int fd, int command_location)
 	return (1);
 }
 
-void	ft_redirect_norm(t_exec *exec, int index, int command_location, int s_flag)
+void	ft_redirect_norm(t_exec *exec, int index,
+	int command_location, int s_flag)
 {
-	int in;
-	int fd;
-	int pid;
+	int	in;
+	int	fd;
+	int	pid;
 
-	while(index < exec->redirection_count)
+	while (index < exec->redirection_count)
 	{
 		fd = ft_open(exec, REDIROUT, index + 1);
-		if(ft_find_next_flag(exec, &index, &fd, &in))
+		if (ft_find_next_flag(exec, &index, &fd, &in))
 			s_flag = 1;
-		if(exec->error_flag)
+		if (exec->error_flag)
 		{
 			exec->error_flag = 0;
 			return ;
 		}
-		if((index + 1 == exec->redirection_count || s_flag == 1))
+		if ((index + 1 == exec->redirection_count || s_flag == 1))
 		{
 			pid = fork();
-			if(pid == 0)
+			if (pid == 0)
 				ft_redirect_child(exec, in, fd, command_location);
 		}
 		index += 2;
@@ -104,16 +103,16 @@ void	ft_redirect_norm(t_exec *exec, int index, int command_location, int s_flag)
 
 int	ft_redirect(int index, t_exec *exec, int command_location)
 {
-	int fd;
-	int s_flag;
-	char **parser;
-	int in;
+	int		fd;
+	int		s_flag;
+	char	**parser;
+	int		in;
 
 	s_flag = 0;
 	in = -1;
 	fd = -1;
 	parser = ft_split(exec->command[1], ' ');
-	if(index == 0 && ft_is_another_flag(exec, index) == REDIROUT)
+	if (index == 0 && ft_is_another_flag(exec, index) == REDIROUT)
 	{
 		ft_redirect_final_case(exec, index, parser, in);
 		index = 2;

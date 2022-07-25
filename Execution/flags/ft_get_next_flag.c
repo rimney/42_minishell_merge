@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_flag.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:36:44 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 04:06:16 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,16 @@ int	ft_find_next_flag_heredoc1(t_exec *exec, int *index, int *in)
 
 void	ft_find_next_flag_1stq(t_exec *exec, int *index, int *fd, int *in)
 {
-	if (ft_is_another_flag(exec, *index) == HEREDOC
-		&& exec->command[*index + 2]
+	if (ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2]
 		&& ft_is_another_flag(exec, *index + 2) == HEREDOC)
 		ft_basic_heredoc(exec, *index);
-	if (ft_is_another_flag(exec, *index) == APPEND
-		&& exec->command[*index + 2]
+	if (ft_is_another_flag(exec, *index) == APPEND && exec->command[*index + 2]
 		&& ft_is_another_flag(exec, *index) != PIPE)
 		*fd = ft_open(exec, APPEND, *index + 1);
 	if (ft_is_another_flag(exec, *index) == REDIROUT
 		&& exec->command[*index + 2])
 		*fd = ft_open(exec, REDIROUT, *index + 1);
-	if (ft_is_another_flag(exec, *index) == HEREDOC
-		&& exec->command[*index + 2]
+	if (ft_is_another_flag(exec, *index) == HEREDOC && exec->command[*index + 2]
 		&& ft_is_another_flag(exec, *index + 2) != HEREDOC)
 	{
 		ft_heredoc_middle(in, exec->command[*index + 1]);

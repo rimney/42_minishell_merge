@@ -1,8 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
+#    Updated: 2022/07/25 05:16:00 by atarchou         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = minishell
-CC = gcc -Wall -Wextra -Werror -I /private/tmp/homebrew/opt/readline/include
+CC = gcc -Wall -Wextra -Werror 
 FLAGS =  -lreadline 
-RL_FLAGS = -L /private/tmp/homebrew/opt/readline/lib
+RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include
 SRCS = Parsing/parse.c\
+		Parsing/signals.c \
 		Parsing/redir.c\
 		Parsing/parse_token.c\
 		Parsing/parse_token_2.c\
@@ -18,7 +31,10 @@ SRCS = Parsing/parse.c\
 		Parsing/expand_quotes.c\
 		execution/libfunctions/ft_count_tokens.c\
 		execution/redirections/heredoc/ft_heredoc.c\
+		execution/redirections/heredoc/ft_heredoc2.c\
+		execution/redirections/heredoc/ft_heredoc3.c\
 		execution/redirections/ft_pipe.c\
+		execution/redirections/ft_pipe2.c\
 		execution/redirections/ft_append.c\
 		execution/redirections/input/ft_redirect_input.c\
 		execution/redirections/ft_redirect_output.c\
@@ -66,6 +82,7 @@ SRCS = Parsing/parse.c\
 		execution/libfunctions/ft_special_split2.c \
 		execution/parser/ft_filter_quotes.c \
 		execution/redirections/heredoc/ft_heredoc_final_case.c \
+		main.c \
 		
 
 $(NAME) : $(SRCS)

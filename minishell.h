@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 04:43:45 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 06:24:00 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,13 +246,14 @@ int		ft_count_till_other_token(t_exec *exec, int index, char *token);
 int		ft_redirect_input(int index, t_exec *exec, int command_location);
 void	ft_advanced_heredoc(t_exec *exec, int index, int command_location);
 int		ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction);
-void	ft_advanced_append(int index, t_exec *exec, int fd_out, int fd_in, int location);
-void	ft_apply_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
-void	ft_apply_input_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
-void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location);
+void	ft_advanced_append(int index, t_exec *exec, int fd_in, int fd_out);
+ void    ft_apply_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
+// void	ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int index, int in_save);
+
 void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int fd, int index, int in_save);
+void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location);
 int		ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd);
-int		ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int count, int index);
+int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int index);
 int		ft_mini_append(t_exec *exec, t_pipe *tpipe, int i);
 int		ft_find_variable_index(char *str, char c);
 void	ft_export_replace(t_exec *exec, char *arg, int index);
@@ -305,7 +306,7 @@ int 	quote_loop(char *str);
 int		ft_check_quotes_final_case(char *str);
 int		ft_is_a_builtin(char *command);
 char	**abortmission(char **final, int i);
-char	**fill_it(char *s, char c, char **final, int flag);
+char    **fill_it(char *s, char c, char **final, int flag);
 void			ft_bzero(void *b, size_t n);
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
 void		*ft_calloc(size_t count, size_t size);
@@ -318,5 +319,22 @@ void	*ft_free_all_split_alloc(char **split, size_t elts);
 void	*ft_split_range(char **split, char const *s, t_split_next *st, t_split_next *lt);
 int		ft_execute_builtin_parent(t_exec *exec, int index);
 void    ft_dup_and_close_norm(int fd[2]);
+void    ft_heredoc_write(int fd[2], char *line);
+int		ft_get_last_delimiter(t_exec *exec, int index);
+int		ft_check_next_redi_heredoc_norm(t_exec *exec, int index, int *out);
+void	ft_heredoc_write(int fd[2], char *line);
+int		ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction);
+void	ft_heredoc(t_exec *exec, int command_location, int index);
+int		ft_basic_heredoc(t_exec *exec, int index);
+void	ft_advanced_heredoc(t_exec *exec, int index, int command_location);
+int		ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in);
+void	ft_heredoc_final_case(t_exec *exec, int index);
+int		ft_basic_heredoc_final_case(t_exec *exec, int index);
+void	ft_advanced_heredoc_final_case(t_exec *exec, int index);
+int	ft_mini_pipe_a(t_exec *exec, t_pipe *tpipe, int i);
+char	*handle_line_error(void);
+void	handle_cmd_props(char **line, t_tok_red **cmd);
+void	free_and_free(t_tok_red *cmd);
 void	ft_input_norm(int fd_in, t_exec *exec, int location);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:23 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:46:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 06:25:05 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,43 +98,43 @@ void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int fd, int ind
 	WIFEXITED(exec->env.exit_value);
 }
 
-int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe)
-{
-	int in_save;
-	int pid;
-    int fd;
+// int execute_pipe(t_exec *exec, int index, int in,  t_pipe *tpipe)
+// {
+// 	int in_save;
+// 	int pid;
+//     int fd;
 
-    fd = -1;
-    if (exec->command[index + 1] != NULL)
-    {
-        pipe(tpipe->fd);
-        in_save =  tpipe->fd[0];
-    }
-    pid = fork();
-    if (pid == 0)
-    {
-		ft_pipe(in, tpipe, exec, index);
-		exit(0);
-    }
-    if (in != -1)
-        close(in);
-    if (tpipe->fd[1] !=  -1)
-        close(tpipe->fd[1]);
-    if(exec->command[index + 1] && (ft_strcmp(exec->command[index + 1], ">") == 0 
-        || ft_strcmp(exec->command[index + 1], ">>") == 0
-            || ft_strcmp(exec->command[index + 1], "<") == 0) && exec->pipe_count > 2)
-    {
-        ft_redirect_after_pipe_flag(exec, tpipe, fd, index - 2, in_save);
-        exec->redirecion_flag = 0;
-        return (index);
-    }
-    if (index < tpipe->max)
-    {
-        if((exec->pipe_flag) && index == tpipe->max - 2)
-            ft_redirect_after_pipe_flag(exec, tpipe, fd, index , in_save);
-        execute_pipe(exec, index + 2, in_save , tpipe);
-    }
-	waitpid(pid, &exec->env.exit_value, 0);
-	WIFEXITED(exec->env.exit_value);
-    return index;
-}
+//     fd = -1;
+//     if (exec->command[index + 1] != NULL)
+//     {
+//         pipe(tpipe->fd);
+//         in_save =  tpipe->fd[0];
+//     }
+//     pid = fork();
+//     if (pid == 0)
+//     {
+// 		ft_pipe(in, tpipe, exec, index);
+// 		exit(0);
+//     }
+//     if (in != -1)
+//         close(in);
+//     if (tpipe->fd[1] !=  -1)
+//         close(tpipe->fd[1]);
+//     if(exec->command[index + 1] && (ft_strcmp(exec->command[index + 1], ">") == 0 
+//         || ft_strcmp(exec->command[index + 1], ">>") == 0
+//             || ft_strcmp(exec->command[index + 1], "<") == 0) && exec->pipe_count > 2)
+//     {
+//         ft_redirect_after_pipe_flag(exec, tpipe, fd, index - 2, in_save);
+//         exec->redirecion_flag = 0;
+//         return (index);
+//     }
+//     if (index < tpipe->max)
+//     {
+//         if((exec->pipe_flag) && index == tpipe->max - 2)
+//             ft_redirect_after_pipe_flag(exec, tpipe, fd, index , in_save);
+//         execute_pipe(exec, index + 2, in_save , tpipe);
+//     }
+// 	waitpid(pid, &exec->env.exit_value, 0);
+// 	WIFEXITED(exec->env.exit_value);
+//     return index;
+// }
