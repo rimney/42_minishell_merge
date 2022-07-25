@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 01:59:20 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 02:19:20 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,7 @@ char    *ft_filter_command_double_quotes(char *temp);
 char    *ft_filter_command_single_quote(char *temp);
 void    ft_filter_command_quotes(char **argv);
 int 	ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out);
-int 	ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int out);
+int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2]);
 int 	ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out);
 int		ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in);
 int		ft_is_a_mini_flag(t_exec *exec, int i);
@@ -317,4 +317,5 @@ char	**ft_alloc_split(char const *s, char c);
 void	*ft_free_all_split_alloc(char **split, size_t elts);
 void	*ft_split_range(char **split, char const *s, t_split_next *st, t_split_next *lt);
 int		ft_execute_builtin_parent(t_exec *exec, int index);
+void    ft_dup_and_close_norm(int fd[2]);
 #endif

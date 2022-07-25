@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 19:47:39 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 02:12:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,28 @@ int ft_get_last_delimiter(t_exec *exec, int index)
 }
 
 
+int ft_check_next_redi_heredoc_norm(t_exec *exec, int index, int *out)
+{
+    if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == REDIROUT)
+    {
+        exec->redirection_count = ft_count_till_other_token(exec, index + 2, ">");
+         *out = open(exec->command[index + exec->redirection_count + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
+    }
+    else if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == APPEND)
+    {
+        exec->append_count = ft_count_till_other_token(exec, index + 2, ">>");
+         *out = open(exec->command[index + exec->append_count + 1], O_CREAT | O_RDWR | O_APPEND, 0644);
+    }
+
+    return (1);
+}
+
+void    ft_heredoc_write(int fd[2], char *line)
+{
+    write(fd[1],line,strlen(line));
+    write(fd[1], "\n", 1);
+}
+
 int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
 {
     char *delimiter;
@@ -37,18 +59,11 @@ int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
 
     out  = -1;
     delimiter = strdup(exec->command[index + 1]);
-    if(exec->command[index + 2] && ft_is_another_flag(exec, index + 2) == REDIROUT)
-    {
-        exec->redirection_count = ft_count_till_other_token(exec, index + 2, ">");
-         out = open(exec->command[index + exec->redirection_count + 1], O_CREAT | O_TRUNC | O_RDWR, 0644);
-    }
+    ft_check_next_redi_heredoc_norm(exec, index, &out);
     while((line = readline("heredoc > ")))
     {
         if (ft_strcmp(line, delimiter) != 0)
-        {
-            write(fd[1],line,strlen(line));
-            write(fd[1], "\n", 1);
-        }
+            ft_heredoc_write(fd, line);
         if (ft_strcmp(line, delimiter) == 0)
         {
             if(out != -1)
@@ -56,9 +71,7 @@ int ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
                 dup2(out, 1);
                 close(out);
             }
-            close(fd[1]);
-            dup2(fd[0], 0);
-           close(fd[0]);
+            ft_dup_and_close_norm(fd);
             ft_execute_command(exec, command_loaction);
           }
         free(line);
