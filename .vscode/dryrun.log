@@ -1,5 +1,0 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/atarchou/Desktop/norm'
-make: `minishell' is up to date.
-make: Leaving directory `/Users/atarchou/Desktop/norm'
- 
