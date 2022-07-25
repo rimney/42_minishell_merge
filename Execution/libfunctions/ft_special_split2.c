@@ -3,25 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_special_split2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:48:59 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 01:49:53 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 04:17:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void				ft_bzero(void *b, size_t n)
+void	ft_bzero(void *b, size_t n)
 {
-	unsigned char	*dest;
-	size_t			i;
+	unsigned char		*dest;
+	size_t				i;
 
 	dest = b;
 	i = 0;
 	while (i++ < n)
 		*dest++ = 0;
 }
+
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
 	unsigned int	count;
@@ -42,7 +43,7 @@ unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	void *ptr;
+	void	*ptr;
 
 	ptr = malloc(count * size);
 	if (ptr == NULL)
@@ -51,14 +52,13 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-
 int	wc(const char *s, char c)
 {
-	int	counter;
-	int	flag;
-    unsigned char    q;
+	int				counter;
+	int				flag;
+	unsigned char	q;
 
-    q = 0;
+	q = 0;
 	flag = 1;
 	counter = 0;
 	while (*s)
@@ -68,8 +68,8 @@ int	wc(const char *s, char c)
 			s++;
 			flag = 1;
 		}
-        if (*s == '\"')
-            q = !q;
+		if (*s == '\"')
+			q = !q;
 		if ((*s != c && flag == 1) && *s)
 		{
 			counter++;
@@ -81,19 +81,19 @@ int	wc(const char *s, char c)
 	return (counter + 1);
 }
 
-size_t	len_count(const	char *s, char c)
+size_t	len_count(const char *s, char c)
 {
-	char    q;
-    size_t     i;
+	char	q;
+	size_t	i;
 
-    i = 0;
-    q = 0;
-    while (*s && (*s != c || q))
-    {
-        if (*s == '\"')
-            q = !q;
-        i++;
-        s++;
-    }
-    return (i);
+	i = 0;
+	q = 0;
+	while (*s && (*s != c || q))
+	{
+		if (*s == '\"')
+			q = !q;
+		i++;
+		s++;
+	}
+	return (i);
 }

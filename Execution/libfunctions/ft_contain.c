@@ -6,22 +6,22 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/18 20:32:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/18 20:32:34 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:49:22 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int ft_contain(char *str, char c)
+int	ft_contain(char *str, char c)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        if(str[i] == c)
-            return (1);
-        i++; 
-    }
-    return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }

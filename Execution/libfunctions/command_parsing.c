@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   command_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:23:45 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:29:11 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:46:48 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-
 char	*ft_locate_env(char **env)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
@@ -25,7 +24,7 @@ char	*ft_locate_env(char **env)
 
 int	ft_count_elements(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -35,7 +34,7 @@ int	ft_count_elements(char **str)
 
 void	ft_exec_command_norm(char **env, char *command, char **temp)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (temp[i])

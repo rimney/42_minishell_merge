@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_count_tokens.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:07:26 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:29:24 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:50:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_count_tokens(t_token *token)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (token)
@@ -25,28 +25,28 @@ int	ft_count_tokens(t_token *token)
 	return (i);
 }
 
-void ft_count_till_last_token(t_exec *exec, t_pipe *pipes)
+void	ft_count_till_last_token(t_exec *exec, t_pipe *pipes)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
 	exec->initial_flag = 0;
 	while (exec->command[i])
 	{
-		if(ft_strcmp(exec->command[i], "|") == 0)
+		if (ft_strcmp(exec->command[i], "|") == 0)
 		{
 			exec->pipe_count += 2;
 			pipes->max = 0;
 		}
-		else if(ft_strcmp(exec->command[i], ">") == 0)
+		else if (ft_strcmp(exec->command[i], ">") == 0)
 			exec->redirection_count += 2;
-		else if(ft_strcmp(exec->command[i], ">>") == 0)
+		else if (ft_strcmp(exec->command[i], ">>") == 0)
 			exec->append_count += 2;
-		else if(ft_strcmp(exec->command[i], "<") == 0)
+		else if (ft_strcmp(exec->command[i], "<") == 0)
 			exec->input_count += 2;
-		else if(ft_strcmp(exec->command[i], "<<") == 0)
+		else if (ft_strcmp(exec->command[i], "<<") == 0)
 			exec->heredoc_count += 2;
 		i++;
 	}
@@ -54,8 +54,8 @@ void ft_count_till_last_token(t_exec *exec, t_pipe *pipes)
 
 int	ft_count_till_other_token(t_exec *exec, int index, char *token)
 {
-	int i;
-	int count;
+	int	i;
+	int	count;
 
 	count = 0;
 	i = index;
@@ -64,7 +64,7 @@ int	ft_count_till_other_token(t_exec *exec, int index, char *token)
 		if (ft_strcmp(exec->command[i], token) == 0)
 			count += 2;
 		else
-			return count;
+			return (count);
 		i += 2;
 	}
 	return (count);

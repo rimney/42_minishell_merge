@@ -6,15 +6,15 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/06 22:46:54 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/06 22:47:12 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:59:39 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int		len(long nb)
+int	len(long nb)
 {
-	int		len;
+	int	len;
 
 	len = 0;
 	if (nb < 0)
@@ -32,14 +32,13 @@ int		len(long nb)
 
 char	*ft_itoa(int nb)
 {
-	char *str;
+	char	*str;
 	long	n;
 	int		i;
 
 	n = nb;
 	i = len(n);
-	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
-		return (NULL);
+	str = (char *)malloc(sizeof(char) * (i + 1));
 	str[i--] = '\0';
 	if (n == 0)
 	{

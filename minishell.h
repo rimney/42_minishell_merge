@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 02:19:20 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 04:43:45 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ int		ft_find_variable_index(char *str, char c);
 void	ft_export_replace(t_exec *exec, char *arg, int index);
 int		ft_path_exists(char **envp);
 int		ft_mini_redirect_input(t_exec *exec, t_pipe *tpipe, int i);
-int		ft_advanced_redirect_input(t_exec *exec, int fd_in, int index);
+void	ft_advanced_redirect_input(t_exec *exec, int fd_in, int index);
 int		ft_mini_heredoc(t_exec *exec, t_pipe *tpipe, int i);
 int		ft_is_a_builtin(char *command);
 int		ft_execute_builtin(char **parser, t_exec *exec, int index);
@@ -305,7 +305,7 @@ int 	quote_loop(char *str);
 int		ft_check_quotes_final_case(char *str);
 int		ft_is_a_builtin(char *command);
 char	**abortmission(char **final, int i);
-char	**fill_it(char *s, char c, char **final);
+char	**fill_it(char *s, char c, char **final, int flag);
 void			ft_bzero(void *b, size_t n);
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
 void		*ft_calloc(size_t count, size_t size);
@@ -318,4 +318,5 @@ void	*ft_free_all_split_alloc(char **split, size_t elts);
 void	*ft_split_range(char **split, char const *s, t_split_next *st, t_split_next *lt);
 int		ft_execute_builtin_parent(t_exec *exec, int index);
 void    ft_dup_and_close_norm(int fd[2]);
+void	ft_input_norm(int fd_in, t_exec *exec, int location);
 #endif

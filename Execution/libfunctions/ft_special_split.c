@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_special_split.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 20:44:32 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 01:49:47 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 04:08:02 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,18 @@ char	**abortmission(char **final, int i)
 	return (NULL);
 }
 
-char	**fill_it(char *s, char c, char **final)
+static	void	ft_assign(int *i, char *q)
 {
-	int	i;
-	int	flag;
-    char    q;
+	*i = -1;
+	*q = 0;
+}
 
-    q = 0;
-	flag = 1;
-	i = -1;
+char	**fill_it(char *s, char c, char **final, int flag)
+{
+	int		i;
+	char	q;
+
+	ft_assign(&i, &q);
 	while (*s)
 	{
 		while (*s == c && !q)
@@ -42,10 +45,10 @@ char	**fill_it(char *s, char c, char **final)
 			s++;
 			flag = 1;
 		}
-        if (*s == '\"')
-            q = !q;
+		if (*s == '\"')
+			q = !q;
 		if (*s != c && flag == 1 && *s)
-		{	
+		{
 			final[++i] = (char *)ft_calloc(len_count(s, c) + 1, sizeof(char));
 			if (final[i] == NULL)
 				return (abortmission(final, i));
@@ -67,6 +70,6 @@ char	**ft_split_special(char *s, char c)
 	final = (char **)ft_calloc((size_t)wc(s, c), sizeof(char *));
 	if (final == NULL)
 		return (NULL);
-	final = fill_it(s, c, final);
+	final = fill_it(s, c, final, 1);
 	return (final);
 }
