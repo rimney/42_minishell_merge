@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/24 22:21:24 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 01:38:13 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int ft_echo_edge_case(char *str)
-{
-    int i;
-
-    i = 1;
-    if (str == NULL)
-        return (0);
-    if(str[0] == '-')
-    {
-        while(str[i])
-        {
-            if(str[i] != 'n')
-                return (0);
-            i++;
-        }
-    }
-    else
-        return (0);
-    return (1);
-}
 
 void    ft_echo_single_quote(char *str)
 {

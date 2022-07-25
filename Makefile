@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+         #
+#    By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/24 19:42:39 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/25 01:59:46 by atarchou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS = Parsing/parse.c\
 		execution/libfunctions/command_parsing.c\
 		execution/libfunctions/ft_get_env.c\
 		execution/libfunctions/ft_split.c\
+		execution/libfunctions/ft_split2.c\
 		execution/libfunctions/ft_strjoin.c\
 		execution/libfunctions/ft_simple_strjoin.c\
 		execution/libfunctions/ft_execute_command.c\
@@ -44,13 +45,17 @@ SRCS = Parsing/parse.c\
 		execution/libfunctions/ft_free.c\
 		execution/parser/ft_fill_exec.c\
 		execution/libfunctions/ft_execute_only_flag.c\
+		execution/libfunctions/ft_execute_only_flag2.c\
 		execution/parser/ft_is_only_flag.c\
+		execution/parser/ft_is_only_flag2.c\
 		execution/builtins/ft_echo.c\
+		execution/builtins/ft_echo2.c\
 		execution/redirections/ft_mini_redirect_output.c\
 		execution/redirections/ft_middle_redirections.c\
 		execution/redirections/ft_dup_and_redirect.c\
 		execution/redirections/ft_mini_pipe.c\
 		execution/builtins/ft_export.c \
+		execution/builtins/ft_export2.c \
 		execution/libfunctions/ft_find_variable_index.c \
 		execution/builtins/ft_env.c \
 		execution/libfunctions/ft_atoi.c \
@@ -63,18 +68,17 @@ SRCS = Parsing/parse.c\
 		execution/redirections/heredoc/ft_mini_heredoc.c \
 		execution/libfunctions/ft_itoa.c \
 		execution/flags/ft_get_next_flag.c \
+		execution/flags/ft_get_next_flag2.c \
 		execution/libfunctions/ft_contain.c \
 		execution/parser/ft_check_errors_rm.c \
 		execution/redirections/heredoc/ft_execute_heredoc.c \
 		execution/redirections/input/ft_redirect_input_final_case.c \
 		execution/libfunctions/ft_open.c \
 		execution/libfunctions/ft_special_split.c \
+		execution/libfunctions/ft_special_split2.c \
 		execution/parser/ft_filter_quotes.c \
 		execution/redirections/heredoc/ft_heredoc_final_case.c \
 		
-
-
-
 
 $(NAME) : $(SRCS)
 			stty -echoctl

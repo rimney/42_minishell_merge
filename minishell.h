@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/24 23:21:07 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 01:59:20 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ typedef struct s_tok_red
 	t_token	*lst_token;
 	t_redir	*lst_redir;
 }				t_tok_red;
+
+typedef struct	s_split_next
+{
+	size_t start;
+	size_t length;
+}				t_split_next;
 
 typedef enum e_type
 {
@@ -268,10 +274,47 @@ void    ft_filter_command_single_quote_2d_array(char **argv);
 char    *ft_filter_command_double_quotes(char *temp);
 char    *ft_filter_command_single_quote(char *temp);
 void    ft_filter_command_quotes(char **argv);
-int ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out);
-int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int out);
-int ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out);
-int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in);
-int	ft_is_a_mini_flag(t_exec *exec, int i);
+int 	ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out);
+int 	ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int out);
+int 	ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out);
+int		ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in);
+int		ft_is_a_mini_flag(t_exec *exec, int i);
 void    ft_putstr_fd(char *str, int fd);
+void	ft_heredoc_middle(int *in, char *delimiter);
+int		ft_is_a_mini_flag(t_exec *exec, int i);
+int		ft_find_next_flag_append(t_exec *exec, int *index, int *fd);
+int		ft_find_next_flag_rediout(t_exec *exec, int *index, int *fd);
+int		ft_find_next_flag_input(t_exec *exec, int *index, int *in);
+void	ft_find_next_flag_input2(t_exec *exec, int *index, int *in);
+int		ft_find_next_flag_heredoc1(t_exec *exec, int *index, int *in);
+void	ft_find_next_flag_1stq(t_exec *exec, int *index, int *fd, int *in);
+int		ft_find_next_flag_2ndq(t_exec *exec, int *index, int *fd, int *in);
+int		ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in);
+void    ft_echo_single_quote(char *str);
+void    ft_echo_double_quotes(char *str);
+int    	ft_find_expand(char **envp, char *arg);
+void    ft_echo_norm(char **str, int i, t_exec *exec);
+int 	ft_echo_edge_case(char *str);
+int 	ft_check_export_string(char *str);
+void    ft_apply_export(t_exec *exec, char *new);
+int		ft_check_export_replace(t_exec *exec, char **argv, int index);
+void    ft_sort_string_tab(char **tab);
+char    *ft_mystrdup(char *s1,  int flag);
+void    ft_export_no_args_case(t_exec *exec);
+int 	quote_loop(char *str);
+int		ft_check_quotes_final_case(char *str);
+int		ft_is_a_builtin(char *command);
+char	**abortmission(char **final, int i);
+char	**fill_it(char *s, char c, char **final);
+void			ft_bzero(void *b, size_t n);
+unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
+void		*ft_calloc(size_t count, size_t size);
+int			wc(const char *s, char c);
+size_t		len_count(const	char *s, char c);
+void	*ft_split_by_char(char **split, char const *s, char c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ft_alloc_split(char const *s, char c);
+void	*ft_free_all_split_alloc(char **split, size_t elts);
+void	*ft_split_range(char **split, char const *s, t_split_next *st, t_split_next *lt);
+int		ft_execute_builtin_parent(t_exec *exec, int index);
 #endif
