@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+         #
+#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/25 05:16:00 by atarchou         ###   ########.fr        #
+#    Updated: 2022/07/25 07:29:03 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@ CC = gcc -Wall -Wextra -Werror
 FLAGS =  -lreadline 
 RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include
 SRCS = Parsing/parse.c\
-		Parsing/signals.c \
 		Parsing/redir.c\
 		Parsing/parse_token.c\
 		Parsing/parse_token_2.c\
@@ -83,6 +82,7 @@ SRCS = Parsing/parse.c\
 		execution/parser/ft_filter_quotes.c \
 		execution/redirections/heredoc/ft_heredoc_final_case.c \
 		main.c \
+		execution/redirections/heredoc/ft_find_next_flag_heredoc.c \
 		
 
 $(NAME) : $(SRCS)

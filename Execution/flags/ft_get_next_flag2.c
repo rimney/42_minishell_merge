@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_flag2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:30:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 04:08:25 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 07:40:59 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_heredoc_middle(int *in, char *delimiter)
 	pipe(fd);
 	while (flag)
 	{
-		line = readline("heredoc middle > ");
+		line = readline("> ");
 		if (ft_strcmp(line, delimiter) != 0)
 		{
 			write(fd[1], line, ft_strlen(line));

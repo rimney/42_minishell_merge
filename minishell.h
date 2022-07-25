@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 06:24:00 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 07:47:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_exec
 	int		heredoc_count;
 	int		redirecion_flag;
 	int		redirection_count;
+	int		pipe_index;
 }	t_exec;
 
 /******** utils.c functions ********/
@@ -247,11 +248,9 @@ int		ft_redirect_input(int index, t_exec *exec, int command_location);
 void	ft_advanced_heredoc(t_exec *exec, int index, int command_location);
 int		ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction);
 void	ft_advanced_append(int index, t_exec *exec, int fd_in, int fd_out);
- void    ft_apply_redirection_after_pipe(int in, int out, t_pipe *tpipe, t_exec *exec, int index);
-// void	ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int index, int in_save);
-
-void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int fd, int index, int in_save);
-void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location);
+void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int index, int in_save);
+void    ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe, int index, int in_save);
+void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in);
 int		ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd);
 int	ft_mini_pipe(t_exec *exec, t_pipe *pipes, int in, int index);
 int		ft_mini_append(t_exec *exec, t_pipe *tpipe, int i);
@@ -276,7 +275,7 @@ char    *ft_filter_command_double_quotes(char *temp);
 char    *ft_filter_command_single_quote(char *temp);
 void    ft_filter_command_quotes(char **argv);
 int 	ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out);
-int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2]);
+int ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int flag);
 int 	ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out);
 int		ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in);
 int		ft_is_a_mini_flag(t_exec *exec, int i);
@@ -318,7 +317,7 @@ char	**ft_alloc_split(char const *s, char c);
 void	*ft_free_all_split_alloc(char **split, size_t elts);
 void	*ft_split_range(char **split, char const *s, t_split_next *st, t_split_next *lt);
 int		ft_execute_builtin_parent(t_exec *exec, int index);
-void    ft_dup_and_close_norm(int fd[2]);
+void    ft_dup_and_close_norm(int fd[2], int out);
 void    ft_heredoc_write(int fd[2], char *line);
 int		ft_get_last_delimiter(t_exec *exec, int index);
 int		ft_check_next_redi_heredoc_norm(t_exec *exec, int index, int *out);
@@ -336,5 +335,8 @@ char	*handle_line_error(void);
 void	handle_cmd_props(char **line, t_tok_red **cmd);
 void	free_and_free(t_tok_red *cmd);
 void	ft_input_norm(int fd_in, t_exec *exec, int location);
-
+int	ft_find_next_flag_heredoc(t_exec *exec, int *index, int *fd, int *in);
+void	ft_get_next_redi(t_exec *exec, int *fd, int index);
+void	ft_apply_input_redirection_after_pipe(int in, t_pipe *tpipe, t_exec *exec, int index);
+void	ft_apply_redirection_after_pipe(int out, t_pipe *tpipe, t_exec *exec, int index);
 #endif

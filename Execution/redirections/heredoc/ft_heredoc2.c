@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:18:36 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 04:28:56 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 07:49:49 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,22 @@ int	ft_exec_heredoc(t_exec *exec, int index, int fd[2], int command_loaction)
 	char	*delimiter;
 	char	*line;
 	int		out;
+	int 	flag;
 
+	flag = 0;
 	out = -1;
 	delimiter = strdup(exec->command[index + 1]);
 	ft_check_next_redi_heredoc_norm(exec, index, &out);
-	while ((line = readline(">")))
+	while (flag == 0)
 	{
+		line = readline("> ");
 		if (ft_strcmp(line, delimiter) != 0)
 			ft_heredoc_write(fd, line);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
-			if (out != -1)
-			{
-				dup2(out, 1);
-				close(out);
-			}
-			ft_dup_and_close_norm(fd);
+			ft_dup_and_close_norm(fd, out);
 			ft_execute_command(exec, command_loaction);
+			flag = 1;
 		}
 		free(line);
 	}
@@ -59,16 +58,20 @@ void	ft_heredoc(t_exec *exec, int command_location, int index)
 
 int	ft_basic_heredoc(t_exec *exec, int index)
 {
+	int		flag;
 	char	*line;
 	char	*delimiter;
 
 	delimiter = strdup(exec->command[index + 1]);
-	while ((line = readline(">")))
+	flag = 0;
+	while (flag == 0)
 	{
+		line = readline("> ");
 		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(delimiter);
 			free(line);
+			flag = 1;
 			return (1);
 		}
 		free(line);

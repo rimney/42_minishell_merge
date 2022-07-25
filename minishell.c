@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 05:01:50 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 07:51:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	ft_minishell(t_exec *exec, t_pipe *tpipe, int index)
 	wait(NULL);
 }
 
+
 void	ft_test(t_token *token, char **envp, int exit_value)
 {
 	char *temp;
@@ -111,8 +112,8 @@ int	main(int argc, char **argv, char **envp)
 	ft_get_env(&exec, envp);
 	while (g_flag == 0)
 	{
-		signal(SIGINT, handle_signals);
-		signal(SIGQUIT, SIG_IGN);
+		// signal(SIGINT, handle_signals);
+		// signal(SIGQUIT, SIG_IGN);
 		line = handle_line_error();
 		if (line[0] == 0 || ft_isspace(line[0]))
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc_final_case.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:37:54 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:29:56 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 07:48:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,30 +36,34 @@ int	ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], int out)
 	return (1);
 }
 
-void	ft_dup_and_close_norm(int fd[2])
+void	ft_dup_and_close_norm(int fd[2], int out)
 {
+	if(out != -1)
+	{
+		dup2(out, 1);
+		close(out);
+	}
 	dup2(fd[0], 0);
 	close(fd[0]);
 	close(fd[1]);
 }
 
-int	ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2])
+
+int	ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int flag)
 {
 	char	*line;
 	char	*delimiter;
 	char	**parser;
-	int		flag;
 
 	parser = ft_split(exec->command[index + 1], ' ');
 	delimiter = strdup(parser[0]);
-	flag = 0;
 	while (flag == 0)
 	{
 		line = readline("> ");
 		ft_heredoc_write(fd, line);
 		if (ft_strcmp(line, delimiter) == 0)
 		{
-			ft_dup_and_close_norm(fd);
+			ft_dup_and_close_norm(fd, -1);
 			if (execve(ft_exec_command(exec->envp, parser[1]),
 					parser + 1, exec->envp) == -1)
 			{
@@ -82,7 +86,7 @@ int	ft_heredoc_final_case_child(t_exec *exec, int index, int fd[2], int out)
 	parser = ft_split(exec->command[index + 1], ' ');
 	delimiter = strdup(parser[0]);
 	if (ft_count_elements(parser) <= 2)
-		ft_heredoc_final_case_child_2(exec, index, fd);
+		ft_heredoc_final_case_child_2(exec, index, fd, 0);
 	else
 		ft_heredoc_final_case_child_1(exec, index, fd, out);
 	return (1);

@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redirect_output.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:27 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:45:09 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 07:15:52 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in, int location)
+void	ft_advanced_redirect(int index, t_exec *exec, int fd_out, int fd_in)
 {
 	int	pid;
+	int	location;
 
+	location = index - 1;
 	fd_in = ft_open(exec, REDIRIN, index - 3);
 	fd_out = ft_open(exec, REDIROUT, index + 1);
 	while (index < exec->redirection_count)
