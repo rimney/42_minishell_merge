@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:11:11 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/21 22:48:18 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 03:10:27 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,26 @@ void    ft_minishell_input_final_case_2_args(t_exec *exec)
     }
 }
 
+void    ft_input_child(t_exec *exec, int in, int fd, char **parser)
+{
+    in = open(parser[0], O_RDONLY);
+    dup2(in, 0);
+    close(in);
+    if(fd != -1)
+    {
+        dup2(fd, 1);
+        close(fd);
+    }
+    execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
+}
+
 void    ft_apply_minishell_input_case(t_exec *exec, int pid, int index, char **parser)
 {
     int in;
     int fd;
     fd = -1;
-    ft_find_next_flag2(exec, &index, &in, &fd);
     in = open(parser[0], O_RDONLY);
+    ft_find_next_flag2(exec, &index, &in, &fd);
     if(in == -1)
     {
         perror("minishell : ");
@@ -67,17 +80,7 @@ void    ft_apply_minishell_input_case(t_exec *exec, int pid, int index, char **p
     exec->in = in;
     pid = fork();
     if(pid == 0)
-    {
-        in = open(parser[0], O_RDONLY);
-        dup2(in, 0);
-        close(in);
-        if(fd != -1)
-        {
-            dup2(fd, 1);
-            close(fd);
-        }
-        execve(ft_exec_command(exec->envp, parser[1]), parser + 1, exec->envp);
-    }
+        ft_input_child(exec, in, fd, parser);
     else
     {
         waitpid(pid, 0, 0);
