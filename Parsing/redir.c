@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:10:31 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/21 15:55:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/25 11:04:24 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	check_if_redir(int type)
 {
-	if (type == 0)
+	if (type == WORD)
 		return (0);
 	return (1);
 }

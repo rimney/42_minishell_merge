@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 09:05:02 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:00:29 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,4 +365,5 @@ void		ft_minishell_line(char *line, int *err_flag);
 void		ft_minishell_execution(t_exec *exec, t_pipe *pipes, t_tok_red *cmd);
 void		ft_reset_minishell(t_exec *exec,
 				t_tok_red *cmd, char *line, int err_flag);
+int			ft_check_leaks(t_token *token);
 #endif

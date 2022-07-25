@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:59:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 09:03:50 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:00:52 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ void	free_and_free(t_tok_red *cmd)
 	if (cmd->lst_redir)
 	{
 		if (count_redir(cmd->lst_token) == 0)
+		{
+			if (ft_check_leaks(cmd->lst_token))
+				free(cmd->lst_redir);
 			cmd->lst_redir = NULL;
+		}
 		else
 			free_lst_redir(cmd->lst_redir);
 	}

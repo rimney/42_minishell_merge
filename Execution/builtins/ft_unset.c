@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 15:37:07 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 08:57:21 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:13:26 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	ft_apply_unset(char *str, t_exec *exec)
 	temp = exec->envp;
 	exec->envp = ft_new_unset(exec->envp, unset);
 	ft_free(temp);
-	printf("%d<\n", ft_count_elements(exec->envp));
 }
 
 void	ft_unset(char **str, t_exec *exec)
