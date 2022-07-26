@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 08:57:11 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/26 04:50:09 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_export_replace(t_exec *exec, char *arg, int index)
 int	ft_check_export_string(char *str)
 {
 	if (!((str[0] >= 'a' && str[0] <= 'z')
-			|| (str[0] >= 'A' && str[0] <= 'Z') || str[0] == '_'))
+			|| (str[0] >= 'A' && str[0] <= 'Z') || str[0] == '_') && str[0] == '=')
 		return (0);
 	return (1);
 }
@@ -89,13 +89,16 @@ void	ft_export(t_exec *exec, char **argv)
 		ft_export_no_args_case(exec);
 		return ;
 	}
-	if (!ft_check_export_string(argv[index]))
-	{
-		printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
-		exec->env.exit_value = 1;
-	}
 	while (argv[index])
 	{
+		if(!ft_check_export_string(argv[index]))
+		{
+			printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
+			exec->env.exit_value = 1;
+			if(!argv[index + 1])
+				return ;
+			index += 1;
+		}
 		if (!ft_check_export_replace(exec, argv, index))
 			ft_apply_export(exec, argv[index]);
 		index++;

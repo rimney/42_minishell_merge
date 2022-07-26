@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:39:45 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 09:01:02 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/26 04:53:54 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,12 @@ char	*ft_mystrdup(char *s1, int flag)
 	return (str);
 }
 
-void	ft_export_no_args_case_norm(int i, int j, int flag, t_exec *exec)
+void	ft_export_no_args_case_norm(int i, int j, int *flag, t_exec *exec)
 {
-	if (j != 0 && exec->envp[i][j - 1] == '=' && flag == 0)
+	if (j != 0 && exec->envp[i][j - 1] == '=' && *flag == 0)
 	{
 		printf("\"");
-		flag = 1;
+		*flag = 1;
 	}
 	printf("%c", exec->envp[i][j]);
 }
@@ -92,7 +92,7 @@ void	ft_export_no_args_case(t_exec *exec)
 {
 	int	i;
 	int	j;
-	int	flag;
+	static int	flag;
 
 	i = 0;
 	ft_sort_string_tab(exec->envp);
@@ -103,7 +103,7 @@ void	ft_export_no_args_case(t_exec *exec)
 		printf("declare -x ");
 		while (exec->envp[i][j])
 		{
-			ft_export_no_args_case_norm(i, j, flag, exec);
+			ft_export_no_args_case_norm(i, j, &flag, exec);
 			j++;
 		}
 		if (ft_contain(exec->envp[i], '='))

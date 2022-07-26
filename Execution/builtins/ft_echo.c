@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 22:47:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 08:57:00 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/26 03:21:45 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_find_expand(char **envp, char *arg)
 				ft_find_variable_index(envp[i], '=')) == 0)
 		{
 			temp = ft_mystrdup(envp[i], 0);
-			printf("%s", temp + ft_find_variable_index(envp[i], '=') + 1);
+			printf("%s", temp + ft_find_variable_index(arg + 1, '=') + 1);
 			free(temp);
 			return (1);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_mini_pipe.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 05:52:31 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/26 00:19:33 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,18 @@ void	ft_get_next_flag2(t_exec *exec, int i)
 		exec->input_flag = 1;
 		exec->input_count
 			= ft_count_till_other_token(exec, i + exec->pipe_count, "<");
+	}
+	if (exec->command[i + exec->pipe_count]
+		&& ft_strcmp(exec->command[i + exec->pipe_count], "<<") == 0
+		&& exec->pipe_count > 2)
+	{
+		exec->input_flag = 1;
+		exec->input_count
+			= ft_count_till_other_token(exec, i + exec->pipe_count, "<<");
+		printf("heredoc\n");
+		exec->heredoc_count = ft_count_till_other_token(exec, i + exec->pipe_count, "<<");
+		exec->heredoc_flag = 1;
+		
 	}
 }
 
