@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:41:35 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 07:14:57 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/26 07:02:54 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	ft_pipe_condition(int index, t_exec *exec)
 	if (exec->command[index + 1]
 		&& (ft_strcmp(exec->command[index + 1], ">") == 0
 			|| ft_strcmp(exec->command[index + 1], ">>") == 0
+			|| ft_strcmp(exec->command[index + 1], "<") == 0
+			|| ft_strcmp(exec->command[index + 1], "<<") == 0
 			|| ft_strcmp(exec->command[index + 1], "<") == 0)
 		&& exec->pipe_count > 2)
 		return (1);

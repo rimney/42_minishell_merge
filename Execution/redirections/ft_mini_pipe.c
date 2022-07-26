@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:50:18 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/26 00:19:33 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/26 06:57:30 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,13 @@ void	ft_get_next_flag2(t_exec *exec, int i)
 		exec->input_count
 			= ft_count_till_other_token(exec, i + exec->pipe_count, "<");
 	}
-	if (exec->command[i + exec->pipe_count]
-		&& ft_strcmp(exec->command[i + exec->pipe_count], "<<") == 0
-		&& exec->pipe_count > 2)
-	{
-		exec->input_flag = 1;
-		exec->input_count
-			= ft_count_till_other_token(exec, i + exec->pipe_count, "<<");
-		printf("heredoc\n");
-		exec->heredoc_count = ft_count_till_other_token(exec, i + exec->pipe_count, "<<");
-		exec->heredoc_flag = 1;
-		
-	}
 }
 
 void	ft_get_next_flag_pipe(t_exec *exec, int index, int i)
 {
 	if (exec->pipe_count == 2 && exec->command[index + 2])
 	{
+
 		if (ft_strcmp(exec->command[index + 2], ">") == 0)
 		{
 			exec->pipe_flag = 1;
@@ -63,6 +52,15 @@ void	ft_get_next_flag_pipe(t_exec *exec, int index, int i)
 		exec->redirection_count
 			= ft_count_till_other_token(exec, i + exec->pipe_count, ">");
 	}
+		if (exec->command[i + exec->pipe_count]
+			&& ft_strcmp(exec->command[i + exec->pipe_count], "<<") == 0
+			&& exec->pipe_count > 2)
+		{
+			printf("heredoc\n");
+			exec->heredoc_count = ft_count_till_other_token(exec, i + exec->pipe_count, "<<");
+			exec->heredoc_flag = 1;
+			
+		}
 	else
 		ft_get_next_flag2(exec, i);
 }

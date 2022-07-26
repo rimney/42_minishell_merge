@@ -1,0 +1,10 @@
+Execution
+Makefile
+Parsing
+a
+ls
+main.c
+minishell
+minishell.c
+minishell.h
+minishell2.c

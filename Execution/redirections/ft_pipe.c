@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:23 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 07:12:32 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/26 06:46:10 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,10 @@ void	ft_get_next_redi(t_exec *exec, int *fd, int index)
 	if (exec->append_flag == 1)
 		*fd = open(exec->command[index + exec->append_count + 2],
 				O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (exec->heredoc_flag == 1)
+	{
+		printf("her     edoc\n");
+		*fd = open(exec->command[index + exec->append_count + 2],
+				O_RDWR | O_CREAT | O_APPEND, 0644);
+	}
 }

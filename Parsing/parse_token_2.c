@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 18:41:39 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 11:00:15 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/26 05:19:24 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_token	*handle_quotes(t_token *lst, int *flag, char **s)
 			break ;
 		}
 		tools[0]++;
-		tools[1] = '\'';
+		tools[1] = '\"';
 	}
 	return (lst);
 }

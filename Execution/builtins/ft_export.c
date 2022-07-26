@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/26 04:50:09 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/26 05:12:41 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_export_replace(t_exec *exec, char *arg, int index)
 int	ft_check_export_string(char *str)
 {
 	if (!((str[0] >= 'a' && str[0] <= 'z')
-			|| (str[0] >= 'A' && str[0] <= 'Z') || str[0] == '_') && str[0] == '=')
+			|| (str[0] >= 'A' && str[0] <= 'Z') || str[0] == '_'))
 		return (0);
 	return (1);
 }
