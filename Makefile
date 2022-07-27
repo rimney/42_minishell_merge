@@ -6,12 +6,12 @@
 #    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/26 03:41:07 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/27 02:34:33 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-CC = gcc -Wall -Wextra -Werror -s
+CC = gcc -Wall -Wextra -Werror 
 FLAGS =  -lreadline 
 RL_FLAGS = -L /Users/atarchou/homebrew/opt/readline/lib -I /Users/atarchou/homebrew/opt/readline/include
 SRCS = Parsing/parse.c\

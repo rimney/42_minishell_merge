@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 08:57:58 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:36:35 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,20 @@ void	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
 	}
 }
 
+void	ft_arrange_fill_exec(char **command)
+{
+	int i;
+	// int count;
+
+	i = 0;
+	while(command[i])
+	{
+		if(ft_contain)
+			printf("%s << \n", command[i]);
+		i++;
+	}
+}
+
 void	ft_fill_exec(t_exec *exec, t_token *token)
 {
 	int	i;
@@ -79,5 +93,7 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 		ft_fill_exec_norm(exec, token, &head_flag, &i);
 		token = token->next;
 	}
+
 	exec->command[i + 1] = 0;
+	ft_arrange_fill_exec(exec->command);
 }

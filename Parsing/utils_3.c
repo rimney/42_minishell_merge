@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils_3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 18:19:15 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:21:07 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/27 07:31:01 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_operation(char c)
-{
-	if (c == '|' || c == '<' || c == '>')
-		return (1);
-	return (0);
-}
+// int	is_operation(char c)
+// {
+// 	if (c == '|' || c == '<' || c == '>')
+// 		return (1);
+// 	return (0);
+// }
 
 void	check_token_list_end(t_token **lst_token, int nbwords)
 {
@@ -49,9 +49,9 @@ int	find_char_index(char *str, char c)
 	int	i;
 
 	i = 0;
-	if (str[i] == '\"')
+	if (str[i] == 1)
 	{
-		while (str[i] == '\"')
+		while (str[i] == 1)
 			i++;
 		return (i - 1);
 	}

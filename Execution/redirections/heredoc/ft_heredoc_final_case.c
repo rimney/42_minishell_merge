@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc_final_case.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 19:37:54 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 08:58:29 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:33:03 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int	ft_heredoc_final_case_child_2(t_exec *exec, int index, int fd[2], int flag)
 		}
 		free(line);
 	}
+		free(delimiter);
 	return (1);
 }
 

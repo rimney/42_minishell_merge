@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_filter_quotes.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 17:51:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:58:36 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/27 02:29:48 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_filter_command_double_quotes(char *temp)
 	count = 0;
 	j = 0;
 	if (temp[0] != '\"')
-		return (temp);
+		return (ft_mystrdup("", 0));
 	while (temp[i] == '\"')
 		i++;
 	count = i;

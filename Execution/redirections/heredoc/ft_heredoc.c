@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 08:45:40 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/27 06:33:47 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_advanced_heredoc(t_exec *exec, int index, int command_location)
 	int	i;
 
 	i = index;
-	printf("%d << location\n", command_location);
 	while (i < ft_get_last_delimiter(exec, index) && exec->heredoc_count > 2)
 	{
 		if (ft_strcmp(exec->command[i], "<<") == 0)

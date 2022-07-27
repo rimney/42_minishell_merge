@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/02 17:49:49 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 08:56:47 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/26 22:47:11 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ void	ft_cd(char *path, t_exec *exec)
 	char	*temp;
 
 	s = getcwd(NULL, 0);
-	temp = s;
-	s = ft_strjoin_f("OLDPWD=", s);
-	free(temp);
 	if (chdir(path) == -1)
 	{
 		ft_cd_norm(path, exec, s);
 		return ;
 	}
+	temp = s;
+	s = ft_strjoin_f("OLDPWD=", s);
+	free(temp);
 	p = getcwd(NULL, 0);
 	temp = p;
 	p = ft_strjoin_f("PWD=", p);

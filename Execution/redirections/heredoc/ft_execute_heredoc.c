@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_heredoc.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 16:10:42 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:09:37 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/27 06:33:31 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ int	ft_execute_heredoc(t_exec *exec, int index)
 		if (pid == 0)
 			ft_apply_heredoc_child(exec, index, command_location);
 		else
+		{
 			ft_apply_heredoc_parent(pid, exec, info);
+		}
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/26 05:12:41 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/26 22:13:55 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_export(t_exec *exec, char **argv)
 				return ;
 			index += 1;
 		}
-		if (!ft_check_export_replace(exec, argv, index))
+		else if (!ft_check_export_replace(exec, argv, index))
 			ft_apply_export(exec, argv[index]);
 		index++;
 	}

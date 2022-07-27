@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 12:00:29 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:06:55 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_exec
 	int		redirection_count;
 	int		pipe_index;
 	int		err_flag;
+	t_token	*tokens;
 }	t_exec;
 
 /******** utils.c functions ********/
@@ -361,9 +362,12 @@ void		ft_minishell_norm(t_exec *exec, t_pipe *tpipe, int *i);
 void		ft_minishell(t_exec *exec, t_pipe *tpipe, int index);
 void		ft_launch_expand(t_token *token, char **envp, int exit_value);
 void		ft_kill_args(int argc, char **argv);
-void		ft_minishell_line(char *line, int *err_flag);
+int			ft_minishell_line(char *line, int *err_flag);
 void		ft_minishell_execution(t_exec *exec, t_pipe *pipes, t_tok_red *cmd);
 void		ft_reset_minishell(t_exec *exec,
 				t_tok_red *cmd, char *line, int err_flag);
 int			ft_check_leaks(t_token *token);
+char	*ft_strjoin_f(char *s1, char *s2);
+int	ft_handle_quotes(char *str);
+
 #endif

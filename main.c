@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:59:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/26 05:24:51 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/27 11:34:36 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*handle_line_error(void)
 {
 	char	*line;
 
-	line = readline("\e[0;32m BomusShell$>\033[0;37m");
+	line = readline("BomusShell$> ");
 	if (line == NULL)
 		exit(0);
 	return (line);
@@ -63,6 +63,24 @@ void	free_and_free(t_tok_red *cmd)
 	free(cmd);
 }
 
+int	ft_check_operation(char *str)
+{
+	if(str[0] == '|' || str[ft_strlen(str) - 1] == '|'
+		|| str[ft_strlen(str) - 1] == '>' ||str[ft_strlen(str) - 1] == '<')
+		{
+			printf("syntax error near unexpected token\n");
+			return(1);
+		}
+	return (0);
+}
+
+int	ft_check_errors(char *str)
+{
+	if(ft_check_operation(str))
+		return (1);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
@@ -73,21 +91,25 @@ int	main(int argc, char **argv, char **envp)
 	ft_kill_args(argc, argv);
 	line = NULL;
 	ft_get_env(&exec, envp);
-	while (g_flag == 0)
+	while (1)
 	{
 		// ft_signals();
 		line = handle_line_error();
 		add_history(line);
-		if (line[0] == 0 || ft_isspace(line[0]))
+		if (line[0] == 0 || ft_isspace(line[0]) || ft_check_operation(line))
 		{
 			free(line);
 			continue ;
 		}
-		ft_minishell_line(line, &exec.err_flag);
-		if (g_flag == 0)
+		// ft_minishell_line(line, &exec.err_flag))
+
+		if (g_flag == 0 && exec.err_flag == 0)
 			handle_cmd_props(&line, &cmd);
+		
 		if (!exec.err_flag && !g_flag)
 			ft_minishell_execution(&exec, &pipes, cmd);
+		
 		ft_reset_minishell(&exec, cmd, line, exec.err_flag);
+		exec.err_flag = 0;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney < rimney@student.1337.ma>           +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:29:54 by atarchou          #+#    #+#             */
-/*   Updated: 2022/06/30 01:21:01 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/27 07:26:34 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ int	find_end_index(char *str, char c)
 
 	i = 0;
 	flag = -2;
-	if (c == '\"')
+	if (c == 1)
 	{
-		if (str[i] == '\"')
+		if (str[i] == 1)
 		{
-			while (str[i] == '\"')
+			while (str[i] == 1)
 				i++;
 			return (i - 1);
 		}

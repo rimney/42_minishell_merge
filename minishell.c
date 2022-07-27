@@ -3,31 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 11:58:03 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/27 11:15:03 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
+void	ft_print_tokens(t_token *token)
+{
+	while(token)
+	{
+		printf("< %s >\n", token->value);
+		token = token->next;
+	}
+}
+
+
+
 void	ft_minishell_execution(t_exec *exec, t_pipe *pipes, t_tok_red *cmd)
 {
-	ft_launch_expand(cmd->lst_token, exec->envp, exec->env.exit_value);
 	ft_fill_exec(exec, cmd->lst_token);
+	ft_launch_expand(cmd->lst_token, exec->envp, exec->env.exit_value);
 	ft_initialize_exec(exec);
+	ft_print_tokens(exec->tokens);
 	ft_minishell(exec, pipes, 0);
 }
 
-void	ft_minishell_line(char *line, int *err_flag)
-{
-	if (!check_redir_correctness(line))
-	{
-		*err_flag = 1;
-		handle_error("error in input\n");
-	}
-}
+// int	ft_minishell_line(char *line, int *err_flag)
+// {
+// 	if (!check_redir_correctness(line))
+// 	{
+// 		*err_flag = 1;
+// 		handle_error("error in input\n");
+// 		return (0);
+// 	}
+// 	return (1);
+// }
 
 void	ft_reset_minishell(t_exec *exec,
 	t_tok_red *cmd, char *line, int err_flag)

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 16:47:44 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 03:51:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/27 10:14:42 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	ft_execute_command(t_exec *exec, int index)
 {
 	char	**command_parser;
 
-	command_parser = ft_split_special(exec->command[index], ' ');
+	command_parser = ft_split_special(exec->command[index], 1);
 	ft_filter_command_double_quotes_2d_array(command_parser);
 	ft_filter_command_single_quote_2d_array(command_parser);
 	if (ft_is_a_builtin(command_parser[0]))

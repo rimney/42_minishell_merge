@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/25 21:43:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/26 03:08:28 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/27 07:39:40 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ char	*ft_expand(char *expand, char **envp)
 	{
 		while (envp[i])
 		{
-			printf("%s <<\n", expand + 1);
 			if (ft_strncmp(expand + 1, envp[i],
 					ft_find_variable_index(expand + 1, '=')) == 0)
 				return (ft_mystrdup(envp[i]
