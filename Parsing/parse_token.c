@@ -74,33 +74,42 @@ int check_quotes_existence(char *str, char quote)
 int ft_letters(char *s, char c)
 {
 	int count;
+	int k;
+	char quotes;
 	int i;
 	int flag;
 	int j;
 
 	flag = 0;
-	count = 0;
-	i = 0;
-	while (s[i] != c && s[i] != '\0')
-	{
-		if (s[i] == '\"' && flag != 2)
-			flag = 1;
-		if (flag == 1)
+	
+	k = 0;
+	quotes = '\'';
+	while(k < 2)
+	{	count = 0;
+		i = 0;
+		while (s[i] != c && s[i] != '\0')
 		{
-			j = i;
-			if (check_quotes_existence(s, '\"') % 2 == 0)
+			if (s[i] == quotes && flag != 2)
+				flag = 1;
+			if (flag == 1)
 			{
-				while (s[j] != '\"' && s[j] != '\0')
+				j = i;
+				if (check_quotes_existence(s, quotes) % 2 == 0)
 				{
-					if (s[j] == c)
-						s[j] = '\200';
-					j++;
-					flag = 2;
-   				}
+					while (s[j] != quotes && s[j] != '\0')
+					{
+						if (s[j] == c)
+							s[j] = '\200';
+						j++;
+						flag = 2;
+   					}
+				}
 			}
+			count++;
+			i++;
 		}
-		count++;
-		i++;
+		k++;
+		quotes = '\"';
 	}
 	return (count);
 }
