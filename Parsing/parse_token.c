@@ -56,6 +56,21 @@ int	ft_words(char *s, char c)
 	return (tool[0]);
 }
 
+int check_quotes_existence(char *str, char quote)
+{
+  int i = 0;
+  int count = 0;
+  while (str[i]) {
+    if (str[i] == quote)
+      count++;
+    i++;
+  }
+  if (count == 0)
+    return (0);
+  else
+    return (count);
+}
+
 int ft_letters(char *s, char c)
 {
 	int count;
