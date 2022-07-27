@@ -88,7 +88,7 @@ int ft_letters(char *s, char c)
 		if (flag == 1)
 		{
 			j = i;
-			if (check_quotes_existence(s, '\"') == 2)
+			if (check_quotes_existence(s, '\"') % 2 == 0)
 			{
 				while (s[j] != '\"' && s[j] != '\0')
 				{
