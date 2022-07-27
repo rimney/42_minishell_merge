@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:59:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 11:34:36 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/27 21:42:48 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,11 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		// ft_minishell_line(line, &exec.err_flag))
-
 		if (g_flag == 0 && exec.err_flag == 0)
 			handle_cmd_props(&line, &cmd);
-		
+		ft_clean_lst_token(cmd->lst_token);
 		if (!exec.err_flag && !g_flag)
 			ft_minishell_execution(&exec, &pipes, cmd);
-		
 		ft_reset_minishell(&exec, cmd, line, exec.err_flag);
 		exec.err_flag = 0;
 	}

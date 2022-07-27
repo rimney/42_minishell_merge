@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:06:02 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 07:23:44 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/27 21:41:47 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,27 @@ int	ft_letters(char *s, char c)
 {
 	int	count;
 	int	i;
+	int	flag;
+	int	j;
 
+	flag = 0;
 	count = 0;
 	i = 0;
 	while (s[i] != c && s[i] != '\0')
 	{
+		if ((s[i] == '\"' && flag != 2))
+			flag = 1;
+		if (flag == 1)
+		{
+			j = i;
+			while (s[j] != '\"' && s[j] != '\0')
+			{
+				if (s[j] == c)
+					s[j] = '\200';
+				j++;
+				flag = 2;
+   			}
+		}
 		count++;
 		i++;
 	}
