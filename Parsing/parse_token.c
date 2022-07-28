@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_token.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:06:02 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 21:41:47 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 06:07:21 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_words(char *s, char c)
 	{
 		if (tool[1] == 0 && s[i] != c)
 		{
-			if (s[i] == 25 || s[i] == '\'')
+			if (s[i] == '\"' || s[i] == '\'')
 				count_words(s, &tool[0]);
 			else
 			{
@@ -56,88 +56,42 @@ int	ft_words(char *s, char c)
 	return (tool[0]);
 }
 
-int check_quotes_existence(char *str, char quote)
+void	norm_fix(char *s, int j, int flag, char quote)
 {
-  int i = 0;
-  int count = 0;
-  while (str[i]) {
-    if (str[i] == quote)
-      count++;
-    i++;
-  }
-  if (count == 0)
-    return (0);
-  else
-    return (count);
-}
-
-int ft_letters(char *s, char c)
-{
-	int count;
-	int k;
-	char quotes;
-	int i;
-	int flag;
-	int j;
-
-	flag = 0;
-	
-	k = 0;
-	quotes = '\'';
-	while(k < 2)
-	{	count = 0;
-		i = 0;
-		while (s[i] != c && s[i] != '\0')
-		{
-			if (s[i] == quotes && flag != 2)
-				flag = 1;
-			if (flag == 1)
-			{
-				j = i;
-				if (check_quotes_existence(s, quotes) % 2 == 0)
-				{
-					while (s[j] != quotes && s[j] != '\0')
-					{
-						if (s[j] == c)
-							s[j] = '\200';
-						j++;
-						flag = 2;
-   					}
-				}
-			}
-			count++;
-			i++;
-		}
-		k++;
-		quotes = '\"';
+	while ((s[j] != quote && s[j] != '\0'))
+	{
+		if (s[j] == ' ')
+			s[j] = '\200';
+		j++;
+		flag = 2;
 	}
-	return (count);
 }
 
-int	types(t_token *lst)
+int	ft_letters(char *s, char c)
 {
-	if (ft_strcmp(lst->value, "|") == 0)
-		lst->type = PIPE;
-	else if (ft_strcmp(lst->value, "<") == 0)
-		lst->type = REDIROUT;
-	else if (ft_strcmp(lst->value, ">") == 0)
-		lst->type = REDIRIN;
-	else if (ft_strcmp(lst->value, "<<") == 0)
-		lst->type = HEREDOC;
-	else if (ft_strcmp(lst->value, ">>") == 0)
-		lst->type = APPEND;
-	else
-		lst->type = WORD;
-	return (lst->type);
-}
+	int	tools[4];
 
-int	check_if_op(char c, char s)
-{
-	if (c == '>' && s == '>')
-		return (2);
-	if (c == '<' && s == '<')
-		return (2);
-	if (c == '>' || c == '<' || c == '|')
-		return (1);
-	return (0);
+	tools[0] = 0;
+	tools[1] = 0;
+	tools[2] = 0;
+	while (s[tools[2]] != c && s[tools[2]] != '\0')
+	{
+		if (s[tools[2]] == '\"' && tools[0] != 2)
+			tools[0] = 1;
+		else if (s[tools[2]] == '\'' && tools[0] != 2)
+			tools[0] = 1;
+		if (tools[0] == 1 && s[tools[2]] == '\"')
+		{
+			tools[3] = tools[2] + 1;
+			norm_fix(s, tools[3], tools[0], '\'');
+		}
+		else if (tools[0] == 1 && s[tools[2]] == '\'')
+		{
+			tools[3] = tools[2] + 1;
+			norm_fix(s, tools[3], tools[0], '\"');
+		}
+		tools[1]++;
+		tools[2]++;
+	}
+	return (tools[1]);
 }

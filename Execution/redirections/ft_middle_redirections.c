@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 00:33:36 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 07:15:22 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 03:02:35 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_apply_pipe_middle(t_exec *exec, t_pipe *tpipe, int i, int fd)
 		else
 		{
 			fd = open(".temp", O_CREAT | O_RDONLY | O_TRUNC, 0644);
-			ft_mini_pipe(exec, tpipe, i - 1, i);
+			ft_mini_pipe(exec, tpipe, fd, i);
 			i += exec->pipe_count;
 			wait(NULL);
 		}

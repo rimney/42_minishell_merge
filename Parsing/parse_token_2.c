@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/29 18:41:39 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 10:21:01 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 06:07:32 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	add_quote_lst(int *tools, char **s, t_token **lst, int *flag)
 	{
 		(*lst)->value = ft_strsub(*s, tools[2] + 1, tools[3] - 1);
 		if (tools[1] == 128)
-			(*lst)->value = remove_char((*lst)->value, 1);
+			(*lst)->value = removequote((*lst)->value, 1);
 	}
 	(*lst)->type = WORD;
 	(*lst)->quote = tools[1];
@@ -61,7 +61,7 @@ t_token	*handle_quotes(t_token *lst, int *flag, char **s)
 	int	tools[4];
 
 	tools[0] = 0;
-	tools[1] = '"';
+	tools[1] = '\"';
 	while (tools[0] < 2)
 	{
 		if (**s == tools[1])
@@ -75,12 +75,12 @@ t_token	*handle_quotes(t_token *lst, int *flag, char **s)
 				handle_error("missing lol\n");
 				return (NULL);
 			}
-			 if (tools[3] != -1)
+			if (tools[3] != -1)
 				add_quote_lst(tools, s, &lst, flag);
 			break ;
 		}
 		tools[0]++;
-		tools[1] = 255;
+		tools[1] = '\"';
 	}
 	return (lst);
 }
@@ -94,8 +94,8 @@ t_token	*handle_split(t_token *lst, int *flag, char **s, char c)
 		lst->quote = '\0';
 		if (!lst->value)
 			return (NULL);
+		*s = *s + ft_letters(*s, c);
 	}
-	*s = *s + ft_letters(*s, c);
 	return (lst);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/27 11:36:35 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 04:22:30 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_initialize_exec(t_exec *exec)
 	exec->error_flag = 0;
 }
 
-void	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
+int	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
 {
 	char	*temp;
 
@@ -64,21 +64,9 @@ void	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
 		*head_flag = 0;
 		*i += 1;
 	}
+	return (1);
 }
 
-void	ft_arrange_fill_exec(char **command)
-{
-	int i;
-	// int count;
-
-	i = 0;
-	while(command[i])
-	{
-		if(ft_contain)
-			printf("%s << \n", command[i]);
-		i++;
-	}
-}
 
 void	ft_fill_exec(t_exec *exec, t_token *token)
 {
@@ -90,10 +78,10 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 	exec->command = malloc(sizeof(char *) * (ft_count_tokens(token) + 1));
 	while (token)
 	{
-		ft_fill_exec_norm(exec, token, &head_flag, &i);
+		if(!ft_fill_exec_norm(exec, token, &head_flag, &i))
+			return ;
 		token = token->next;
 	}
 
 	exec->command[i + 1] = 0;
-	ft_arrange_fill_exec(exec->command);
 }

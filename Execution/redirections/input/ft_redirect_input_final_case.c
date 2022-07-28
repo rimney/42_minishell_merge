@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 20:11:11 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:31:20 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 01:13:53 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_minishell_input_final_case_2_args(t_exec *exec)
 	char	**parser;
 	int		in;
 
-	parser = ft_split(exec->command[1], ' ');
+	parser = ft_split(exec->command[1], 1);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -102,7 +102,7 @@ int	ft_minishell_input_final_case(t_exec *exec, int index)
 	int		in;
 
 	pid = -1;
-	parser = ft_split(exec->command[1], ' ');
+	parser = ft_split(exec->command[1], 1);
 	in = open(parser[0], O_RDONLY);
 	exec->in = in;
 	if (exec->args == 2)

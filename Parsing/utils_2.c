@@ -6,11 +6,18 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 16:29:54 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 07:26:34 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 05:46:58 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_isalpha(int s)
+{
+	if (! ((s >= 97 && s < 123) || (s >= 65 && s < 91)))
+		return (0);
+	return (1);
+}
 
 char	*ft_strstr(char *str, char *to_find)
 {
@@ -56,30 +63,4 @@ int	ft_isspace(int c)
 	if (c == ' ' || c == '\n' || c == '\t')
 		return (1);
 	return (0);
-}
-
-int	find_end_index(char *str, char c)
-{
-	int	i;
-	int	flag;
-
-	i = 0;
-	flag = -2;
-	if (c == 1)
-	{
-		if (str[i] == 1)
-		{
-			while (str[i] == 1)
-				i++;
-			return (i - 1);
-		}
-	}
-	while (str[i])
-	{
-		if ((str[i] == c && str[i + 1] == ' ')
-			|| (str[i] == c && !str[i + 1]))
-			return (i);
-		i++;
-	}
-	return (flag);
 }

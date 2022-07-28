@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:21 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/27 06:33:47 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 01:14:00 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	ft_basic_heredoc_final_case(t_exec *exec, int index)
 	int		flag;
 
 	flag = 0;
-	parser = ft_split(exec->command[index + 1], ' ');
+	parser = ft_split(exec->command[index + 1], 1);
 	while (flag == 0)
 	{
 		line = readline("> ");

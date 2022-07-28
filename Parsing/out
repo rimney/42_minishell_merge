@@ -1,0 +1,16 @@
+error.c
+error_2.c
+expand_quotes.c
+free_parse.c
+out
+parse.c
+parse_env.c
+parse_token.c
+parse_token_2.c
+parsing.h
+redir.c
+signals.c
+utils.c
+utils_2.c
+utils_3.c
+utils_4.c

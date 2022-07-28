@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 12:00:29 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 21:43:47 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 03:56:55 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,3 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	return (s1[i] - s2[i]);
 }
-
-// void	print_lst(t_token *lst)
-// {
-// 	while (lst)
-// 	{
-// 		printf("value = : %s\ntype = %d\nquote flag = : %c\n",
-// 			lst->value, lst->type, lst->quote);
-// 		lst = lst->next;
-// 	}
-// }
-
-// void	print_redir(t_redir *lst)
-// {
-// 	while (lst)
-// 	{
-// 		printf("file = : %s\nredir type = %d\n\n", lst->file, lst->type);
-// 		lst = lst->next;
-// 	}
-// }

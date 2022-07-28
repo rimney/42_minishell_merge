@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_append.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:20 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 05:30:31 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 01:13:30 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	ft_append(int index, t_exec *exec, int command_location)
 	s_flag = 0;
 	in = -1;
 	fd = -1;
-	parser = ft_split(exec->command[1], ' ');
+	parser = ft_split(exec->command[1], 1);
 	if (index == 0 && ft_is_another_flag(exec, index) == APPEND)
 	{
 		ft_append_final_case(exec, index, parser, in);

@@ -6,7 +6,7 @@
 #    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/27 02:34:33 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/28 05:50:32 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS = Parsing/parse.c\
 		Parsing/error.c\
 		Parsing/error_2.c\
 		Parsing/utils_4.c\
+		Parsing/utils5.c\
 		Parsing/free_parse.c\
 		Parsing/expand_quotes.c\
 		execution/libfunctions/ft_count_tokens.c\

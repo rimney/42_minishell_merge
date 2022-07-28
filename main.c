@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:59:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 21:42:48 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 05:55:19 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,34 @@ int	ft_check_operation(char *str)
 	return (0);
 }
 
+int	ft_check_operation2(char *str)
+{
+	char **parser;
+	int flag;
+
+	flag = 0;
+	parser = ft_split(str, ' ');
+	if(ft_strncmp(parser[ft_count_elements(parser) - 1], ">", 1) == 0
+		|| ft_strncmp(parser[ft_count_elements(parser) - 1], "|", 1) == 0
+		|| (ft_strncmp(parser[ft_count_elements(parser) - 1], "<", 1) == 0))
+	{
+		ft_free(parser);
+		printf("syntax error near unexpected token\n");
+		return (0);
+	}
+	ft_free(parser);
+	return (1);
+}
+
+// int	ft_check_dup_redi(t_token *token)
+// {
+// 	while(token)
+// 	{
+// 		if(token)
+// 		token = token->next;
+// 	}
+// }
+
 int	ft_check_errors(char *str)
 {
 	if(ft_check_operation(str))
@@ -96,15 +124,17 @@ int	main(int argc, char **argv, char **envp)
 		// ft_signals();
 		line = handle_line_error();
 		add_history(line);
-		if (line[0] == 0 || ft_isspace(line[0]) || ft_check_operation(line))
+		if (line[0] == 0 || ft_isspace(line[0]) || !ft_check_operation2(line))
 		{
 			free(line);
 			continue ;
 		}
-		// ft_minishell_line(line, &exec.err_flag))
+		ft_minishell_line(line, &exec.err_flag);
 		if (g_flag == 0 && exec.err_flag == 0)
+		{
 			handle_cmd_props(&line, &cmd);
-		ft_clean_lst_token(cmd->lst_token);
+			ft_clean_lst_token(cmd->lst_token);
+		}
 		if (!exec.err_flag && !g_flag)
 			ft_minishell_execution(&exec, &pipes, cmd);
 		ft_reset_minishell(&exec, cmd, line, exec.err_flag);

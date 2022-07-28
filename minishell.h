@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 21:44:01 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 05:53:26 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ char		*init_props(char *stro);
 size_t		ft_strlen(const char *str);
 int			ft_isdigit(int c);
 int			ft_isspace(int c);
-int			find_end_index(char *str, char c);
+int			ft_isalpha(int s);
 char		*ft_strstr(char *str, char *to_find);
 
 /******* utils_3.c functions ********/
@@ -129,10 +129,19 @@ void		check_token_list_end(t_token **lst_token, int nbwords);
 
 /******* utils_4.c functions ********/
 
+// static char	*ft_strcpy(char *dest, char *src);
 char		*ft_strdup(const char *src);
 char		*protected_malloc(int size);
 void		*ft_memmove(void *dst, const void *src, size_t len);
 void		*ft_memcpy(void *str1, const void *str2, size_t n);
+
+/******** utils5.c functions ********/
+
+char		*removequote(char *str, char chartoremmove);
+int			end_norm(char *str, int i);
+int			find_end_index(char *str, char c);
+int			types(t_token *lst);
+int			check_if_op(char c, char s);
 
 /******** parse_token.c functions ********/
 
@@ -185,7 +194,7 @@ void		help_rep_pipe(char str, char c, int *count, int *count_pipe);
 int			check_repitition(char *stro, char c, int count);
 int			check_repitition_pipe(char *stro, char c, int count);
 int			check_redir_correctness(char *str);
-int			fix_diff(char *str);
+int			fix_diff(char *stro);
 
 /******** free_parse.c and others fucntions ********/
 void		ft_pwd(void);
@@ -281,8 +290,8 @@ void		ft_filter_command_single_quote_2d_array(char **argv);
 char		*ft_filter_command_double_quotes(char *temp);
 char		*ft_filter_command_single_quote(char *temp);
 void		ft_filter_command_quotes(char **argv);
-int			ft_heredoc_final_case_child_1(t_exec *exec, int index,
-				int fd[2], int out);
+int	ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], char **parser);
+
 int			ft_heredoc_final_case_child_2(t_exec *exec, int index,
 				int fd[2], int flag);
 int			ft_heredoc_final_case_child(t_exec *exec, int index,
@@ -302,7 +311,7 @@ void		ft_find_next_flag_1stq(t_exec *exec, int *index, int *fd, int *in);
 int			ft_find_next_flag_2ndq(t_exec *exec, int *index, int *fd, int *in);
 int			ft_find_next_flag(t_exec *exec, int *index, int *fd, int *in);
 void		ft_echo_single_quote(char *str);
-void		ft_echo_double_quotes(char *str);
+void		ft_echo_double_quotes(char *str, t_exec *exec);
 int			ft_find_expand(char **envp, char *arg);
 void		ft_echo_norm(char **str, int i, t_exec *exec);
 int			ft_echo_edge_case(char *str);
@@ -370,5 +379,6 @@ void		ft_reset_minishell(t_exec *exec,
 int			ft_check_leaks(t_token *token);
 char	*ft_strjoin_f(char *s1, char *s2);
 int	ft_handle_quotes(char *str);
-
+void	ft_apply_heredoc_redirection_after_pipe(int in, t_pipe *tpipe, t_exec *exec, int index);
+int		fix_norm(char *str, int i);
 #endif

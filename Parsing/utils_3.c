@@ -6,18 +6,22 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 18:19:15 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 07:31:01 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 05:47:34 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// int	is_operation(char c)
-// {
-// 	if (c == '|' || c == '<' || c == '>')
-// 		return (1);
-// 	return (0);
-// }
+int	fix_norm(char *str, int i)
+{
+	if (str[i] == '|' && (str[i + 1] == '>' || str[i + 1] == '<'))
+		return (0);
+	if (str[i] == '>' && str[i + 1] == '|')
+		return (0);
+	if (str[i] == '<' && str[i + 1] == '|')
+		return (0);
+	return (1);
+}
 
 void	check_token_list_end(t_token **lst_token, int nbwords)
 {

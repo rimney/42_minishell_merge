@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/21 12:31:36 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 11:14:28 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 05:54:31 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,45 +82,56 @@ int	check_repitition_pipe(char *stro, char c, int count)
 	return (1);
 }
 
-int	fix_diff(char *str)
+int	fix_diff(char *stro)
 {
-	int	i;
+	int		i;
+	char	*str;
 
-	i = 0;
-	while (str[i])
+	i = -1;
+	str = init_props(stro);
+	while (str[++i])
 	{
+		i = remove_spaces(str, i);
 		if ((str[i] == '>' && str[i + 1] == '<')
 			|| (str[i] == '<' && str[i + 1] == '>'))
+		{
+			free(str);
 			return (0);
-		i++;
+		}
+		if (!fix_norm(str, i))
+		{
+			free(str);
+			return (0);
+		}
 	}
+	free(str);
 	return (1);
 }
 
-// int	check_redir_correctness(char *str)
-// {
-// 	char	*redir_in;
-// 	char	*redir_out;
-// 	char	*pipes;
-// 	int		tab[2];
+int	check_redir_correctness(char *str)
+{
+	char	*redir_in;
+	char	*redir_out;
+	char	*pipes;
+	int		tab[2];
 
-// 	tab[1] = 0;
-// 	redir_in = "<";
-// 	redir_out = ">";
-// 	pipes = "|";
-// 	tab[0] = 0;
-// 	while (str[tab[0]] == ' ' && str[tab[0]])
-// 		tab[0]++;
-// 	if (!fix_diff(str) || str[tab[0]] == '|')
-// 		return (0);
-// 	tab[0] = 0;
-// 	while (redir_in[tab[0]] && redir_out[tab[0]] && pipes[tab[0]])
-// 	{
-// 		if (!check_repitition(str, redir_in[tab[0]], tab[1])
-// 			|| !check_repitition(str, redir_out[tab[0]], tab[1])
-// 			|| !check_repitition_pipe(str, pipes[tab[0]], tab[1]))
-// 			return (0);
-// 		tab[0]++;
-// 	}
-// 	return (1);
-// }
+	tab[1] = 0;
+	redir_in = "<";
+	redir_out = ">";
+	pipes = "|";
+	tab[0] = 0;
+	while (str[tab[0]] == ' ' && str[tab[0]])
+		tab[0]++;
+	if (!fix_diff(str) || str[tab[0]] == '|')
+		return (0);
+	tab[0] = 0;
+	while (redir_in[tab[0]] && redir_out[tab[0]] && pipes[tab[0]])
+	{
+		if (!check_repitition(str, redir_in[tab[0]], tab[1])
+			|| !check_repitition(str, redir_out[tab[0]], tab[1])
+			|| !check_repitition_pipe(str, pipes[tab[0]], tab[1]))
+			return (0);
+		tab[0]++;
+	}
+	return (1);
+}

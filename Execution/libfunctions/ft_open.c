@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 05:06:59 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:01:14 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 01:13:16 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_open(t_exec *exec, int kind, int index)
 	char	**file;
 
 	fd = -1;
-	file = ft_split(exec->command[index], ' ');
+	file = ft_split(exec->command[index], 1);
 	ft_filter_command_double_quotes_2d_array(file);
 	ft_filter_command_single_quote_2d_array(file);
 	if (kind == 1)

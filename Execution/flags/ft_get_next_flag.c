@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_flag.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/25 04:06:16 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 02:02:57 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,15 @@ void	ft_find_next_flag_input2(t_exec *exec, int *index, int *in)
 
 int	ft_find_next_flag_heredoc1(t_exec *exec, int *index, int *in)
 {
-	ft_heredoc_middle(in, exec->command[*index + 1]);
+	char **parser;
+	char *delimiter;
+
+	parser = ft_split(exec->command[*index + 1], 1);
+	delimiter = ft_strdup(parser[0]);
+	ft_heredoc_middle(in, delimiter);
 	exec->heredoc_flag = 1;
+	free(delimiter);
+	ft_free(parser);
 	*index += 2;
 	return (1);
 }

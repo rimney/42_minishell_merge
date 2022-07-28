@@ -6,7 +6,7 @@
 /*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:41:35 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/26 07:02:54 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 00:20:30 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ void	ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe,
 		pid = fork();
 		if (pid == 0)
 			ft_apply_input_redirection_after_pipe(fd, tpipe, exec, index + 2);
+		return ;
+	}
+	else if (exec->heredoc_flag == 1)
+	{
+		pid = fork();
+		if (pid == 0)
+			ft_apply_heredoc_redirection_after_pipe(fd, tpipe, exec, index + 2);
 		return ;
 	}
 	pid = fork();
