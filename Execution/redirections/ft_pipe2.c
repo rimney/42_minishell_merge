@@ -6,24 +6,11 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:41:35 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 08:01:15 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 09:16:57 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-int	ft_pipe_condition(int index, t_exec *exec)
-{
-	if (exec->command[index + 1]
-		&& (ft_strcmp(exec->command[index + 1], ">") == 0
-			|| ft_strcmp(exec->command[index + 1], ">>") == 0
-			|| ft_strcmp(exec->command[index + 1], "<") == 0
-			|| ft_strcmp(exec->command[index + 1], "<<") == 0
-			|| ft_strcmp(exec->command[index + 1], "<") == 0)
-		&& exec->pipe_count > 2)
-		return (1);
-	return (0);
-}
 
 void	ft_pipe_norm(t_exec *exec, int *in, t_pipe *tpipe, int *in_save)
 {
@@ -48,40 +35,18 @@ void	ft_pipe_norm(t_exec *exec, int *in, t_pipe *tpipe, int *in_save)
 	WIFEXITED(exec->env.exit_value);
 }
 
-void	ft_redirect_after_pipe_flag(t_exec *exec, t_pipe *tpipe,
-	int index, int in_save)
+void	ft_input_pipe_norm(int fd, int index, t_exec *exec, t_pipe *tpipe)
 {
 	int	pid;
-	int	fd;
 
-	fd = -1;
-	ft_get_next_redi(exec, &fd, index);
-	if (exec->input_flag == 1)
-	{
-		fd = open(exec->command[index + exec->input_count + 2], O_RDWR);
-		pid = fork();
-		if (pid == 0)
-			ft_apply_input_redirection_after_pipe(fd, tpipe, exec, index + 2);
-		return ;
-	}
-	else if (exec->heredoc_flag == 1)
-	{
-		pid = fork();
-		if (pid == 0)
-			ft_apply_heredoc_redirection_after_pipe(fd, tpipe, exec, index + 2);
-		return ;
-	}
+	fd = open(exec->command[index + exec->input_count + 2], O_RDWR);
 	pid = fork();
 	if (pid == 0)
-	{
-		exec->in = in_save;
-		ft_apply_redirection_after_pipe(fd, tpipe, exec, index + 2);
-	}
-	waitpid(pid, &exec->env.exit_value, 0);
-	WIFEXITED(exec->env.exit_value);
+		ft_apply_input_redirection_after_pipe(fd, tpipe, exec, index + 2);
+	return ;
 }
 
-void execute_pipe_helper(t_pipe *t_pipe, t_exec *exec, int pid, int *in)
+void	execute_pipe_helper(t_pipe *t_pipe, t_exec *exec, int pid, int *in)
 {
 	if (pid == 0)
 	{
@@ -105,11 +70,10 @@ int	execute_pipe(t_exec *exec, int index, int in, t_pipe *tpipe)
 {
 	int	in_save;
 	int	fd;
+	int	pid;
 
 	fd = -1;
 	exec->pipe_index = index;
-	int	pid;
-
 	if (exec->command[exec->pipe_index + 1] != NULL)
 	{
 		pipe(tpipe->fd);

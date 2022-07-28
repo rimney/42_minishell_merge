@@ -6,11 +6,11 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 08:46:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/25 08:48:12 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 09:20:29 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	ft_minishell_executor2(t_exec *exec, t_pipe *tpipe, int i, int flag)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:26:02 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/27 05:19:42 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 09:15:22 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,6 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 {
 	int	pid;
 
-	// if (exec->command[0][0] == '\"'
-	// 	&& (!ft_check_quotes_final_case(exec->command[0])
-	// 	|| !quote_loop(exec->command[0])))
-	// 	return (0);
 	if (exec->args <= 2 && ft_execute_builtin_parent(exec, 0))
 		return (1);
 	if (only_command_flag(exec) > 0)
@@ -86,4 +82,13 @@ int	ft_execute_only_flag(t_exec *exec, t_pipe *tpipe)
 	else if (!ft_execute_only_flag_norm(exec, tpipe))
 		return (0);
 	return (1);
+}
+
+void	ft_2d(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		printf("%s\n", str[i++]);
 }

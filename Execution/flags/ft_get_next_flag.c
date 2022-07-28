@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_flag.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 00:21:04 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/28 02:02:57 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 08:32:02 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	ft_find_next_flag_input2(t_exec *exec, int *index, int *in)
 
 int	ft_find_next_flag_heredoc1(t_exec *exec, int *index, int *in)
 {
-	char **parser;
-	char *delimiter;
+	char	**parser;
+	char	*delimiter;
 
 	parser = ft_split(exec->command[*index + 1], 1);
 	delimiter = ft_strdup(parser[0]);

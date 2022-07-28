@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/28 11:57:55 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 05:53:26 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 09:22:37 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,8 +290,8 @@ void		ft_filter_command_single_quote_2d_array(char **argv);
 char		*ft_filter_command_double_quotes(char *temp);
 char		*ft_filter_command_single_quote(char *temp);
 void		ft_filter_command_quotes(char **argv);
-int	ft_heredoc_final_case_child_1(t_exec *exec, int index, int fd[2], char **parser);
-
+int			ft_heredoc_final_case_child_1(t_exec *exec, int index,
+				int fd[2], char **parser);
 int			ft_heredoc_final_case_child_2(t_exec *exec, int index,
 				int fd[2], int flag);
 int			ft_heredoc_final_case_child(t_exec *exec, int index,
@@ -377,8 +377,16 @@ void		ft_minishell_execution(t_exec *exec, t_pipe *pipes, t_tok_red *cmd);
 void		ft_reset_minishell(t_exec *exec,
 				t_tok_red *cmd, char *line, int err_flag);
 int			ft_check_leaks(t_token *token);
-char	*ft_strjoin_f(char *s1, char *s2);
-int	ft_handle_quotes(char *str);
-void	ft_apply_heredoc_redirection_after_pipe(int in, t_pipe *tpipe, t_exec *exec, int index);
-int		fix_norm(char *str, int i);
+char		*ft_strjoin_f(char *s1, char *s2);
+int			ft_handle_quotes(char *str);
+int			ft_check_operation2(char *str);
+void		ft_apply_heredoc_redirection_after_pipe(int in, t_pipe *tpipe,
+				t_exec *exec, int index);
+int			fix_norm(char *str, int i);
+void		ft_norm(char **line);
+int			ft_check_line(char *line);
+int			ft_count_elemets(char *str, char c);
+int			ft_pipe_condition(int index, t_exec *exec);
+void		ft_input_pipe_norm(int fd, int index, t_exec *exec, t_pipe *tpipe);
+int			ft_check_tokens(t_exec *exec);
 #endif

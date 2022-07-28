@@ -3,53 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 08:42:33 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 09:23:40 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-
-void	ft_print_tokens(t_token *token)
+int	ft_final_check(t_exec *exec)
 {
-	while(token)
-	{
-		printf("< %s >\n", token->value);
-		token = token->next;
-	}
-}
-
-
-int		ft_final_check(t_exec *exec)
-{
-	int i;
+	int	i;
 
 	i = 0;
-	while(exec->command[i])
+	while (exec->command[i])
 	{
-		if(ft_is_another_flag(exec, i) == PIPE && ft_is_another_flag(exec, i + 1) == PIPE)
+		if (ft_is_another_flag(exec, i) == PIPE
+			&& ft_is_another_flag(exec, i + 1) == PIPE)
 			printf("here\n");
-		i++;	
-	}
-	return (1);
-}
-
-int ft_check_tokens(t_exec *exec)
-{
-	int i;
-
-	i = 0;
-	while (exec->command[i + 1])
-	{
-		if (ft_is_another_flag(exec, i) == ft_is_another_flag(exec, i + 1))
-		{
-			printf("syntax error near unexpected token\n");
-			return (0);
-		}
-		i++;	
+		i++;
 	}
 	return (1);
 }
@@ -58,8 +31,8 @@ void	ft_minishell_execution(t_exec *exec, t_pipe *pipes, t_tok_red *cmd)
 {
 	ft_launch_expand(cmd->lst_token, exec->envp, exec->env.exit_value);
 	ft_fill_exec(exec, cmd->lst_token);
+	ft_final_check(exec);
 	ft_initialize_exec(exec);
-	ft_print_tokens(exec->tokens);
 	if (ft_check_tokens(exec))
 		ft_minishell(exec, pipes, 0);
 }
@@ -87,14 +60,6 @@ void	ft_reset_minishell(t_exec *exec,
 	err_flag = 0;
 	exec->err_flag = 0;
 }
-
-void	ft_kill_args(int argc, char **argv)
-{
-	(void)argc;
-	(void)argv;
-}
-
-
 
 int	ft_mini_pipe_a(t_exec *exec, t_pipe *tpipe, int i)
 {

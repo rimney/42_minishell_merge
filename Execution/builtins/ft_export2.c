@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:39:45 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 02:33:16 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 08:31:45 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ void	ft_export_no_args_case_norm(int i, int j, int *flag, t_exec *exec)
 
 void	ft_export_no_args_case(t_exec *exec)
 {
-	int	i;
-	int	j;
+	int			i;
+	int			j;
 	static int	flag;
 
 	i = 0;

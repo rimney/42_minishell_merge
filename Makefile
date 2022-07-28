@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
+#    By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/28 08:17:22 by rimney           ###   ########.fr        #
+#    Updated: 2022/07/28 09:20:13 by atarchou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,11 @@ SRCS = Parsing/parse.c\
 		Parsing/parse_token_2.c\
 		Parsing/utils.c\
 		Parsing/utils_2.c\
-		minishell.c\
-		minishell2.c\
+		minishell_src/minishell.c\
+		minishell_src/minishell2.c\
+		minishell_src/minishell3.c\
+		minishell_src/minishell4.c\
+		Parsing/signals.c \
 		Parsing/utils_3.c\
 		Parsing/parse_env.c\
 		Parsing/error.c\
@@ -36,6 +39,7 @@ SRCS = Parsing/parse.c\
 		execution/redirections/heredoc/ft_heredoc3.c\
 		execution/redirections/ft_pipe.c\
 		execution/redirections/ft_pipe2.c\
+		execution/redirections/pipe3.c\
 		execution/redirections/ft_append.c\
 		execution/redirections/input/ft_redirect_input.c\
 		execution/redirections/ft_redirect_output.c\
@@ -61,6 +65,7 @@ SRCS = Parsing/parse.c\
 		execution/redirections/ft_mini_pipe.c\
 		execution/builtins/ft_export.c \
 		execution/builtins/ft_export2.c \
+		execution/builtins/ft_export3.c \
 		execution/libfunctions/ft_find_variable_index.c \
 		execution/builtins/ft_env.c \
 		execution/libfunctions/ft_atoi.c \

@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/01 20:57:52 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/26 22:13:55 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 09:12:41 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-void	ft_export_replace(t_exec *exec, char *arg, int index)
-{
-	char	*temp;
-	int		flag;
-
-	flag = 0;
-	if (arg[ft_find_variable_index(arg, '=') + 1] == '\"')
-		flag = 1;
-	temp = exec->envp[index];
-	exec->envp[index] = ft_mystrdup(arg, flag);
-	free(temp);
-}
-
-int	ft_check_export_string(char *str)
-{
-	if (!((str[0] >= 'a' && str[0] <= 'z')
-			|| (str[0] >= 'A' && str[0] <= 'Z') || str[0] == '_'))
-		return (0);
-	return (1);
-}
 
 void	ft_apply_export(t_exec *exec, char *new)
 {
@@ -75,15 +54,20 @@ int	ft_check_export_replace(t_exec *exec, char **argv, int index)
 	return (0);
 }
 
+void	ft_export_assign_norm(int *i, int *flag, int *index)
+{
+	*i = 0;
+	*flag = -1;
+	*index = 1;
+}
+
 void	ft_export(t_exec *exec, char **argv)
 {
 	int	i;
 	int	flag;
 	int	index;
 
-	index = 1;
-	flag = -1;
-	i = 0;
+	ft_export_assign_norm(&i, &flag, &index);
 	if (!argv[index])
 	{
 		ft_export_no_args_case(exec);
@@ -91,11 +75,11 @@ void	ft_export(t_exec *exec, char **argv)
 	}
 	while (argv[index])
 	{
-		if(!ft_check_export_string(argv[index]))
+		if (!ft_check_export_string(argv[index]))
 		{
 			printf("minishell : \'%s\' : not a value identifier\n", argv[index]);
 			exec->env.exit_value = 1;
-			if(!argv[index + 1])
+			if (!argv[index + 1])
 				return ;
 			index += 1;
 		}
