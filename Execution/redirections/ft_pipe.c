@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 15:57:23 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/28 01:13:34 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 07:09:22 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	ft_pipe_heredoc(t_exec *exec, int *fd, int index, int hfd[2])
 		free(line);
 	}
 	ft_free(parser);
-	//free(delimiter);
+	free(delimiter);
 	printf("%s <<\n", exec->command[index]);
 }
 

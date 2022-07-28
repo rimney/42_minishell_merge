@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:59:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 05:55:19 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 08:13:06 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,23 +65,23 @@ void	free_and_free(t_tok_red *cmd)
 
 int	ft_check_operation(char *str)
 {
-	if(str[0] == '|' || str[ft_strlen(str) - 1] == '|'
-		|| str[ft_strlen(str) - 1] == '>' ||str[ft_strlen(str) - 1] == '<')
-		{
-			printf("syntax error near unexpected token\n");
-			return(1);
-		}
+	if (str[0] == '|' || str[ft_strlen(str) - 1] == '|'
+		|| str[ft_strlen(str) - 1] == '>' || str[ft_strlen(str) - 1] == '<')
+	{
+		printf("syntax error near unexpected token\n");
+		return (1);
+	}
 	return (0);
 }
 
 int	ft_check_operation2(char *str)
 {
-	char **parser;
-	int flag;
+	char	**parser;
+	int		flag;
 
 	flag = 0;
 	parser = ft_split(str, ' ');
-	if(ft_strncmp(parser[ft_count_elements(parser) - 1], ">", 1) == 0
+	if (ft_strncmp(parser[ft_count_elements(parser) - 1], ">", 1) == 0
 		|| ft_strncmp(parser[ft_count_elements(parser) - 1], "|", 1) == 0
 		|| (ft_strncmp(parser[ft_count_elements(parser) - 1], "<", 1) == 0))
 	{
@@ -93,20 +93,28 @@ int	ft_check_operation2(char *str)
 	return (1);
 }
 
-// int	ft_check_dup_redi(t_token *token)
-// {
-// 	while(token)
-// 	{
-// 		if(token)
-// 		token = token->next;
-// 	}
-// }
-
 int	ft_check_errors(char *str)
 {
-	if(ft_check_operation(str))
+	if (ft_check_operation(str))
 		return (1);
 	return (0);
+}
+
+void	ft_norm(char **line)
+{
+	ft_signals();
+	*line = handle_line_error();
+	add_history(*line);
+}
+
+int	ft_check_line(char *line)
+{
+	if (line[0] == 0 || ft_isspace(line[0]) || !ft_check_operation2(line))
+	{
+		free(line);
+		return (0);
+	}
+	return(1);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -121,14 +129,9 @@ int	main(int argc, char **argv, char **envp)
 	ft_get_env(&exec, envp);
 	while (1)
 	{
-		// ft_signals();
-		line = handle_line_error();
-		add_history(line);
-		if (line[0] == 0 || ft_isspace(line[0]) || !ft_check_operation2(line))
-		{
-			free(line);
+		ft_norm(&line);
+		if(!ft_check_line(line))
 			continue ;
-		}
 		ft_minishell_line(line, &exec.err_flag);
 		if (g_flag == 0 && exec.err_flag == 0)
 		{
@@ -138,6 +141,5 @@ int	main(int argc, char **argv, char **envp)
 		if (!exec.err_flag && !g_flag)
 			ft_minishell_execution(&exec, &pipes, cmd);
 		ft_reset_minishell(&exec, cmd, line, exec.err_flag);
-		exec.err_flag = 0;
 	}
 }

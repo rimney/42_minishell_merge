@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_only_flag2.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:43:44 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/27 22:48:49 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 06:58:26 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,31 @@ int	ft_execute_builtin(char **parser, t_exec *exec, int index)
 	return (1);
 }
 
+void	ft_assign_exit(char **command, t_exec *exec)
+{
+	int i;
+	char *temp;
+
+	i = 0;
+	while(command[i])
+	{
+		if(ft_strcmp(command[i], "$?") == 0)
+		{
+			temp = command[i];
+			command[i] = ft_itoa(exec->env.exit_value % 255);
+			free(temp);
+		}
+		i++;
+	}
+}
 
 int	ft_execute_builtin_parent(t_exec *exec, int index)
 {
 	char	**parser;
 
 	parser = ft_split_special(exec->command[0], 1);
-	//ft_filter_command_double_quotes_2d_array(parser);
+	int i;
+	i  = 0;
 	if (ft_strcmp(parser[0], "export") == 0)
 		ft_export(exec, parser);
 	else if (ft_strcmp(parser[0], "env") == 0)

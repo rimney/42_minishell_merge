@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 13:07:32 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 06:12:23 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 08:09:09 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int		ft_final_check(t_exec *exec)
 
 void	ft_minishell_execution(t_exec *exec, t_pipe *pipes, t_tok_red *cmd)
 {
+	ft_launch_expand(cmd->lst_token, exec->envp, exec->env.exit_value);
 	ft_fill_exec(exec, cmd->lst_token);
 	ft_final_check(exec);
-	ft_launch_expand(cmd->lst_token, exec->envp, exec->env.exit_value);
 	ft_initialize_exec(exec);
 	ft_print_tokens(exec->tokens);
 	ft_minishell(exec, pipes, 0);
@@ -68,6 +68,7 @@ void	ft_reset_minishell(t_exec *exec,
 	g_flag = 0;
 	free(line);
 	err_flag = 0;
+	exec->err_flag = 0;
 }
 
 void	ft_kill_args(int argc, char **argv)
