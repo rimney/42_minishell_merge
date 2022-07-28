@@ -6,7 +6,7 @@
 /*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:33:18 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 09:00:04 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 10:00:33 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,10 @@ int	ft_echo_edge_case(char *str)
 	return (1);
 }
 
-void	ft_print_echo_double_quotes(char *str, int flag, t_exec *exec)
+void	ft_print_echo_double_quotes(char *str, int flag, t_exec *exec, int i)
 {
-	int		i;
 	char	**holder;
 
-	i = 0;
 	if (flag)
 	{
 		if (ft_count_elemets(str, ' ') > 0)
@@ -49,11 +47,14 @@ void	ft_print_echo_double_quotes(char *str, int flag, t_exec *exec)
 				if (ft_contain(holder[i], '$') || holder[i][0] == '$')
 					ft_find_expand(exec->envp, holder[i]);
 				else
+				{
 					printf("%s ", holder[i]);
 					i++;
+				}
+				i++;
 			}
 			ft_free(holder);
-			return ;
+			flag = 0;
 		}
 	}
 	else
@@ -73,7 +74,7 @@ void	ft_echo_double_quotes(char *str, t_exec *exec)
 	}
 	if (ft_contain(str, '$'))
 		flag = 1;
-	ft_print_echo_double_quotes(str, flag, exec);
+	ft_print_echo_double_quotes(str, flag, exec, 0);
 }
 
 char	*ft_get_expand_env(char *str)
@@ -113,6 +114,5 @@ int	ft_find_expand(char **envp, char *arg)
 		i++;
 		free(xtemp);
 	}
-	free(arg);
 	return (0);
 }

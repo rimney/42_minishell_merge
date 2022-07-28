@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_next_flag2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
+/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 01:30:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 01:55:56 by rimney           ###   ########.fr       */
+/*   Updated: 2022/07/28 09:51:09 by atarchou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ft_heredoc_middle(int *in, char *delimiter)
 	int		flag;
 	char	*line;
 
-	printf("%s <<<<\n", delimiter);
 	flag = 1;
 	pipe(fd);
 	while (flag)
