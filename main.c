@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 04:59:48 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 08:13:06 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/28 08:38:35 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	ft_check_errors(char *str)
 
 void	ft_norm(char **line)
 {
-	ft_signals();
+	// ft_signals();
 	*line = handle_line_error();
 	add_history(*line);
 }
@@ -116,6 +116,8 @@ int	ft_check_line(char *line)
 	}
 	return(1);
 }
+
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -133,7 +135,7 @@ int	main(int argc, char **argv, char **envp)
 		if(!ft_check_line(line))
 			continue ;
 		ft_minishell_line(line, &exec.err_flag);
-		if (g_flag == 0 && exec.err_flag == 0)
+		if ((g_flag == 0 && exec.err_flag == 0) || !ft_minishell_line(line, &exec.err_flag))
 		{
 			handle_cmd_props(&line, &cmd);
 			ft_clean_lst_token(cmd->lst_token);
