@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+         #
+#    By: rimney <rimney@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/28 12:27:57 by atarchou          #+#    #+#              #
-#    Updated: 2022/07/28 09:20:13 by atarchou         ###   ########.fr        #
+#    Updated: 2022/07/29 02:21:06 by rimney           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRCS = Parsing/parse.c\
 		minishell_src/minishell2.c\
 		minishell_src/minishell3.c\
 		minishell_src/minishell4.c\
-		Parsing/signals.c \
 		Parsing/utils_3.c\
 		Parsing/parse_env.c\
 		Parsing/error.c\

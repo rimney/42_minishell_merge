@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 08:21:22 by atarchou          #+#    #+#             */
-/*   Updated: 2022/07/28 09:24:25 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/29 02:21:20 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	handle_cmd_props(char **line, t_tok_red **cmd)
 
 void	ft_norm(char **line)
 {
-	ft_signals();
+	// ft_signals();
 	*line = handle_line_error();
 	add_history(*line);
 }

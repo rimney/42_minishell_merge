@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fill_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atarchou <atarchou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rimney <rimney@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/30 19:18:28 by rimney            #+#    #+#             */
-/*   Updated: 2022/07/28 09:01:41 by atarchou         ###   ########.fr       */
+/*   Updated: 2022/07/29 02:23:41 by rimney           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,17 @@ void	ft_fill_exec_norm(t_exec *exec, t_token *token, int *head_flag, int *i)
 	}
 }
 
+void	ft_2dd(char **str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+	{
+		printf("<< %s >>\n", str[i++]);
+	}
+}
+
 void	ft_fill_exec(t_exec *exec, t_token *token)
 {
 	int	i;
@@ -80,4 +91,5 @@ void	ft_fill_exec(t_exec *exec, t_token *token)
 		token = token->next;
 	}
 	exec->command[i + 1] = 0;
+	ft_2dd(exec->command);
 }
